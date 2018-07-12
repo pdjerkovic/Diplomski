@@ -641,7 +641,7 @@ Zaključak je da SRCNN metod treniran na sva tri RGB kanala daje bolje rezultate
 \chapter{Programska realizacija}\label{ch2}
  
  %Koristila se strategija .....
- % podrzava grayscale, Y-only i all RGB chanella. 
+. 
  
   Za programsku realizaciju SRCNN mreže odrabran je u \texttt{tensorflow}\footnote{https://www.tensorflow.org/}, biblioteka koja omogućava brza matematička izračunavanja. Jedan od glavnih razloga zašto baš taj alat jeste činjenica da pruža veliku podršku mašinskom učenju.
   Što se same mreže tiče, implementirana je osnovna struktura 9-5-1 i Y-samo strategija, sa bazičnim parametrima, po glavnom uzoru na MATLAB kod samih autora\footnote{Druge reference se nalaze na sajtu mog projekta.}. Trenirano je na skupu A, za faktor skaliranja $s=3$. Ispitivano je na originalnim skupovima Setu 5 i Setu 14, kao i na jednom novo-formiranom (skupovi se nalaze u folderu Testiranje/).  Mreža je prošla kroz 15000+ epoha, sa periodičnim čuvanjem stanja (npr. na svakih 500 koraka) i zaista pokazala sjajne rezultate. Cjelokupni projekat, zajedno sa rezultatima testiranja, se mogu vidjeti na mom github nalogu: \cite{samples}. (U radu se ipak poziva na same primjere autora mreže jer su ti primjeri mnogo reprezentativniji.)
@@ -654,7 +654,7 @@ Zaključak je da SRCNN metod treniran na sva tri RGB kanala daje bolje rezultate
    \begin{lstlisting}
       $ python3 main.py -trening=True -eta=1e-5
    \end{lstlisting}
-    pokreće fazu treniranja za koeficijent učenja $10^{-5}$. Ako se ne navede ni jedan argument, uzimaju se default vrijednosti. Za više informacija:
+    pokreće fazu treniranja za koeficijent učenja $10^{-5}$ . Ako se ne navede ni jedan argument, uzimaju se default vrijednosti. Za više informacija:
      \begin{lstlisting}
       $ python main.py -help
    \end{lstlisting}
