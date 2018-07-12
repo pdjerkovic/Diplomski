@@ -11,6 +11,7 @@
  Radjeno u pythonu3 i za programsku realizaciju SRCNN mreže odrabran je u * *tensorflow*, biblioteka koja omogućava brza matematička izračunavanja. Jedan od glavnih razloga zašto baš taj alat jeste činjenica da pruža veliku podršku mašinskom učenju.
  
   Što se same mreže tiče, implementirana je osnovna struktura 9-5-1 i Y-samo strategija, sa bazičnim parametrima, po glavnom uzoru na MATLAB kod samih autora. Trenirano je na skupu Basic, za faktor skaliranja s=3. Ispitivano je na originalnim skupovima Setu 5 i Setu 14, kao i na jednom novo-formiranom MojTest i ManjiTest, koji se nalaze u folderu Testiranje/.  Mreža je prošla kroz 15000+ epoha, sa periodičnim čuvanjem stanja na svakih 500 koraka i zaista pokazala sjajne rezultate.
+U toku je treniranje RGB mreze.
   
   U folderu Eksperimenti i rezultati - rezultati testiranja, kao i uvid u moguce greske. Kod je tesko iskomentarisan, za bolje pracenje funkcija.
     
@@ -27,8 +28,8 @@
                [-train_dir TRAIN_DIR] [-test_dir TEST_DIR] [-e UVECANJE]
 
 Postavljanje hiperparametara mreže. Smanjivati batch, i_size i l_size sa
-ubrzanje. Imati na umu da mora da vazi: i_size = l_size + 12 (ako ne postavite tako, kod ce sadm rijesiti da
-zadovoljavaju te uslove. (size>0))
+ubrzanje. *Imati na umu da mora da vazi: i_size = l_size + 12 (ako ne postavite tako, kod ce sam rijesiti da
+zadovoljavaju te uslove. (batch, size>0))*
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -72,9 +73,14 @@ optional arguments:
   - https://github.com/Edwardlzy/SRCNN - checkpoint fajl, pratila se i unaprijedila njegova struktura
   - https://github.com/tegg89/SRCNN-Tensorflow/
   - https://www.tensorflow.org/guide/#putting-it-all-together-example-trainer-program
+  - stackoverflow
   
   
  
-  
+TO DO:
+
+[ ] - Layer-wise koef. ucenja
+[ ] - PSNR ocjena
+[ ] - prerequisites
   
   
