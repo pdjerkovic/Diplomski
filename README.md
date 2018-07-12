@@ -2,7 +2,7 @@
 **Specijalisticki rad - Konvolucione mreze super rezolucije**
  
  
- **Glavni rad** - * *Konvolucione mreze super rezolucije SPEC.pdf* *
+ *Glavni rad* - **Konvolucione mreze super rezolucije SPEC.pdf**
  RAD - tex fajlovi
  
  **Programska realizacija:**
