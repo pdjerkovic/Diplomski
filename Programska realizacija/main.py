@@ -1,11 +1,13 @@
-# https://github.com/pdjerkovic/Diplomski
 
-from treniranje import poziv
-from testiranje import provjera, uvecaj
+# https://github.com/pdjerkovic/Diplomski
+# Reference u README fajlu
+
+from treniranje import trening
+from testiranje import test
 import argparse
 import os
 
-parser = argparse.ArgumentParser(description='Postavljanje hiperparametara mreže')
+parser = argparse.ArgumentParser(description='Postavljanje hiperparametara mreže. Smanjivati batch, i_size i l_size sa ubrzanje. Imati na umu da mora da vazi: i_size = l_size + 12')
 
 parser.add_argument('--br_epoha',  dest='br_epoha', 
 					help='Broj epoha. Default: [2000]', type=int, default=2000)
@@ -21,10 +23,10 @@ parser.add_argument('-stride', dest='stride',
 					help='Korak kod rezanja na subslike [14]', default=14)
 parser.add_argument('-eta', dest='koef_ucenja',
 					type=float, help="Koef. ucenja [1e-4]", default=1e-4)
-parser.add_argument('-scale',  dest='scale', 
+parser.add_argument('-s',  dest='scale', 
 					help='Faktor skaliranja [3]', type=int, default=3)
 parser.add_argument('-sample_dir', dest='sample_dir', 
-					help='Mjesto gdje se cuvaju rezultati [sample]', default='sample')
+					help='Mjesto gdje se cuvaju rezultati [rezultati]', default='rezultati')
 parser.add_argument('-trening', dest='trening', 
 					help="True za fazu treniranje, false za test (False)", default=False)
 parser.add_argument('-train_dir', dest='train_dir', 
@@ -37,11 +39,16 @@ parser.add_argument('-e', dest='uvecanje',
 # parser.add_argument('-rgb', dest='rgb', 
 #					help="RGB-strategija", default=False) <---unapredjenje
 
-# ocjena po metrici psnr ---
-
 # FSRCNN 
 
+
+
 config = parser.parse_args()
+
+if config.i_size!=config.l_size+12:
+	print("Moram usaglasiti parametre...")
+	config.i_size = config.l_size+12
+
 
 if not os.path.exists(config.check_dir):
     os.makedirs(config.check_dir)
@@ -51,7 +58,7 @@ if not os.path.exists(config.sample_dir):
 if config.trening:
 	img_dir = os.path.join(os.getcwd(), "Treniranje")
 	img_dir = os.path.join(img_dir, config.train_dir)
-	poziv(img_dir, config)
+	trening(img_dir, config)
 else:
 	save_dir = os.path.join(os.getcwd(), config.sample_dir)
 	# save_dir = os.path.join(save_dir, config.sample_dir)
@@ -61,6 +68,6 @@ else:
 		save_dir = os.path.join(save_dir, "Uvecane slike")
 		if not os.path.exists(save_dir):
 			os.makedirs(save_dir)
-		uvecaj(img_dir, save_dir, config)
-	else:
-		provjera(img_dir, save_dir, config)
+	#	uvecaj(img_dir, save_dir, config)
+	#else:
+	test(img_dir, save_dir, config)

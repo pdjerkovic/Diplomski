@@ -1,0 +1,25 @@
+\select@language {serbian}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Primjer konvolucije: Na monohromatsku sliku se primjenjuje filter, pri \IeC {\v c}emu je korak $K=1$.\relax }}{8}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces (Plavi) neuroni KS povezani sa (crvenim) RP: veze putuju kroz dubinu\relax }}{9}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Vizuelna reprezentacija SRCNN mre\IeC {\v z}e\relax }}{14}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces SC tehnike iz ugla CNN mre\IeC {\v z}e\relax }}{15}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Rezultati treniranja i testiranja: primjer\relax }}{19}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Treniranje na ve\IeC {\'c}oj bazi popravlja performanse\relax }}{21}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Ve\IeC {\'c}i filteri, bolji rezultati\relax }}{22}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces 3-slojna nasuprot 4-slojne arhitekture\relax }}{24}
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Dublje strukture sa ve\IeC {\'c}im filterima\relax }}{25}
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Krive konvergencije za testni Set5\relax }}{26}
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Grafik konvergencije SRCNN-a i DNC-a na Set5 skupu\relax }}{26}
+\contentsline {figure}{\numberline {4.7}{\ignorespaces SRCNN je brz i veoma kvalitetan metod (testni skup: Set14)\relax }}{28}
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Filteri prvog sloja Cb i Cr kanala kod strategije Y-prije: uporediti sa \ref {fig:trening_sfig1}, filterima Y kanala kod osnovne strategije\relax }}{30}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Vizualizacija prelaza sa SRCNN na FSCRNN\relax }}{32}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Grafik pobolj\IeC {\v s}anja, test Set14\relax }}{32}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {8.1}{\ignorespaces Primjer: \textit {Lena}. SRCNN daje mnogo o\IeC {\v s}trije i \IeC {\v c}istije ivice, bez vidnih artefakata po slici.\relax }}{39}

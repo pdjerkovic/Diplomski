@@ -1,6 +1,5 @@
 import tensorflow as tf
-from dodaci import revert, modcrop_color, ucitaj_ckpt
-from treniranje import SRCNN
+from dodaci import revert, modcrop_color, ucitaj_ckpt, SRCNN
 import numpy as np
 import os
 import time
@@ -18,7 +17,7 @@ def podaci(path, config):
 
 	img_input = cv.imread(path)
 	im = cv.cvtColor(img_input, cv.COLOR_BGR2YCR_CB)
-	img = im / 255. # normalizacija
+	img = im / 255. # normalizacija (tamnije/svjetlije slike)
 
 	im_label = modcrop_color(img, scale=config.scale) # ycrcb sema
 	color_base = modcrop_color(im, scale=config.scale)
@@ -63,7 +62,7 @@ def direktni_podaci(path, config):
 	return data, color
 
 
-def provjera(path, save_dir, config):
+def test(path, save_dir, config):
 
 	images = tf.placeholder(tf.float32, [None, None, None, 1], name='images') 
 	mreza = SRCNN(images, config)
@@ -80,90 +79,72 @@ def provjera(path, save_dir, config):
 		
 		if os.path.isfile(path):
 			data=[path];
+			pom = True
+			if config.uvecanje:
+				poruka="UVECAVANJE SLIKE"
+				poruka2="Uvecavam sliku..."
+			else:
+				poruka="TESTIRANJE SLIKE"
+				poruka2="Testiram sliku..."
 		else:
+			pom = False
 			data = glob.glob(os.path.join(path, "*.*"))
-			save_dir=os.path.join(save_dir,config.test_dir)
+			if config.uvecanje:
+				save_dir=os.path.join(save_dir,(str(config.scale)+"x"+config.test_dir))
+				poruka = "UVECAVANJE SLIKA"
+				poruka2 = "Uvecavam sliku... "
+			else:
+				save_dir=os.path.join(save_dir,config.test_dir)
+				poruka = "TESTIRANJE SLIKA"
+				poruka2 = "Testiranje na... "
 			if not os.path.exists(save_dir):
 				os.makedirs(save_dir)
-		print("Testiranje:");
+		
+		print(poruka, "...");
 		for i in data:
-			print('Testiranje na...', os.path.basename(i))
-			test_data, test_label, color = podaci(i, config)
+			print(poruka2, os.path.basename(i))
+			if config.uvecanje:
+				test_data, color = direktni_podaci(i, config)
+			else:
+				test_data, test_label, color = podaci(i, config)
 
 			# print(color.shape)
-
+			# print(test_data.shape)
 			izlaz = mreza.eval({images: test_data}) #labels: test_label
 			izlaz = izlaz.squeeze() #postprocesiranje
 			result_bw = revert(izlaz) #revert obavezno kako bismo se vratili na prave vrijednosti boje - vidjeti stare rezultate
+			# print(izlaz.shape)
 			# color = revert(color)
 			result = np.zeros([result_bw.shape[0], result_bw.shape[1], 3], dtype=np.uint8)
 			result[:, :, 0] = result_bw
-			# result_color = np.zeros([result_bw.shape[0], result_bw.shape[1], 2], dtype=np.uint8)
-			# result_color = color[(color.shape[0]-result_bw.shape[0]):(color.shape[0]), (color.shape[1]-result_bw.shape[1]):(color.shape[1]),0:2]			
-			result[:, :, 1:3] = color # result_color
+			result_color = np.zeros([result_bw.shape[0], result_bw.shape[1], 2])
+			p = (int)((color.shape[0]-result_bw.shape[0])/2) # p = 6
+			result_color = color[p:(color.shape[0])-p, p:(color.shape[1])-p,0:2]			
+			result[:, :, 1:3] = result_color # color
 			result = cv.cvtColor(result, cv.COLOR_YCrCb2RGB) #aha
+			if config.uvecanje:
+				if pom:
+					save_dir = os.path.join(save_dir, (str(config.scale) + "x" + os.path.splitext(os.path.basename(i))[0]))
+					if not os.path.exists(save_dir):
+						os.makedirs(save_dir)
+				save_path = os.path.join(save_dir, (str(config.scale)) + "x" + os.path.basename(i))
+				scipy.misc.imsave(save_path, result)
+			else:
+				bicubic = scipy.misc.imresize(test_label, 1. / config.scale, interp='bicubic')
+				bicubic = scipy.misc.imresize(bicubic, config.scale * 1.0, interp='bicubic')
+				bicubic = cv.cvtColor(bicubic, cv.COLOR_BGR2RGB)
+				# print(color.shape,bicubic.shape)
+				bicubic = bicubic[p:(bicubic.shape[0])-p, p:bicubic.shape[1]-p, :] #kako bismo vidjeli iste dimenzije
 
-			bicubic = scipy.misc.imresize(test_label, 1. / config.scale, interp='bicubic')
-			bicubic = scipy.misc.imresize(bicubic, config.scale * 1.0, interp='bicubic')
-			bicubic = cv.cvtColor(bicubic, cv.COLOR_BGR2RGB)
-
-
-			# image_path1 = os.path.join(os.getcwd(), config.sample_dir)
-			image_path1 = os.path.join(save_dir, os.path.splitext(os.path.basename(i))[0])
-			if not os.path.exists(image_path1):
-				os.makedirs(image_path1)
-			save_path = os.path.join(image_path1, os.path.basename(i))
-			scipy.misc.imsave(save_path, result)
-			bicubic_path = os.path.join(image_path1, 'bicubic_' + os.path.basename(i))
-			scipy.misc.imsave(bicubic_path, bicubic)
+				# image_path1 = os.path.join(os.getcwd(), config.sample_dir)
+				image_path1 = os.path.join(save_dir, os.path.splitext(os.path.basename(i))[0])
+				if not os.path.exists(image_path1):
+					os.makedirs(image_path1)
+				save_path = os.path.join(image_path1, os.path.basename(i))
+				scipy.misc.imsave(save_path, result)
+				bicubic_path = os.path.join(image_path1, 'bicubic_' + os.path.basename(i))
+				scipy.misc.imsave(bicubic_path, bicubic)
 			print('Zavrseno sa... ', os.path.basename(i))
-		print('Zavrseno testiranje svih slika.')
-		print('Savuvani rezultati u ', save_dir)
+		print('ZAVRSENO ', poruka)
+		print('Rezultati sacuvani u ', save_dir)
 
-def uvecaj(path, save_dir, config):
-
-	# uvecaj sliku za faktor scale i predaj je mrezi 
-	images = tf.placeholder(tf.float32, [None, None, None, 1], name='images')
-	mreza = SRCNN(images, config)
-	with tf.Session() as sess:
-		# pazi na inicijaliziranje vrijednosti sesije
-		sess.run(tf.global_variables_initializer())
-
-		saver = tf.train.Saver()
-
-		if ucitaj_ckpt(sess, saver, config):
-			print('Uspjesno ucitavanje sacuvanih...')
-		else:
-			print('GRESKA pri ucitavanju sacuvanih! Provjeriti da li postoji checkpoint. Ako ne, sprovedite fazu treniranja prije testiranja.')
-
-		if os.path.isfile(path):
-			data=[path];
-		else:
-			data = glob.glob(os.path.join(path, "*.*"))
-			save_dir=os.path.join(save_dir,(str(config.scale)+"x"+config.test_dir))
-			if not os.path.exists(save_dir):			
-				os.makedirs(save_dir)
-		print("Uvecavam slike...");
-		for i in data:
-			print('Uvecavanje slike...', os.path.basename(i))
-			test_data, color = direktni_podaci(i, config)
-
-
-			izlaz = mreza.eval({images: test_data}) #labels: test_label
-			izlaz = izlaz.squeeze() #postprocesiranje
-			result_bw = revert(izlaz)
-			# result_color = np.zeros([result_bw.shape[0], result_bw.shape[1], 2], dtype=np.uint8)
-			# result_color = color[0:result_bw.shape[0], 0:result_bw.shape[1],0:2]
-			result = np.zeros([result_bw.shape[0], result_bw.shape[1], 3], dtype=np.uint8)
-			result[:, :, 0] = result_bw
-			result[:, :, 1:3] = color #result_color
-			result = cv.cvtColor(result, cv.COLOR_YCrCb2RGB)
-			# image_path1 = os.path.join(os.getcwd(), config.sample_dir)
-			image_path1 = os.path.join(save_dir, (str(config.scale) + "x" + os.path.splitext(os.path.basename(i))[0]))
-			if not os.path.exists(image_path1):
-				os.makedirs(image_path1)
-			save_path = os.path.join(image_path1, os.path.basename(i))
-			scipy.misc.imsave(save_path, result)
-			print('Zavrseno sa... ', os.path.basename(i))
-		print('Zavrseno uvecavanje svih slika.')
-		print("Sacuvano u folderu ", save_dir)
