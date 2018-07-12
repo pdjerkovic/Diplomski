@@ -16,7 +16,7 @@ Specijalisticki rad - Konvolucione mreze super rezolucije
  Prikaz modula je sljedeći:
  
  main.py - pokretački modul, koji parsira argumente. Korisnik postavlja hiperparametre prilikom pokretanja
- '''
+ ```
  $ python main.py -help
  
  usage: main.py [-h] [--br_epoha BR_EPOHA] [-checkpoint CHECK_DIR]
@@ -24,7 +24,7 @@ Specijalisticki rad - Konvolucione mreze super rezolucije
                [-stride STRIDE] [-eta KOEF_UCENJA] [-s SCALE]
                [-sample_dir SAMPLE_DIR] [-trening TRENING]
                [-train_dir TRAIN_DIR] [-test_dir TEST_DIR] [-e UVECANJE]
-'''
+
 Postavljanje hiperparametara mreže. Smanjivati batch, i_size i l_size sa
 ubrzanje. Imati na umu da mora da vazi: i_size = l_size + 12 (ako ne postavite tako, kod ce sad rijesiti da zadovoljavaju te uslove. (size>0))
 
@@ -49,8 +49,12 @@ optional arguments:
   -test_dir TEST_DIR    Folder/fajl za testiranje(mora biti smjesten u
                         Testiranje) [MojTest]
   -e UVECANJE           Direktno uvecanje slike [False]
-
-  npr. $ python3 main.py -trening=True -eta=1e-5
+```
+  npr.
+  ```
+  $ python3 main.py -trening=True -eta=1e-5
+  
+  ```
   
   trening.py -   Za trening postaviti -trening=True, i train_dir koji se mora nalaziti u Treniranje/. Ucitavaju se, ako postoje, sacuvana stanja mreze. Prikaz prolaza kroz epohe na svakih 10 koraka. Za brzi proces smanjivati batch, i_size i l_size. Prije treninga, vrši se procesiranje podataka - slika se dijeli na sub-slike, koje imaju veličinu : i\_size za LR sub-slike, l\_size za ground-truth sub-slike. Ako se promijeni i\_size, mora se takođe promijeniti i l\_size - zbog konvolucije: $l\_size=i\_size-12$. batch, i_size i l_size su bitne samo kod procesa treniranja.
   
