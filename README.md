@@ -79,8 +79,8 @@ optional arguments:
  
 TO DO:
 
-[ ] - Layer-wise koef. ucenja
-[ ] - PSNR ocjena
-[ ] - prerequisites
-  
+- [ ] Layer-wise koef. ucenja
+- [ ] PSNR ocjena
+- [ ] prerequisites
+- [ ] promijeniti tex 
   
