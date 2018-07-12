@@ -63,7 +63,7 @@ optional arguments:
  
   **dodaci.py** - pomoćni modul, koji sadrži mnoge pomoćne funkcije kao što su citanje i cuvanje checkpointa, pretvaranje 3-kanalnog sistema u jedan (izvlačenje kanala Y kako bi se nad njemu vršila obrada), kao i sama gradnja SRCNN().
   
-  Za razlicite faktore * *s* treba se trenirati nova mreza, ali ostavljeno radi ispitivanja.
+  Za razlicite faktore *s* treba se trenirati nova mreza, ali ostavljeno radi ispitivanja.
   
   **REFERENCE:**
   
