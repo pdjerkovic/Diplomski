@@ -7,7 +7,7 @@ from testiranje import test
 import argparse
 import os
 
-parser = argparse.ArgumentParser(description='Postavljanje hiperparametara mreže. Smanjivati batch, i_size i l_size sa ubrzanje. Imati na umu da mora da vazi: i_size = l_size + 12')
+parser = argparse.ArgumentParser(description='Postavljanje hiperparametara mreže. Smanjivati batch, i_size i l_size sa ubrzanje. Imati na umu da mora da vazi: i_size = l_size + 12. Ukoliko se pogrijesi pri postavljanju nekog parametra, program ce vratiti na default vrijednost.')
 
 parser.add_argument('--br_epoha',  dest='br_epoha', 
 					help='Broj epoha. Default: [2000]', type=int, default=2000)
@@ -34,7 +34,7 @@ parser.add_argument('-train_dir', dest='train_dir',
 parser.add_argument('-test_dir', dest='test_dir', 
 					help="Folder/fajl za testiranje(mora biti smjesten u Testiranje) [MojTest]", default='MojTest')
 parser.add_argument('-e', dest='uvecanje', 
-					help="Direktno uvecanje slike [False]", default=False)					
+					help="Direktno uvecanje slike, boolean, True za uvecanje. [False]", default=False)					
 
 parser.add_argument('-rgb', dest='rgb', 
 					help="RGB-strategija [False]", default=False)

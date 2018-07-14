@@ -1,0 +1,90 @@
+PREGLED OCJENA ZA CHARLIZE.JPG
+
+IMAJTE NA UMU UKOLIKO POSTOJE NESLAGANJA SA VASIM DIREKTNIM REZULTATIMA PRI POKRETANJU
+SKRIPTE DA JE TO USLJED MNOGOBROJNOG PRETVARANJA IZ SEMA U SEMU: OVDJE SU SLIKE PRVO BILE SACUVANE KAO RGB. 
+ZATIM UCITANE PA PONOVO PREVEDENE U YCrCb KAD JE SLUCAJ ZAHTIJEVAO (RGB I BGR su isti kanali drugacijim redom)
+ZNACI, DVA (NEPOTREBNA) PREVODJENJA SMO IMALI KOJI SU UTICALI NA TACNOST OCJENE.
+
+Drugacija podesavanja testirana. 
+
+SRCNN - normalizacija, i direktni(originalni) Cr i Cb kanali
+new SRCNN - bez normalizacije, Binterpolirani Cr i Cb kanali
+norm SRCNN - normalizacija, interpolirani Cr i Cb (slika koja se dobija je malcice drugacije boje)
+BI - primijenjena interpolacija na BGR prostor
+new BI - primijenjena na YCrCb prostor
+norm BI - normalizacija, YCrCb prostor....
+
+***********************************
+RGB prostor: PSNR ocjena SRCNN:  31.028506613449913
+RGB prostor: PSNR ocjena new SRCNN:  29.59625979158745
+RGB prostor: PSNR ocjena norm SRCNN: 30.429710833241955
+RGB prostor: PSNR ocjena colorbase SRCNN: 29.602792353512623
+RGB prostor: PSNR ocjena norm BI: 30.499258796787714
+RGB prostor: PSNR ocjena BI: 33.18718858427003
+RGB prostor: PSNR ocjena new BI: 33.18493054581863
+*****
+RGB prostor: SSIM ocjena SRCNN:  0.9005786081835526
+RGB prostor: SSIM ocjena new SRCNN:  0.8995874805378697
+RGB prostor: SSIM ocjena norm SRCNN:  0.897064164881499
+RGB prostor: SSIM ocjena colorbase SRCNN:  0.8996114422665572
+RGB prostor: SSIM ocjena norm BI:  0.8883332449816992
+RGB prostor: SSIM ocjena BI:  0.8913210630977885
+RGB prostor: SSIM ocjena new BI:  0.8913301947148132
+*********************************
+PSNR ocjena Y kanala SRCNN:  31.24460222714836
+PSNR ocjena Y kanala new SRCNN:  29.754359360602457
+PSNR ocjena Y kanala norm SRCNN:  31.24459175138182
+PSNR ocjena Y kanala colorbase SRCNN:  29.754354900826154
+PSNR ocjena Y kanala norm BI:  32.80900029358299
+PSNR ocjena Y kanala BI:  33.55150152377984
+PSNR ocjena Y kanala new BI:  33.55480560553461
+*****
+SSIM ocjena Y kanala SRCNN:  0.9115543547158734
+SSIM ocjena Y kanala new SRCNN:  0.9105158398972764
+SSIM ocjena Y kanala norm SRCNN:  0.9115539666069896
+SSIM ocjena Y kanala colorbase SRCNN:  0.9105157025895504
+SSIM ocjena Y kanala norm BI:  0.9027475463156509
+SSIM ocjena Y kanala BI:  0.9016849742842019
+SSIM ocjena Y kanala new BI:  0.9017722691571063
+*********************************
+PSNR ocjena Cr kanala SRCNN:  47.20289046161515
+PSNR ocjena Cr kanala new SRCNN:  47.1562766917166
+PSNR ocjena Cr kanala norm SRCNN:  38.177862989839376
+PSNR ocjena Cr kanala colorbase SRCNN:  47.2029081643049
+PSNR ocjena Cr kanala norm BI:  38.18837576360942
+PSNR ocjena Cr kanala BI:  47.16384919225672
+PSNR ocjena Cr kanala new BI:  47.15767801083509
+*****
+SSIM ocjena Cr kanala SRCNN:  0.9865376357426111
+SSIM ocjena Cr kanala new SRCNN:  0.9864406664066381
+SSIM ocjena Cr kanala norm SRCNN:  0.9860467197887773
+SSIM ocjena Cr kanala colorbase SRCNN:  0.9865377036169297
+SSIM ocjena Cr kanala norm BI:  0.9860204813688462
+SSIM ocjena Cr kanala BI:  0.9864716105692745
+SSIM ocjena Cr kanala new BI:  0.9864432145603451
+***********************************
+PSNR ocjena Cb kanala SRCNN:  46.825023538895785
+PSNR ocjena Cb kanala new SRCNN:  46.77745177096944
+PSNR ocjena Cb kanala norm SRCNN:  39.910205101733986
+PSNR ocjena Cb kanala colorbase SRCNN:  46.82478554204921
+PSNR ocjena Cb kanala norm BI:  39.9184766414189
+PSNR ocjena Cb kanala BI:  46.78443409356505
+PSNR ocjena Cb kanala new BI:  46.78635834641871
+******
+SSIM ocjena Cb kanala SRCNN:  0.9848372578648424
+SSIM ocjena Cb kanala new SRCNN:  0.9848308181243974
+SSIM ocjena Cb kanala norm SRCNN:  0.9844776200938777
+SSIM ocjena Cb kanala colorbase SRCNN:  0.9848359239444165
+SSIM ocjena Cb kanala norm BI:  0.9844723297243849
+SSIM ocjena Cb kanala BI:  0.9847541178333589
+SSIM ocjena Cb kanala new BI:  0.98485627842434
+***************************************
+
+
+
+Ukoliko dobijate da je PSNR ocjena inf, to znaci da je apsolutno ista originalu.
+Isto vazi za SSIM=1.0. Sto ce biti slucaj sa Cb i Cr kanalima, pri pozivu main.py i pokretanja faze treniranja
+na nekom skupu.
+
+Vidimo da se interpolirani Cr i Cb SRCNN-a ne poklapaju tacno sa interpoliranim kanalima kod BI. Razlog je upravo
+dvostruko prevodjenje koje vodi do gubitka na tacnosti.

@@ -38,8 +38,8 @@ def podaci(path, config):
 	
 	if not config.rgb:
 		data = np.array(im_input[:,:,0]).reshape([1, h, w, 1])
-		color = np.array(color_base[:,:,1:3])      # = np.array(im_input[:,:,1:3])
-	else:
+		color = np.array(color_base[:,:,1:3])      # ovdje stavljamo direktne kanale Cr i Cb izlaza kako bismo dobili sto kvalitetniji rezultat
+	else:                                          # Cr i Cb samo stete utisku, pokazuje se; = np.array(im_input[:,:,1:3]);  - za intepolirane
 		data = np.array(im_input[:,:,0:3]).reshape([1, h, w, 3])
 	# print("shape - ", img_input.shape)
 	label = np.array(modcrop_color(img_input, config.scale))
