@@ -119,14 +119,14 @@
 
 %reference!
 
-Problem super-rezolucije (SR) je jedan od klasičnih problema kompjuterske vizije. To je problem dobijanja visoko-kvalitetne (high-resolution, HR) slike od slike manje rezolucije (LR). Rješavanje ovog problema nije lako zato što za bilo koji piskel početne, nisko-kvalitetne slike postoji veći broj mogućih ishoda - odnosno, njegovo restauriranje nije jedinstveno i jasno definisano. Težina te nedefinisanosti se prevazilazi tako što se skup mogućih ishoda ograniči nekom ranijom \textit{prior} informacijom. Za učenje te informacije, najmodernije tehnike pribjegavaju strategiji učenja iz uzoraka.  One, u zavisnosti od svojih trening-uzoraka, mogu biti definisane za opšti problem super-rezolucije, ili dizajnirane da zadovolje neke usko-specifične zahtjeve, npr. prepoznavanje lica.     
+Problem super-rezolucije (SR) je jedan od klasičnih problema kompjuterske vizije. To je problem dobijanja visoko-kvalitetne\footnote{Pojam \textit{kvalitet slike} u ovom radu će imati značenje \textit{rezolucija}} (high-resolution, HR) slike od slike manje rezolucije (low resolution, LR). Rješavanje ovog problema nije lako zato što za bilo koji piskel početne, nisko-kvalitetne slike postoji veći broj mogućih ishoda - odnosno, njegovo restauriranje nije jedinstveno i jasno definisano. Težina te nedefinisanosti se prevazilazi tako što se skup mogućih ishoda ograniči nekom ranijom \textit{prior} informacijom. Za učenje te informacije, najmodernije tehnike pribjegavaju strategiji učenja iz uzoraka.  One, u zavisnosti od svojih trening-uzoraka, mogu biti definisane za opšti problem super-rezolucije, ili dizajnirane da zadovolje neke usko-specifične zahtjeve, npr. prepoznavanje lica.     
 
 %Te tehnike koriste ili unutrašnje sličnosti koje postoje u samoj slici (interne tehnike), ili uče mapiranje iz %spoljašnjih izvora koji su predstavljeni nisko/visoko-kvalitetnim parovima (eksterne tehnike).
 
 %vise u sekciji ....
 %na uzorcima bazirani 
 
-Konvolucione mreže super rezolucije (SRCNN) prvi put su predstavljene u radu \cite{earlier} , i kasnije unaprijeđene u verziji \cite{main}. Motivacija za ovaj metod došla je iz tehnika rijetkog kodiranja. Tehnike rijetkog kodiranja (SC tehnike) \cite{sparse} predstavljaju klasu nenadgledanog učenja koje traži što ''kraću'' reprezentaciju ulaznog vektora $x$ - odnosno, nalaze (nadkompletni) skup bazičnih vektora tako da se $x$ može predstaviti kao linearna kombinacija tih vektora, sa što manje koeficijenata različitih od nule\footnote{Ili, sa manjim brojem koeficijenata koji su što dalji od nule}. Pomenute SC tehnike kod SR problema \cite{sparse1} sastoje se od nekoliko koraka obrade (u literaturi, kanal SR obrade): (1) Ulazna slika se dijeli na mnoge, preklapajuće segmente\footnote{region, ili \textit{patch} slike} i ti segmenti se preprocesuiraju. (Faza preprocesiranja je primjena neke funkcije na piskele, obično je oduzimanje srednje vrijednosti i normalizacija.) (2) Zatim se ti segmenti kodiraju \textit{rječnicima male rezolucije}. (3) Rijetki koeficijenti se pretvaraju u \textit{rječnike velike rezolucije}, koji služe za rekonstrukciju visoko-rezolutivnih djelova. (4) Rekonstruisani djelovi se slažu težinskim sumiranjem i dobija se konačni rezultat. Mnogi eksterni uzorački metodi koriste isti ovaj obrazac. Ti metodi najviše pažnje posvjećuju učenju i optimizovanju rječnika, ili pak izgradnji efikasne funkcije mapiranja - kodiranja; ostali koraci se rijetko optimizuju i ne posmatraju se u sklopu neke zajedničke, optimizovane strukture.  
+Konvolucione mreže super rezolucije (SRCNN) prvi put su predstavljene u radu \cite{earlier} , i kasnije unaprijeđene u verziji \cite{main}. Motivacija za ovaj metod došla je iz tehnika rijetkog kodiranja. Tehnike rijetkog kodiranja (SC tehnike) \cite{sparse} predstavljaju klasu nenadgledanog učenja koje traži što ''kraću'' reprezentaciju ulaznog vektora $x$ - odnosno, nalaze (nadkompletni) skup bazičnih vektora tako da se $x$ može predstaviti kao linearna kombinacija tih vektora, sa što manje koeficijenata različitih od nule\footnote{Ili, sa što manjim brojem koeficijenata koji su što dalji od nule}. Pomenute SC tehnike kod SR problema \cite{sparse1} sastoje se od nekoliko koraka obrade (u literaturi, kanal SR obrade): (1) Ulazna slika se dijeli na mnoge, preklapajuće segmente\footnote{region, ili \textit{patch} slike} i ti segmenti se preprocesuiraju. (Faza preprocesiranja je primjena neke funkcije na piskele, obično je oduzimanje srednje vrijednosti i normalizacija.) (2) Zatim se ti segmenti kodiraju \textit{rječnicima male rezolucije}. (3) Rijetki koeficijenti se pretvaraju u \textit{rječnike velike rezolucije}, koji služe za rekonstrukciju visoko-rezolutivnih djelova. (4) Rekonstruisani djelovi se slažu težinskim sumiranjem i dobija se konačni rezultat. Mnogi eksterni uzorački metodi koriste isti ovaj obrazac. Ti metodi najviše pažnje posvjećuju učenju i optimizovanju rječnika, ili pak izgradnji efikasne funkcije mapiranja - kodiranja; ostali koraci se rijetko optimizuju i ne posmatraju se u sklopu neke zajedničke, optimizovane strukture.  
 
 %more details in Section 3.2
 %Sa druge strane, isti proces obrade dijeli konvoluciona mreža super rezolucije (to je razlog zašto se tehnike %rijetkog kodiranja mogu smatrati za duboku konvolucionu neuronsku mrežu). 
@@ -145,12 +145,12 @@ U nastavku rada biće predstavljen sami model SRCNN-a, koji pokazuje da tehnike 
 
 %\cite{Djuk}
 
-Algoritmi za rješavanje problema super-rezolucije, SR algoritmi, \cite{alg} se mogu podijeliti u 4 grupe: modeli predikcije, ivični modeli, statistički modeli i segmentno-uzorački metodi\footnote{patch or example based - koje vrše segmentaciju uzoraka}, dobro dokumentovani u \cite{alg2}. Od svih njih, uzorački metodi dostižu najbolje performanse. U toj grupi algoritama razlikujemo interne i eksterne uzoračke modele. Interni modeli iskorišćavaju sličnosti koje postoje u samoj strukturi slike i generišu najbolje prikaze koji hvataju takvu strukturu koji će poslužiti za povećanje kvaliteta. Eksterni modeli zavise od spoljašnjeg skupa uzoraka preko kojeg uče funkciju mapiranja ulaza na izlaz. Ti modeli razlikuju se između sebe u načinu koje reprezentacione šeme slika koriste, koje algoritme učenja rječnika primjenjuju ili da li topološki modeliraju prostor slikovnih elemenata. Kod prvog eksternog algoritma, rječnici su bili predstavljeni parovima LR i HR segmenata; na segmente ulaza se primjenjivao algoritam najbližeg susjeda (NN) da nađe njima najbliže u LR rječniku, a zatim bi ti djelovi bili projektovani na svoje HR parove. Alternative za ovakav pristup danas su mnogobrojne. Pristupi kao što je regresija jezgra (kernel regression, \cite{kernel}), randomizirana šuma (random forest, \cite{forest}), regresija fiksiranog susjedstva (anchored neighborhood regression ANR, \cite{anr}) povećavaju preciznost i brzinu mapiranja. Metodi koji se temelje na rijetkom kodiranju spadaju u najbolje tehnike današnjice i predstavljaju glavnu konkurenciju SRCNN-u. Kod njih, korak ekstrakcije djelova slike i rekonstrukcije obavlja se odvojeno, i njihov primarni fokus je učenje rječnika segmenata slike.   
+Algoritmi za rješavanje problema super-rezolucije, SR algoritmi, \cite{alg} se mogu podijeliti u 4 grupe: modeli predikcije, ivični modeli, statistički modeli i segmentno-uzorački metodi\footnote{patch or example based - koje vrše segmentaciju uzoraka}, dobro dokumentovani u \cite{alg2}. Od svih njih, uzorački metodi dostižu najbolje performanse. U toj grupi algoritama razlikujemo interne i eksterne uzoračke modele. Interni modeli iskorišćavaju sličnosti koje postoje u samoj strukturi slike i generišu najbolje prikaze koji hvataju takvu strukturu i koji će poslužiti za povećanje kvaliteta. Eksterni modeli zavise od spoljašnjeg skupa uzoraka preko kojeg uče funkciju mapiranja ulaza na izlaz. Ti modeli razlikuju se između sebe u načinu koje reprezentacione šeme slika koriste, koje algoritme učenja rječnika primjenjuju ili da li topološki modeliraju prostor slikovnih elemenata. Kod prvog eksternog algoritma, rječnici su bili predstavljeni parovima LR i HR segmenata; na segmente ulaza se primjenjivao algoritam najbližeg susjeda (NN) da nađe njima najbliže u LR rječniku, a zatim bi ti djelovi bili projektovani na svoje HR parove. Alternative za ovakav pristup danas su mnogobrojne. Pristupi kao što je regresija jezgra (kernel regression, \cite{kernel}), randomizirana šuma (random forest, \cite{forest}), regresija fiksiranog susjedstva (anchored neighborhood regression ANR, \cite{anr}) povećavaju preciznost i brzinu mapiranja. Metodi koji se temelje na rijetkom kodiranju spadaju u najbolje tehnike današnjice i predstavljaju glavnu konkurenciju SRCNN-u. Kod njih, korak ekstrakcije djelova slike i rekonstrukcije obavlja se odvojeno, i njihov primarni fokus je učenje rječnika segmenata slike.   
 
 
 Većina SR algoritama operiše nad samo jednim kanalom boje ili se bave crno-bijelom slikom . Za color-slike, gore-pomenuti metodi prvo transformišu sliku u drugu color-šemu (npr. YCbCr) i onda obrađuju samo kanal luminiscencije (Y).  Npr., metod regresije jezgra, koji je u literaturi poznat kao KK-metod, predložen je da istovremeno tretira sve color-kanale RGB šeme, koji se zatim stapaju da oforme konačni rezultat. I SRCNN nastoji da riješi problem istovremenog baratanja svim bojama - u glavi Ogledi predstavljeni su rezultati tih nastojanja.
 
-Za analizu algoritama SR-a koriste se evalucione metrike. One se primjenjuju na njihove rezultate i gleda se odnos originalne i rekonstruisane HR slike. Najjznačajni metrike \cite{alg2} su: odnos signala i šuma - (peak to noise ratio) PSNR-metrika, metrika indeksa strukturalne sličnosti (structural similarity index)- SSIM, kriterijum povjerenja informacije (information fidelity criterion) IFC, mjera kvaliteta šuma NQM (noise quality measure), težinski PSNR (WPSNR) i multiskalni SSIM (MSSSIM metrika). Izuzev IFC i NQM, nabrojani metodi ispitivanja pokazuju jaku korelaciju sa percepcijom - veća ocjena, veći vizuelni ugođaj. Sve ove mjere su iskorišćene u posmatranim ogledima.    
+Za analizu algoritama SR-a koriste se evalucione metrike. One se primjenjuju na njihove rezultate i gleda se odnos originalne i rekonstruisane HR slike. Najjznačajne metrike \cite{alg2} su: odnos signala i šuma - (peak to noise ratio) PSNR-metrika, metrika indeksa strukturalne sličnosti (structural similarity index)- SSIM, kriterijum povjerenja informacije (information fidelity criterion) IFC, mjera kvaliteta šuma NQM (noise quality measure), težinski PSNR (WPSNR) i multiskalni SSIM (MSSSIM metrika). Izuzev IFC i NQM, nabrojani metodi ispitivanja pokazuju jaku korelaciju sa percepcijom - veća ocjena, veći vizuelni ugođaj. Sve ove mjere su iskorišćene u posmatranim ogledima.    
 
 % Nuznost dobijanja svih kanala
 \newpage
@@ -217,11 +217,11 @@ U ovoj sekciji formuliše se model SRCNN-a. Neka imamo sliku male rezolucije $X$
 
 \begin{enumerate}
 
- \item Dijeljenje slike na segmente i njihovo predstavljanje - slika $Y$ se dijeli na mnoge, preklapajuće djelove i svaki dio se predstavlja multidimenzionalnim vektorom. Ovi vektori u stvari predstavljaju skup mapa ili skup odlika, i njihov broj je jednak dimenzionalnosti vektora. 
+ \item \textbf{\textit{Dijeljenje slike na segmente i njihovo predstavljanje}} - slika $Y$ se dijeli na mnoge, preklapajuće djelove i svaki dio se predstavlja multidimenzionalnim vektorom. Ovi vektori u stvari predstavljaju skup mapa ili skup odlika, i njihov broj je jednak dimenzionalnosti vektora. 
   
- \item Nelinearno mapiranje: U ovom koraku svaki vektor se preslikava u drugi multidimenzionalni vektor. Novo-dobijeni vektor predstavlja \textit{segment visoke rezolucije}.
+ \item \textbf{\textit{Nelinearno mapiranje}} - U ovom koraku svaki vektor se preslikava u drugi multidimenzionalni vektor. Novo-dobijeni vektor predstavlja \textit{segment visoke rezolucije}.
   
- \item Rekonstrukcija: dobijeni segmenti visoke rezolucije se spajaju, primjenjuje se određena funkcija na okolinu piksela i formira se konačna slika. 
+ \item \textbf{\textit{Rekonstrukcija}} - dobijeni segmenti visoke rezolucije se spajaju, primjenjuje se određena funkcija na okolinu piksela i formira se konačna slika. 
 
 \end{enumerate}
 Pokazuje se da sve ove operacije formiraju konvolucionu mrežu, koja je predstavljena na slici \ref{fig:srcnn}.
@@ -299,7 +299,7 @@ Ova analogija služi i da se postave hiperparametri, $n_1, n_2, f_1, f_2$ i $f_3
 \end{equation}
 
 
- Za ovakvu postavku, za jedan piksel izlaza koristi se informacija  od $(9 + 5 - 1)^2 = 169$ piksela, što je veći broj informacija nego kod postojećih tehnika SC-a  (i to duplo kod nekih) što pruža još jedno objašnjenje zašto SRCNN daje bolje performanse.  
+ Za ovakvu postavku, za jedan piksel izlaza koristi se informacija  od $(9 + 5 - 1)^2 = 169$ piksela\footnote{Kažemo da je veličina RP mreže $13 \times 13$}, što je veći broj informacija nego kod postojećih tehnika SC-a  (i to duplo kod nekih) što pruža još jedno objašnjenje zašto SRCNN daje bolje performanse.  
 
 \section{Treniranje mreže}\label{ch2}
 
@@ -328,9 +328,13 @@ gdje $l \in \{ 1, 2, 3 \}$ je indeks sloja, a $i$ redni broj iteracije. $\eta$ j
 
 Slike $\{X_i\}$ se pripremaju tako što se nasumično ''režu'' na $n_{sub} \times n_{sub} \times c$ sub-slika.\footnote{Termin ,,sub-slika'' se ovdje koristi u drugačijem značenju od regiona, segmenata: Slikovni segmenti mogu biti preklapajući djelovi i zahtijevaju neku obradu na kraju, dok sub-slike ne.} Za dobijanje $\{Y_i\}$ koriste se iste ove sub-slike, tako što se one prvo zamute Gausovim filterom; umanje za neki faktor skaliranja $s$, a onda povećaju za isti faktor koristeći bikubičnu interpolaciju. Tako se dobijaju manje-kvalitetne ${Y_i}$. 
 
-Ni jedan konvolucioni sloj nema dopunu $P$, kako bi se izbjegao efekat dobijanja granica slike\footnote{Rezultati kada se postoji dopuna se mogu vidjeti na \cite{samples}}. Mreža za $Y_i$ proizvodi izlaz veličine $(f_{sub} - f_1 - f_2 - f_3 + 3 )^2 \times c$. Funkcija gubitka procjenjuje se samo na centralnom pikselu ovog izlaza i $X_i$. Iako u toku treninga mreža operiše sa fiksnim veličinama slika, u fazi testiranja mreži može biti predata bilo koja veličina\footnote{\textit{,,bilo koja''} veličina ipak zavisi od jačine računara: dostupne memorije i moći grafičke kartice}.   
+Ni jedan konvolucioni sloj nema dopunu $P$, kako bi se izbjegao efekat dobijanja granica slike\footnote{Rezultati kada se postoji dopuna se mogu vidjeti na \cite{samples}}. Mreža za $Y_i$ proizvodi izlaz veličine: 
+\begin{equation}\label{eq:size}
+(n_{sub} - f_1 - f_2 - f_3 + 3 )^2 \times c. 
+\end{equation}
+Funkcija gubitka procjenjuje se samo na centralnom pikselu ovog izlaza i $X_i$. Iako u toku treninga mreža operiše sa fiksnim veličinama slika, u fazi testiranja mreži može biti predata bilo koja veličina\footnote{\textit{,,bilo koja''} veličina ipak zavisi od jačine računara: dostupne memorije i moći grafičke kartice}.   
 
-Ilustracija primjera: na slici \ref{fig:trening_sfig1} možete pogledati naučene filtere prvog sloja kada je mreža trenirana na velikoj bazi ImageNet\footnote{\url{http://www.image-net.org/}}-a, sa faktorom skaliranja 3, dok na slici  \ref{fig:trening_sfig2} možete vidjeti izvučene mape. Filteri imaju različite funkcionalnosti: izdvojeni (g) i (h) ponašaju se kao Gausov ili Laplasov filter, a (a)-(e) pronalaze ivice slike; (f) hvata teksturu, itd. 
+Ilustracija primjera: na slici \ref{fig:trening_sfig1} možete pogledati naučene filtere prvog sloja kada je mreža trenirana na velikoj bazi ImageNet\footnote{\url{http://www.image-net.org/}}-a, sa faktorom skaliranja 3, dok na slici  \ref{fig:trening_sfig2} možete vidjeti izvučene mape. Filteri imaju različite funkcionalnosti: izdvojeni $(g)$ i $(h)$ ponašaju se kao Gausov ili Laplasov filter, a $(a)$-$(e)$ pronalaze ivice slike; $(f)$ hvata teksturu, itd. 
 
 \begin{figure}[h]
 \begin{subfigure}{1\textwidth}
@@ -493,10 +497,10 @@ Ipak, zbog povećanja kompleksnosti mreže, opada brzina dobijanja output-a: $80
   
  \begin{itemize}
   
- \item SC-tehnika Yanga i autora \cite{sparse1}
- \item NE+LLE - topološko uranjavanje susjeda lokalno linearnim metodom (neighbour embedding + locally linear embedding method) \cite{nelle}
- \item ANR/A+ - regresija fiksiranog susjedstva/poboljšana regresija  (\cite{anr},\cite{aplus})
- \item ranije pomenuta KK tehnika - jedan od najbolje ocijenjenih spoljno-uzoračkih metoda \cite{kernel} 
+ \item \textbf{\textit{SC-tehnika}} Yanga i autora \cite{sparse1}
+ \item \textbf{\textit{NE+LLE}} - topološko uranjavanje susjeda lokalno linearnim metodom (neighbour embedding + locally linear embedding method) \cite{nelle}
+ \item \textbf{\textit{ANR/A+}} - regresija fiksiranog susjedstva/poboljšana regresija  (\cite{anr},\cite{aplus})
+ \item ranije pomenuta \textit{\textbf{KK tehnika}} - jedan od najbolje ocijenjenih spoljno-uzoračkih metoda \cite{kernel} 
   
 \end{itemize}   
 
@@ -564,11 +568,11 @@ Ipak, zbog povećanja kompleksnosti mreže, opada brzina dobijanja output-a: $80
   
   \begin{enumerate}
   
-   \item Osnovni, $c=1$, Y-metod - do sad opisan
-   \item YCbCr metod - ''združeno'' treniranje svakog kanala YCbCr
-   \item Predtreniranje Y kanala - ovako se obezbjeđuje performansa kanala luminiscencije, tako što se MSE-funkcija u fazi predtreniranja primjenjuje samo na njemu, a onda u glavnoj fazi treninga uče se svi kanali  
-   \item Predtreniranje CbCr kanala - analogno
-   \item RGB-treniranje - slika je prevedena u RGB prostor i ti RGB kanali se uče
+   \item Osnovni, $c=1$, \textit{\textbf{Y-metod}} - do sada opisan
+   \item \textit{\textbf{YCbCr metod}} - ''združeno'' treniranje svakog kanala YCbCr
+   \item \textit{\textbf{Predtreniranje Y kanala}} - ovako se obezbjeđuje performansa kanala luminiscencije, tako što se MSE-funkcija u fazi predtreniranja primjenjuje samo na njemu, a onda u glavnoj fazi treninga uče se svi kanali  
+   \item \textit{\textbf{Predtreniranje CbCr kanala}} - analogno
+   \item \textbf{\textit{RGB-treniranje}} - slika je prevedena u RGB prostor i ti RGB kanali se uče
    
   \end{enumerate}
    %oznaka sa .
@@ -641,34 +645,35 @@ Zaključak je da SRCNN metod treniran na sva tri RGB kanala daje bolje rezultate
 \chapter{Programska realizacija}\label{ch2}
  
  %Koristila se strategija .....
-. 
+ % podrzava grayscale, Y-only i all RGB chanella. 
  
   Za programsku realizaciju SRCNN mreže odrabran je u \texttt{tensorflow}\footnote{https://www.tensorflow.org/}, biblioteka koja omogućava brza matematička izračunavanja. Jedan od glavnih razloga zašto baš taj alat jeste činjenica da pruža veliku podršku mašinskom učenju.
-  Što se same mreže tiče, implementirana je osnovna struktura 9-5-1 i Y-samo strategija, sa bazičnim parametrima, po glavnom uzoru na MATLAB kod samih autora\footnote{Druge reference se nalaze na sajtu mog projekta.}. Trenirano je na skupu A, za faktor skaliranja $s=3$. Ispitivano je na originalnim skupovima Setu 5 i Setu 14, kao i na jednom novo-formiranom (skupovi se nalaze u folderu Testiranje/).  Mreža je prošla kroz 15000+ epoha, sa periodičnim čuvanjem stanja (npr. na svakih 500 koraka) i zaista pokazala sjajne rezultate. Cjelokupni projekat, zajedno sa rezultatima testiranja, se mogu vidjeti na mom github nalogu: \cite{samples}. (U radu se ipak poziva na same primjere autora mreže jer su ti primjeri mnogo reprezentativniji.)
+  Što se same mreže tiče, implementirana je osnovna struktura 9-5-1 i Y-samo strategija, sa bazičnim parametrima, kao i RGB struktura, po glavnom uzoru na MATLAB kod samih autora\footnote{Druge reference se nalaze na sajtu mog projekta.}. Trenirano je na skupu A, za faktor skaliranja $s=3$. Ispitivano je na originalnim skupovima Setu 5 i Setu 14, kao i na nekim novo-formiranim (skupovi se nalaze u folderu \texttt{Testiranje/}).  Mreža je prošla kroz 15000+ za $Y$-samo strategiju i svega 2000+ epoha za RGB strategiju, u trenutku pisanja rada. Stanja mreže su se periodično čuvala, (npr. na svakih 500 koraka). Mreža pokazuje sjajne rezultate. Cjelokupni projekat, zajedno sa rezultatima testiranja, se mogu vidjeti na mom github nalogu: \cite{samples}. (U radu se ipak poziva na same primjere autora mreže jer su ti primjeri mnogo reprezentativniji.)
     
  Prikaz modula je sljedeći:
   
   \begin{itemize}
   
-   \item main.py - pokretački modul, koji parsira argumente. Korisnik postavlja hiperparametre prilikom pokretanja, npr: 
+   \item \textit{\textbf{main.py}} - pokretački modul, koji parsira argumente. Korisnik postavlja hiperparametre prilikom pokretanja, npr: 
    \begin{lstlisting}
-      $ python3 main.py -trening=True -eta=1e-5
+      $ python3 main.py -trening=True -eta=1e-5 -rgb=True
    \end{lstlisting}
-    pokreće fazu treniranja za koeficijent učenja $10^{-5}$ . Ako se ne navede ni jedan argument, uzimaju se default vrijednosti. Za više informacija:
+    pokreće fazu treniranja RGB strategije za koeficijent učenja $10^{-5}$ . Ako se ne navede ni jedan argument, uzimaju se default vrijednosti. Za više informacija:
      \begin{lstlisting}
       $ python main.py -help
    \end{lstlisting}
-    \item treniranje.py - ovaj modul se poziva ako je postavljeno -trening=True i on obučava mrežu, po instrukcijama koje su postavili autori. Mana građenja mreže jesto što u mom kodu svi slojevi dijele isti koeficijent učenja, a rečeno je da manji koeficijenti učenja za poslednji sloj brže odvode konvergenciji te su uspješniji. Prije treninga, vrši se procesiranje podataka - slika se dijeli na sub-slike, koje imaju veličinu : i\_size za LR sub-slike, l\_size za ground-truth sub-slike. Ako se promijeni i\_size, mora se takođe promijeniti i l\_size - zbog konvolucije: $l\_size=i\_size-12$. Periodično se čuvaju stanja, kako bi mreža u sljedećoj trening-fazi mogla da nastavi od trenutka gdje je stala. Definiše se jedna tensor-sesija i u okviru nje se sve odvija. Za svaku epohu,  mreži se predaju sub-slike i poziva se funkcija optimizovanja gubitka, čiju vrijednost možemo da pratimo. 
+    \item \textit{\textbf{treniranje.py}} - ovaj modul se poziva ako je postavljeno -trening=True i on obučava mrežu, po instrukcijama koje su postavili autori. Osnovna strategija je Y-samo. Prije treninga, vrši se procesiranje podataka - slika se dijeli na sub-slike, koje imaju veličinu : i\_size za LR sub-slike, l\_size za ground-truth sub-slike. Ako se promijeni i\_size, mora se takođe promijeniti i l\_size - zbog konvolucije: $l\_size=i\_size-12$ (sjetimo se forme (\ref{eq:size})). Periodično se čuvaju stanja, kako bi mreža u sljedećoj trening-fazi mogla da nastavi od trenutka gdje je stala. Definiše se jedna tensor-sesija i u okviru nje se sve odvija. Za svaku epohu,  mreži se predaju sub-slike i poziva se funkcija optimizovanja gubitka, čiju vrijednost možemo da pratimo. Funkcija gubitka računa se za cjelokupni segment izlaza, ne samo za centralnu tačku.  
     
-    \item testiranje.py - ukoliko nije drugačije naglašeno, mreža se testira. Njen folder za testiranje definiše se preko test\_dir, što može biti i fajl; i svi ti fajlovi treba da se nalaze u folderu Testiranje/.  Tensor-sesija se inicijalizira, čita se sačuvano stanje mreže i vrši se evaluacija ulaza. Izlaz mreže, sa malo postprocesiranja, zajedno se čuva sa slikom koja je dobijena samo bikubičnom interpolacijom. Zaista vidimo da SRCNN pobjeđuje BI metod. Sa dužim vremenom treniranja, pokazao bi još bolje performanse.  Takođe, ovaj modul omogućava da, ako je korisnik specificirao pri pozivu parametar -e=True, da skripta direktno uveća samu testnu sliku za faktor skaliranja $s$. Svi izlazi mreže su sačuvani u folderu rezultati/.
+    \item \textbf{\textit{testiranje.py}} - ukoliko nije drugačije naglašeno, mreža se testira. Njen folder za testiranje definiše se preko test\_dir, što može biti i fajl; i svi ti fajlovi treba da se nalaze u folderu \texttt{Testiranje/}.  Tensor-sesija se inicijalizira, čita se sačuvano stanje mreže i vrši se evaluacija ulaza. Izlaz mreže, sa malo postprocesiranja, zajedno se čuva sa slikom koja je dobijena samo bikubičnom interpolacijom, kao referentnom tačkom. Čuvaju se i ocjene za ulazne slike po metrikama PSNR i SSIM. Zaista vidimo da SRCNN pobjeđuje BI metod, po vizuelnom ugođaju i većini ocjena. Sa dužim vremenom treniranja, SRCNN pokazao bi još bolje performanse.  Takođe, ovaj modul omogućava da, ako je korisnik specificirao pri pozivu parametar \texttt{-e=True}, da skripta direktno uveća samu testnu sliku za faktor skaliranja $s$. Svi izlazi mreže su sačuvani u folderu \texttt{rezultati/}.
     
-    \item dodaci.py - pomoćni modul, koji sadrži mnoge pomoćne funkcije kao što su nalaženje checkpoint-a ili pretvaranje 3-kanalnog sistema u jedan (izvlačenje kanala Y kako bi se nad njemu vršila obrada), kao i sama gradnja konvolucione mreže
+    \item \textit{\textbf{dodaci.py}} - pomoćni modul, koji sadrži mnoge pomoćne funkcije kao što su nalaženje checkpoint-a ili pretvaranje 3-kanalnog sistema u jedan (izvlačenje kanala Y kako bi se nad njemu vršila obrada), kao i sama gradnja konvolucione mreže i ispisivanje analize(ocjena)
   \end{itemize}
   
+   Kod je teško iskomentarisan da se može pratiti, i projekat sadrži mnoge napomene i primjere.
   
-    Za dubljim strukturama i većim filterima se nije posezalo zbog ograničenosti hardvera. Naime, rađeno je na računaru koji nema grafičku karticu, ima Intelov Core i3 procesor i svega 4GB RAM-a\footnote{U stvari, na dva računara ali performanse su slične.}. Jedan prolaz kroz epohu na mom računaru, i pored optimizovanja tensorflow-paketa, iznosio je u prosjeku 96.55sek za \texttt{batch=64}, i\_size=33 i l\_size=21, dok smanjivanjem veličina subslika i batcha, ubrzava se proces (i preko 5 puta, za i\_size=21 i l\_size=9). Glavna pomoć pri treniranju takođe je bilo korišćenje već postojećih checkpoint-a. Iako se za različiti faktor skaliranja treba trenirati nova mreža\footnote{Kao kod uklanjanja šuma, kada se za različiti nivo šuma, treba trenirati nova mreža}, ostavljena je mogućnost pokretanja za drugačije $s$, radi upoređivanja rezultata i dobijanja jasnijeg uvida o kvalitetu performansi. 
+   Za dubljim strukturama i većim filterima se nije posezalo zbog ograničenosti hardvera. Naime, rađeno je na računaru koji nema grafičku karticu, ima Intelov Core i3 procesor i svega 4GB RAM-a\footnote{U stvari, na dva računara ali performanse su slične.}. Jedan prolaz kroz cijelu epohu na mom računaru, i pored optimizovanja tensorflow-paketa, iznosio je u prosjeku 96.55sek za \texttt{batch=64}, i\_size=33 i l\_size=21, dok smanjivanjem veličina subslika i batcha, ubrzava se proces (i preko 5 puta, za i\_size=21 i l\_size=9). Glavna pomoć pri treniranju takođe je bilo korišćenje već postojećih checkpoint-a. Iako se za različiti faktor skaliranja treba trenirati nova mreža\footnote{Kao kod uklanjanja šuma, kada se za različiti nivo šuma, treba trenirati nova mreža}, ostavljena je mogućnost pokretanja za drugačije $s$, radi upoređivanja rezultata i dobijanja jasnijeg uvida o kvalitetu performansi. 
   
- Importovanje tensorflow-a može da potraje. Kod se može još optimizovati, a prirodni njegov razvoj, pored duže faze treniranja, išao bi u smjeru implementacije RGB-strategije, a kasnije i FSRCNN-mreže, koja je, po tvdrnji autora, znatno brža, ili drugih SRCNN-zasnovanih brzih metoda. 
+ Importovanje tensorflow-a može da potraje. Kod se može još optimizovati, a prirodni njegov razvoj, pored duže faze treniranja, išao bi u smjeru implementacije FSRCNN-mreže, koja je, po tvdrnji autora, znatno brža, ili drugih SRCNN-zasnovanih bržih metoda. 
  %Rezultati toga će biti otpremljeni na sajtu, sa analizom cjelovitijom i ocjenama poboljsanja. 
  %%%
 
