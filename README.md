@@ -79,8 +79,7 @@ optional arguments:
  
 TO DO:
 
-- [ ] Layer-wise koef. ucenja
-- [ ] PSNR ocjena
-- [ ] prerequisites
-- [ ] promijeniti tex 
+- [x] Layer-wise koef. ucenja
+- [x] PSNR ocjena
+- [ ] updatovati pdf i readme (readme)
   
