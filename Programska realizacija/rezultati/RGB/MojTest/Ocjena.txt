@@ -1,0 +1,70 @@
+****anime.jpg*****
+RGB prostor: PSNR ocjena SRCNN: 23.835555921522893
+RGB prostor: PSNR ocjena BI: 23.487686772597087
+***
+RGB prostor: SSIM ocjena SRCNN:0.7538733473255731
+RGB prostor: SSIM ocjena BI: 0.7333119333146173
+
+****charlize.jpg*****
+RGB prostor: PSNR ocjena SRCNN: 30.695649259581046
+RGB prostor: PSNR ocjena BI: 33.70301705615904
+***
+RGB prostor: SSIM ocjena SRCNN:0.9218824852972224
+RGB prostor: SSIM ocjena BI: 0.9072844530849311
+
+****igra.jpg*****
+RGB prostor: PSNR ocjena SRCNN: 28.079675555794953
+RGB prostor: PSNR ocjena BI: 28.987558568935118
+***
+RGB prostor: SSIM ocjena SRCNN:0.8253538475597221
+RGB prostor: SSIM ocjena BI: 0.8072029792058893
+
+****movie.jpg*****
+RGB prostor: PSNR ocjena SRCNN: 23.335053687524386
+RGB prostor: PSNR ocjena BI: 22.96386384236371
+***
+RGB prostor: SSIM ocjena SRCNN:0.72883529183403
+RGB prostor: SSIM ocjena BI: 0.6885200182794033
+
+****predstava.jpg*****
+RGB prostor: PSNR ocjena SRCNN: 24.096476199448485
+RGB prostor: PSNR ocjena BI: 23.696561851820398
+***
+RGB prostor: SSIM ocjena SRCNN:0.8056709068061755
+RGB prostor: SSIM ocjena BI: 0.802535961200106
+
+****redpanda.jpg*****
+RGB prostor: PSNR ocjena SRCNN: 31.955123676828624
+RGB prostor: PSNR ocjena BI: 33.34703100286616
+***
+RGB prostor: SSIM ocjena SRCNN:0.9152640992906583
+RGB prostor: SSIM ocjena BI: 0.9080647729442678
+
+****rusevina.jpg*****
+RGB prostor: PSNR ocjena SRCNN: 22.276307295597313
+RGB prostor: PSNR ocjena BI: 22.735657514860783
+***
+RGB prostor: SSIM ocjena SRCNN:0.7363996217624932
+RGB prostor: SSIM ocjena BI: 0.7127168243987958
+
+****violin.jpg*****
+RGB prostor: PSNR ocjena SRCNN: 30.222468665074143
+RGB prostor: PSNR ocjena BI: 31.274010842127282
+***
+RGB prostor: SSIM ocjena SRCNN:0.956584977116692
+RGB prostor: SSIM ocjena BI: 0.9581272410964085
+
+****volcano.jpg*****
+RGB prostor: PSNR ocjena SRCNN: 31.961424058529456
+RGB prostor: PSNR ocjena BI: 31.88009691962069
+***
+RGB prostor: SSIM ocjena SRCNN:0.8870679291803621
+RGB prostor: SSIM ocjena BI: 0.880572765573706
+
+****westworld.jpg*****
+RGB prostor: PSNR ocjena SRCNN: 25.23346019803142
+RGB prostor: PSNR ocjena BI: 25.27511684981425
+***
+RGB prostor: SSIM ocjena SRCNN:0.8516365652360828
+RGB prostor: SSIM ocjena BI: 0.8367979178498236
+

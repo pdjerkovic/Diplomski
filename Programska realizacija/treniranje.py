@@ -24,10 +24,17 @@ def preprocesiranje(dirpath, config):
 		# cv.imshow('image',img)
 		# cv.waitKey(0)
 		# cv.destroyAllWindows()
-		img = cv.cvtColor(img, cv.COLOR_BGR2YCR_CB)
+		if not config.rgb:
+			img = cv.cvtColor(img, cv.COLOR_BGR2YCR_CB)
+		# img = cv.cvtColor(img, cv.COLOR_BGR2RGB) 
 		img = img / 255.
-
-		im_label = modcrop(img)
+		if not config.rgb:
+			im_label = modcrop(img)
+			c = 1
+		else:
+			im_label = modcrop_color(img)
+			c = 3
+		
 		size = im_label.shape
 		h = size[0]
 		w = size[1]
@@ -36,13 +43,13 @@ def preprocesiranje(dirpath, config):
 		# print(h, w, im_input.shape)
 	
 		# korak preprocesiranja - nalazenje subslika
-		for images in range(0, h - config.i_size, config.stride):
-			for y in range(0, w - config.i_size, config.stride):
-				subim_input = im_input[images : images + config.i_size, y : y + config.i_size]
-				subim_label = im_label[int(images + padding) : int(images + padding + config.l_size), int(y + padding) : int(y + padding + config.l_size)]
+		for images in range(0, h - config.i_size, config.korak):
+			for y in range(0, w - config.i_size, config.korak):
+				subim_input = im_input[images : images + config.i_size, y : y + config.i_size, :]
+				subim_label = im_label[int(images + padding) : int(images + padding + config.l_size), int(y + padding) : int(y + padding + config.l_size), :]
 				# print(int(images + padding), int(images + padding + config.l_size), int(y + padding), int(y + padding + config.l_size) )
-				subim_input = subim_input.reshape([config.i_size, config.i_size, 1])
-				subim_label = subim_label.reshape([config.l_size, config.l_size, 1])
+				subim_input = subim_input.reshape([config.i_size, config.i_size, c])
+				subim_label = subim_label.reshape([config.l_size, config.l_size, c])
 				
 				data.append(subim_input)
 				label.append(subim_label)
@@ -63,16 +70,41 @@ def preprocesiranje(dirpath, config):
 
 # Treniranje
 def trening(img_dir, config):
-	
+	# za vece trening-baze bolje upisivati dobijene segmente u fajl
+	# kako ne bismo gubili vrijeme. Nasa baza je mala pa moze proc bez toga
 	train_data, train_label = preprocesiranje(img_dir, config)
 	# print(train_data.shape, ' ', train_label.shape)
-	images = tf.placeholder(tf.float32, [None, config.i_size, config.i_size, 1], name='images')
-	labels = tf.placeholder(tf.float32, [None, config.l_size, config.l_size, 1], name='labels')
+	if config.rgb:
+		c = 3
+	else:
+		c = 1
+	images = tf.placeholder(tf.float32, [None, config.i_size, config.i_size, c], name='images')
+	labels = tf.placeholder(tf.float32, [None, config.l_size, config.l_size, c], name='labels')
 	
 
 	model = SRCNN(images, config)
+	#print("Imena varijabli:")
+	#for v in tf.trainable_variables():
+	#	print(v.name, " ", v.shape)
+	#print("zavrseno")
+	
+
+	
 	loss = tf.reduce_mean(tf.square(labels - model)) #na cjelokupni segment
-	optimizer = tf.train.GradientDescentOptimizer(config.koef_ucenja).minimize(loss)
+	#layer-wise optimizer: https://stackoverflow.com/questions/34945554/how-to-set-layer-wise-learning-rate-in-tensorflow
+	var_list1 = [var for var in tf.global_variables() if (var.op.name in ["Variable","Variable_1" ,"Variable_3","Variable_4"])]
+	# print(tezine['w1'] is var_list1) #...
+	var_list2 = [var for var in tf.global_variables() if (var.op.name in ["Variable_2","Variable_5"])]
+	opt1 = tf.train.GradientDescentOptimizer(config.koef_ucenja) #config.koef_ucenja
+	opt2 = tf.train.GradientDescentOptimizer(config.koef_ucenja/10.) #config.koef_ucenja/10
+	grads = tf.gradients(loss, var_list1 + var_list2)
+	grads1 = grads[:len(var_list1)]
+	grads2 = grads[len(var_list1):]
+	train_op1 = opt1.apply_gradients(zip(grads1, var_list1))
+	train_op2 = opt2.apply_gradients(zip(grads2, var_list2))
+	optimizer = tf.group(train_op1, train_op2)
+
+	#optimizer = tf.train.GradientDescentOptimizer(config.koef_ucenja).minimize(loss)
 
 	with tf.Session() as sess:
 		sess.run(tf.global_variables_initializer())
@@ -109,3 +141,4 @@ def trening(img_dir, config):
 
 
 
+# provjeriti sjutra

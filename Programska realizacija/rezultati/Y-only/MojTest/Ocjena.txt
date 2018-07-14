@@ -1,0 +1,190 @@
+*****anime.jpg******
+PSNR ocjena Y kanala SRCNN: 23.549676348371275
+PSNR ocjena Y kanala BI: 23.416927187421987
+*********************
+SSIM ocjena Y kanala SRCNN: 0.7561205615969446
+SSIM ocjena Y kanala BI: 0.7458778226328159
+***************************************************
+PSNR ocjena Cr kanala SRCNN: inf
+PSNR ocjena Cr kanala BI: 44.433648574169034
+*********************
+SSIM ocjena Cr kanala SRCNN: 1.0
+SSIM ocjena Cr kanala BI: 0.9805814984272054
+***************************************************
+PSNR ocjena Cb kanala SRCNN: inf
+PSNR ocjena Cb kanala BI: 44.433648574169034
+*********************
+SSIM ocjena Cb kanala SRCNN: 1.0
+SSIM ocjena Cb kanala BI: 0.9659756611578895
+***************************************************
+*****charlize.jpg******
+PSNR ocjena Y kanala SRCNN: 31.38037828597629
+PSNR ocjena Y kanala BI: 33.77095482433716
+*********************
+SSIM ocjena Y kanala SRCNN: 0.9190292891079401
+SSIM ocjena Y kanala BI: 0.9093679587326232
+***************************************************
+PSNR ocjena Cr kanala SRCNN: inf
+PSNR ocjena Cr kanala BI: 53.27349803765146
+*********************
+SSIM ocjena Cr kanala SRCNN: 1.0
+SSIM ocjena Cr kanala BI: 0.9956081794182082
+***************************************************
+PSNR ocjena Cb kanala SRCNN: inf
+PSNR ocjena Cb kanala BI: 53.27349803765146
+*********************
+SSIM ocjena Cb kanala SRCNN: 1.0
+SSIM ocjena Cb kanala BI: 0.9950746098058575
+***************************************************
+*****igra.jpg******
+PSNR ocjena Y kanala SRCNN: 26.187880014025374
+PSNR ocjena Y kanala BI: 28.989116385833746
+*********************
+SSIM ocjena Y kanala SRCNN: 0.8209363038045481
+SSIM ocjena Y kanala BI: 0.8106714078770412
+***************************************************
+PSNR ocjena Cr kanala SRCNN: inf
+PSNR ocjena Cr kanala BI: 48.67614486267837
+*********************
+SSIM ocjena Cr kanala SRCNN: 1.0
+SSIM ocjena Cr kanala BI: 0.9915997822586461
+***************************************************
+PSNR ocjena Cb kanala SRCNN: inf
+PSNR ocjena Cb kanala BI: 48.67614486267837
+*********************
+SSIM ocjena Cb kanala SRCNN: 1.0
+SSIM ocjena Cb kanala BI: 0.9882576022754231
+***************************************************
+*****movie.jpg******
+PSNR ocjena Y kanala SRCNN: 23.04219789346337
+PSNR ocjena Y kanala BI: 22.9382893563182
+*********************
+SSIM ocjena Y kanala SRCNN: 0.7398181724522613
+SSIM ocjena Y kanala BI: 0.7095139975519705
+***************************************************
+PSNR ocjena Cr kanala SRCNN: inf
+PSNR ocjena Cr kanala BI: 38.81723051729668
+*********************
+SSIM ocjena Cr kanala SRCNN: 1.0
+SSIM ocjena Cr kanala BI: 0.9394088923522951
+***************************************************
+PSNR ocjena Cb kanala SRCNN: inf
+PSNR ocjena Cb kanala BI: 38.81723051729668
+*********************
+SSIM ocjena Cb kanala SRCNN: 1.0
+SSIM ocjena Cb kanala BI: 0.9239945681491663
+***************************************************
+*****predstava.jpg******
+PSNR ocjena Y kanala SRCNN: 23.83963911736398
+PSNR ocjena Y kanala BI: 23.854943594815357
+*********************
+SSIM ocjena Y kanala SRCNN: 0.7408875974843829
+SSIM ocjena Y kanala BI: 0.8090743793401284
+***************************************************
+PSNR ocjena Cr kanala SRCNN: inf
+PSNR ocjena Cr kanala BI: 38.333424234915626
+*********************
+SSIM ocjena Cr kanala SRCNN: 1.0
+SSIM ocjena Cr kanala BI: 0.9583877169752274
+***************************************************
+PSNR ocjena Cb kanala SRCNN: inf
+PSNR ocjena Cb kanala BI: 38.333424234915626
+*********************
+SSIM ocjena Cb kanala SRCNN: 1.0
+SSIM ocjena Cb kanala BI: 0.968419534774801
+***************************************************
+*****redpanda.jpg******
+PSNR ocjena Y kanala SRCNN: 31.910343706437136
+PSNR ocjena Y kanala BI: 33.465577894000305
+*********************
+SSIM ocjena Y kanala SRCNN: 0.9089695358244844
+SSIM ocjena Y kanala BI: 0.9119834968788442
+***************************************************
+PSNR ocjena Cr kanala SRCNN: inf
+PSNR ocjena Cr kanala BI: 50.09403730141781
+*********************
+SSIM ocjena Cr kanala SRCNN: 1.0
+SSIM ocjena Cr kanala BI: 0.9922915018501196
+***************************************************
+PSNR ocjena Cb kanala SRCNN: inf
+PSNR ocjena Cb kanala BI: 50.09403730141781
+*********************
+SSIM ocjena Cb kanala SRCNN: 1.0
+SSIM ocjena Cb kanala BI: 0.9929624174911553
+***************************************************
+*****rusevina.jpg******
+PSNR ocjena Y kanala SRCNN: 21.997082716775974
+PSNR ocjena Y kanala BI: 22.882837456455004
+*********************
+SSIM ocjena Y kanala SRCNN: 0.7387360381754332
+SSIM ocjena Y kanala BI: 0.7203783149336505
+***************************************************
+PSNR ocjena Cr kanala SRCNN: inf
+PSNR ocjena Cr kanala BI: 34.61633923396653
+*********************
+SSIM ocjena Cr kanala SRCNN: 1.0
+SSIM ocjena Cr kanala BI: 0.8638275150566316
+***************************************************
+PSNR ocjena Cb kanala SRCNN: inf
+PSNR ocjena Cb kanala BI: 34.61633923396653
+*********************
+SSIM ocjena Cb kanala SRCNN: 1.0
+SSIM ocjena Cb kanala BI: 0.8724704930676535
+***************************************************
+*****violin.jpg******
+PSNR ocjena Y kanala SRCNN: 29.613501137152596
+PSNR ocjena Y kanala BI: 31.274010842127282
+*********************
+SSIM ocjena Y kanala SRCNN: 0.9454206483554469
+SSIM ocjena Y kanala BI: 0.9581272410964086
+***************************************************
+PSNR ocjena Cr kanala SRCNN: inf
+PSNR ocjena Cr kanala BI: inf
+*********************
+SSIM ocjena Cr kanala SRCNN: 1.0
+SSIM ocjena Cr kanala BI: 1.0
+***************************************************
+PSNR ocjena Cb kanala SRCNN: inf
+PSNR ocjena Cb kanala BI: inf
+*********************
+SSIM ocjena Cb kanala SRCNN: 1.0
+SSIM ocjena Cb kanala BI: 1.0
+***************************************************
+*****volcano.jpg******
+PSNR ocjena Y kanala SRCNN: 30.93484317202134
+PSNR ocjena Y kanala BI: 32.58176951385499
+*********************
+SSIM ocjena Y kanala SRCNN: 0.8913996431389704
+SSIM ocjena Y kanala BI: 0.8944815290247913
+***************************************************
+PSNR ocjena Cr kanala SRCNN: inf
+PSNR ocjena Cr kanala BI: 40.40195942626483
+*********************
+SSIM ocjena Cr kanala SRCNN: 1.0
+SSIM ocjena Cr kanala BI: 0.9674184951459222
+***************************************************
+PSNR ocjena Cb kanala SRCNN: inf
+PSNR ocjena Cb kanala BI: 40.40195942626483
+*********************
+SSIM ocjena Cb kanala SRCNN: 1.0
+SSIM ocjena Cb kanala BI: 0.9859005995822165
+***************************************************
+*****westworld.jpg******
+PSNR ocjena Y kanala SRCNN: 24.593644891748436
+PSNR ocjena Y kanala BI: 25.364115347611722
+*********************
+SSIM ocjena Y kanala SRCNN: 0.8565866979034819
+SSIM ocjena Y kanala BI: 0.8449395369121939
+***************************************************
+PSNR ocjena Cr kanala SRCNN: inf
+PSNR ocjena Cr kanala BI: 42.794163716631026
+*********************
+SSIM ocjena Cr kanala SRCNN: 1.0
+SSIM ocjena Cr kanala BI: 0.9753969591534378
+***************************************************
+PSNR ocjena Cb kanala SRCNN: inf
+PSNR ocjena Cb kanala BI: 42.794163716631026
+*********************
+SSIM ocjena Cb kanala SRCNN: 1.0
+SSIM ocjena Cb kanala BI: 0.9728806205404197
+***************************************************

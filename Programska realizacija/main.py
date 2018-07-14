@@ -1,6 +1,6 @@
 
 # https://github.com/pdjerkovic/Diplomski
-# Reference u README fajlu
+# Reference u READ.ME fajlu
 
 from treniranje import trening
 from testiranje import test
@@ -19,8 +19,8 @@ parser.add_argument('-i_size', dest='i_size',
 					help='Velicina LR segmenta (33x33) [33]', type=int, default=33)
 parser.add_argument('-l_size', dest='l_size',
 					help='Velicina HR segmenta (21x21) [21]', type=int, default=21)
-parser.add_argument('-stride', dest='stride',
-					help='Korak kod rezanja na subslike [14]', default=14)
+parser.add_argument('-korak', dest='korak',
+					help='korak kod rezanja na subslike [14]', type=int, default=14)
 parser.add_argument('-eta', dest='koef_ucenja',
 					type=float, help="Koef. ucenja [1e-4]", default=1e-4)
 parser.add_argument('-s',  dest='scale', 
@@ -36,38 +36,59 @@ parser.add_argument('-test_dir', dest='test_dir',
 parser.add_argument('-e', dest='uvecanje', 
 					help="Direktno uvecanje slike [False]", default=False)					
 
-# parser.add_argument('-rgb', dest='rgb', 
-#					help="RGB-strategija", default=False) <---unapredjenje
-
-# FSRCNN 
-
+parser.add_argument('-rgb', dest='rgb', 
+					help="RGB-strategija [False]", default=False)
 
 
 config = parser.parse_args()
 
-if config.i_size!=config.l_size+12:
-	print("Moram usaglasiti parametre...")
-	config.i_size = config.l_size+12
+if config.i_size!=config.l_size+12 or (config.i_size<=0 or config.l_size<=0):
+	print("Pogresno zadavanje parametara velicine. Uzimanje default vrijednosti...")
+	config.i_size = 33
+	config.l_size = 21
 
+if config.batch<=0: 
+	print("Pogresno zadavanje batcha. Uzimanje default vrijednosti...")
+	config.batch = 128
+	
+if config.br_epoha<0:
+	print("Pogresno zadavanje br epoha. Uzimanje default vrijednosti...")
+	config.br_epoha = 2000
+	
+if config.korak<=0:
+	print("Pogresno zadavanje koraka. Uzimanje default vrijednosti...")
+	config.strude = 14
+
+if config.scale<=0:
+	print("Pogresno zadavanje faktora skaliranja. Uzimanje default vrijednosti...")
+	config.scale = 3
 
 if not os.path.exists(config.check_dir):
     os.makedirs(config.check_dir)
 if not os.path.exists(config.sample_dir):
     os.makedirs(config.sample_dir)
-# oznake foldera za razlicite skalare
+if config.rgb:
+	print("***RGB STRATEGIJA***")
+else:
+	print("***Y-only strategija***")
+# oznake foldera za razlicite skalare ... 
 if config.trening:
-	img_dir = os.path.join(os.getcwd(), "Treniranje")
+	img_dir = os.path.join(os.getcwd(), "Treniranje") #...
 	img_dir = os.path.join(img_dir, config.train_dir)
 	trening(img_dir, config)
 else:
 	save_dir = os.path.join(os.getcwd(), config.sample_dir)
 	# save_dir = os.path.join(save_dir, config.sample_dir)
-	img_dir = os.path.join(os.getcwd(), "Testiranje")
+	if config.rgb:
+		save_dir = os.path.join(save_dir, "RGB")
+	else:
+		save_dir = os.path.join(save_dir, "Y-only")
+	if not os.path.exists(save_dir):
+		os.makedirs(save_dir)
+	img_dir = os.path.join(os.getcwd(), "Testiranje") #....
 	img_dir = os.path.join(img_dir, config.test_dir)
 	if config.uvecanje:
 		save_dir = os.path.join(save_dir, "Uvecane slike")
 		if not os.path.exists(save_dir):
 			os.makedirs(save_dir)
-	#	uvecaj(img_dir, save_dir, config)
-	#else:
 	test(img_dir, save_dir, config)
