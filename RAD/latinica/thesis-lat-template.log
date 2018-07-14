@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.7.3)  14 JUL 2018 08:28
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.7.3)  14 JUL 2018 21:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1595,7 +1595,7 @@ Glava 7.
 ]
 Glava 8.
 
-Overfull \hbox (19.64914pt too wide) in paragraph at lines 751--780
+Overfull \hbox (19.64914pt too wide) in paragraph at lines 752--781
  [][] 
  []
 
@@ -1607,7 +1607,7 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 ] <SLIKE/lena.png, id=192, 1066.98625pt x 576.1525pt>
 File: SLIKE/lena.png Graphic file (type png)
  <use SLIKE/lena.png>
-Package pdftex.def Info: SLIKE/lena.png used on input line 795.
+Package pdftex.def Info: SLIKE/lena.png used on input line 796.
 (pdftex.def)             Requested size: 480.13939pt x 259.26622pt.
 
 [38] [39 <./SLIKE/lena.png>] [40
@@ -1656,9 +1656,9 @@ onts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
 cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.p
 fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on thesis-lat-template.pdf (48 pages, 2853335 bytes).
+Output written on thesis-lat-template.pdf (48 pages, 2853785 bytes).
 PDF statistics:
- 804 PDF objects out of 1000 (max. 8388607)
+ 805 PDF objects out of 1000 (max. 8388607)
  215 compressed objects within 3 object streams
  0 named destinations out of 1000 (max. 500000)
  113 words of extra memory for PDF output out of 10000 (max. 10000000)

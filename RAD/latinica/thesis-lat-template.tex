@@ -649,8 +649,9 @@ Zaključak je da SRCNN metod treniran na sva tri RGB kanala daje bolje rezultate
  
   Za programsku realizaciju SRCNN mreže odrabran je u \texttt{tensorflow}\footnote{https://www.tensorflow.org/}, biblioteka koja omogućava brza matematička izračunavanja. Jedan od glavnih razloga zašto baš taj alat jeste činjenica da pruža veliku podršku mašinskom učenju.
   Što se same mreže tiče, implementirana je osnovna struktura 9-5-1 i Y-samo strategija, sa bazičnim parametrima, kao i RGB struktura, po glavnom uzoru na MATLAB kod samih autora\footnote{Druge reference se nalaze na sajtu mog projekta.}. Trenirano je na skupu A, za faktor skaliranja $s=3$. Ispitivano je na originalnim skupovima Setu 5 i Setu 14, kao i na nekim novo-formiranim (skupovi se nalaze u folderu \texttt{Testiranje/}).  Mreža je prošla kroz 15000+ za $Y$-samo strategiju i svega 2000+ epoha za RGB strategiju, u trenutku pisanja rada. Stanja mreže su se periodično čuvala, (npr. na svakih 500 koraka). Mreža pokazuje sjajne rezultate. Cjelokupni projekat, zajedno sa rezultatima testiranja, se mogu vidjeti na mom github nalogu: \cite{samples}. (U radu se ipak poziva na same primjere autora mreže jer su ti primjeri mnogo reprezentativniji.)
-    
- Prikaz modula je sljedeći:
+    %\newpage
+ 
+ Prikaz modula dat je na sljedećoj strani:
   
   \begin{itemize}
   
@@ -752,32 +753,32 @@ KK & 32.37 & 44.35 & 44.22 & 36.32 \\
 \hline
 Metrika & Faktor $s$ & BI & SC & NE+LLE & KK & ANR & A+ & SRCNN \\
 \hline
-\multirow{3}{*}{PSNR}& 2 & 28.38 & - & 29.67 & 30.02 & 29.72 & 30.14 & 30.29\\
-            & 3 & 25.94 & 26.54 & 26.67 & 26.89 & 26.72 &27.05 & 27.18 \\
-& 4 & 24.65 & - & 25.21 & 25.38 & 25.52 & 25.51 & 25.60 \\ 
+\multirow{3}{*}{PSNR}& 2 & 28.38 & - & 29.67 & 30.02 & 29.72 & 30.14 & \textbf{30.29}\\
+            & 3 & 25.94 & 26.54 & 26.67 & 26.89 & 26.72 &27.05 & \textbf{27.18} \\
+& 4 & 24.65 & - & 25.21 & 25.38 & 25.52 & 25.51 & \textbf{25.60} \\ 
 \hline
-\multirow{3}{*}{SSIM}& 2 & 0.8524 & - & 0.8886 & 0.8935 & 0.8900 & 0.8966 & 0.8977\\
-  &           3 & 0.7469 & 0.7729 & 0.7823 & 0.7881 & 0.7843 & 0.7945 & 0.7971 \\
-& 4 & 0.6727 & - & 0.7037 & 0.7093 & .7060 & .7171 & .7184 \\ 
+\multirow{3}{*}{SSIM}& 2 & 0.8524 & - & 0.8886 & 0.8935 & 0.8900 & 0.8966 & \textbf{0.8977}\\
+  &           3 & 0.7469 & 0.7729 & 0.7823 & 0.7881 & 0.7843 & 0.7945 & \textbf{0.7971} \\
+& 4 & 0.6727 & - & 0.7037 & 0.7093 & 0.7060 & 0.7171 & \textbf{0.7184} \\ 
 \hline
-\multirow{3}{*}{IFC}& 2 & 5.3 & - & 7.1 & 6.33 & 7.28 & 7.51 & 7.21\\
-  &           3 & 3.05 & 2.77 & 3.82 & 3.52 & 3.91 & 4.07 & 3.91 \\
-& 4 & 1.95 & - & 2.45 & 2.24 & 2.51 & 2.62 & 2.45 \\ 
+\multirow{3}{*}{IFC}& 2 & 5.3 & - & 7.1 & 6.33 & 7.28 & \textbf{7.51} & 7.21\\
+  &           3 & 3.05 & 2.77 & 3.82 & 3.52 & 3.91 & \textbf{4.07} & 3.91 \\
+& 4 & 1.95 & - & 2.45 & 2.24 & 2.51 & \textbf{2.62} & 2.45 \\ 
 \hline
-\multirow{3}{*}{NQM}& 2 & 36.84 & - & 41.52 & 38.54 & 41.72 & 42.37 & 39.66\\
-  &           3 & 28.45 & 28.22 & 34.65 & 33.45 & 34.81 & 35.58 & 34.72 \\
-& 4 & 21.72 & - & 25.15 & 24.87 & 25.27 & 26.01 & 25.65 \\ 
+\multirow{3}{*}{NQM}& 2 & 36.84 & - & 41.52 & 38.54 & 41.72 & \textbf{42.37} & 39.66\\
+  &           3 & 28.45 & 28.22 & 34.65 & 33.45 & 34.81 & \textbf{35.58} & 34.72 \\
+& 4 & 21.72 & - & 25.15 & 24.87 & 25.27 & \textbf{26.01} & 25.65 \\ 
 \hline
-\multirow{3}{*}{WPSNR}& 2 & 46.15 & - & 52.56 & 52.21 & 52.69 & 53.56 & 53.58\\
-  &           3 & 38.60 & 40.48 & 41.39 & 41.62 & 41.53 & 42.19 & 42.29 \\
-& 4 & 34.86 & - & 36.52 & 36.80 & 36.64 & 37.18 & 37.24 \\ 
+\multirow{3}{*}{WPSNR}& 2 & 46.15 & - & 52.56 & 52.21 & 52.69 & 53.56 & \textbf{53.58}\\
+  &           3 & 38.60 & 40.48 & 41.39 & 41.62 & 41.53 & 42.19 & \textbf{42.29} \\
+& 4 & 34.86 & - & 36.52 & 36.80 & 36.64 & 37.18 & \textbf{37.24} \\ 
 \hline
-\multirow{3}{*}{MSSSIM}& 2 & 0.978 & - & 0.9869 & .9876 & .9872 & 0.9883 & 0.9883\\
-  &           3 & 0.9426 & 0.9533 & 0.9575 & 0.9588 & 0.9581 & 0.9609 & 0.9614 \\
-& 4 & 0.9005 & - & 0.9203 & 0.9215 & .9214 & .9256 & .9261 \\ 
+\multirow{3}{*}{MSSSIM}& 2 & 0.978 & - & 0.9869 & 0.9876 & 0.9872 & 0.9883 & \textbf{0.9883}\\
+  &           3 & 0.9426 & 0.9533 & 0.9575 & 0.9588 & 0.9581 & 0.9609 & \textbf{0.9614} \\
+& 4 & 0.9005 & - & 0.9203 & 0.9215 & 0.9214 & 0.9256 & \textbf{0.9261} \\ 
 \hline
 \end{tabular}
-\caption{Prosječne ocjene metrika - testiranje metoda na BSD200 skupu}
+\caption{Prosječne ocjene metrika - testiranje metoda na BSD200 skupu. Podebljane najveće ocjene}
 \label{table:3}
 \end{table}
 
