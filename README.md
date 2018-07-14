@@ -1,4 +1,4 @@
-# Diplomski
+# Diplomski rad
 **Specijalisticki rad - Konvolucione mreze super rezolucije**
  
  
@@ -8,7 +8,17 @@
  
  **Programska realizacija:**
  
- Radjeno u pythonu3 i za programsku realizaciju SRCNN mreže odrabran je u * *tensorflow*, biblioteka koja omogućava brza matematička izračunavanja. Jedan od glavnih razloga zašto baš taj alat jeste činjenica da pruža veliku podršku mašinskom učenju.
+ Radjeno u pythonu3 i za programsku realizaciju SRCNN mreže odrabran je u  *tensorflow*, biblioteka koja omogućava brza matematička izračunavanja. Jedan od glavnih razloga zašto baš taj alat jeste činjenica da pruža veliku podršku mašinskom učenju.
+ 
+ BIBLIOTEKE (pored osnovnih):
+ 
+ ```
+ tensorflow
+ scikit-image
+ scipy
+ opencv-python
+  ```
+ (scikit-image zbog psnr i ssim ocjena. Te funkcije su se same mogle napisati)  
  
   Što se same mreže tiče, implementirana je osnovna struktura 9-5-1 i Y-samo strategija, sa bazičnim parametrima, po glavnom uzoru na MATLAB kod samih autora. Trenirano je na skupu Basic, za faktor skaliranja s=3. Ispitivano je na originalnim skupovima Setu 5 i Setu 14, kao i na jednom novo-formiranom MojTest i ManjiTest, koji se nalaze u folderu Testiranje/.  Mreža je prošla kroz 15000+ epoha, sa periodičnim čuvanjem stanja na svakih 500 koraka i pokazala dobre rezultate.
 Implementirana je i RGB mreza, koja je prosla svega 2000 epoha, ali daje ipak bolje rezultate od BI.
