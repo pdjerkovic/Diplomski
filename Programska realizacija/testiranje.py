@@ -15,7 +15,7 @@ def podaci(path, config):
 	data = []
 	label = []
 	color = []
-	img_input = cv.imread(path)
+	img_input = cv.imread(path) #iako je BGR format, tako ostavljamo, tako smo i trenirali; ocjene ce biti ekvivalente ionako
 	if not config.rgb:
 		im = cv.cvtColor(img_input, cv.COLOR_BGR2YCR_CB)
 		img = im / 255.
@@ -44,7 +44,7 @@ def podaci(path, config):
 	# print("shape - ", img_input.shape)
 	label = np.array(modcrop_color(img_input, config.scale))
 	if not config.rgb:
-		label = cv.cvtColor(label, cv.COLOR_BGR2YCR_CB) #radi BI na YCrCb prostoru
+		label = cv.cvtColor(label, cv.COLOR_BGR2YCR_CB) #radi BI na YCrCb prostoru, ako je Y-only strategija
 	# label = label / 255.
 	# print("shape - - ", label.shape)
 	return data, label, color
@@ -150,6 +150,10 @@ def test(path, save_dir, config):
 					save_dir = os.path.join(save_dir, (str(config.scale) + "x" + os.path.splitext(os.path.basename(i))[0]))
 					if not os.path.exists(save_dir):
 						os.makedirs(save_dir)
+				if config.rgb:
+					result = cv.cvtColor(result, cv.COLOR_BGR2RGB)
+				else:
+					result = cv.cvtColor(result, cv.COLOR_YCrCb2RGB)
 				save_path = os.path.join(save_dir, (str(config.scale)) + "x" + os.path.basename(i))
 				scipy.misc.imsave(save_path, result)
 			else:

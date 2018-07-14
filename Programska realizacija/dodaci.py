@@ -58,11 +58,13 @@ def ocjena(gt, srcnn, bicubic, config, save_dir, ime, pom, first):
 		
 	
 	f.close()	
+	# mozemo dodati YCrCb semi pregled ocjene u RGB prostoru, ili RGB pregled po YCrCb, ali kako ne bismo vise puta 
+	# prevodili u drugaciji sistem, neka ostane ovako
 	
 def conv2d(images, W, config):
 	
 	#if config.trening:
-		return tf.nn.conv2d(images, W, strides=[1, 1, 1, 1], padding='VALID')
+		return tf.nn.conv2d(images, W, strides=[1, 1, 1, 1], padding='VALID') #strides=[1, stride, stride, 1]
 	#else:
 	#	return tf.nn.conv2d(images, W, strides=[1, 1, 1, 1], padding='SAME') 
 	#mogli smo da stavimo SAME kako bismo u testiranju prosli bez igranja sa dimenzijama i imali iste dimenzije kao original; mana - ivice
@@ -96,7 +98,7 @@ def ucitaj_ckpt(sess, saver, config):
 	else:
 		model_dir = "srcnn" # "%s_%s" % ("srcnn", config.scale) # oprezno ovdje, za novi faktor skaliranja se po pravilu treba obuciti nova mreza
 	checkpoint_dir = os.path.join(config.check_dir, model_dir)
-
+	# print(model_dir)
 	# Nadji barem jedno sacuvano stanje mreze
 	ckpt = tf.train.get_checkpoint_state(checkpoint_dir)
 	if ckpt and ckpt.model_checkpoint_path:
@@ -148,5 +150,5 @@ def modcrop_color(image, scale=3):
 	image = image[0:size[0], 0:size[1], :]
 	return image
 
-# scipy.misc.imread(path, flatten=True, mode='YCbCr').astype(np.float) <--- flatten=True za grayscale
-# 
+# scipy.misc.imread(path, flatten=True, mode='YCbCr').astype(np.float) <--- flatten=True za grayscale; mozda bolja funkcija za citanje slike
+# mozda smanji broj prevodjenja u seme

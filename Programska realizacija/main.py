@@ -1,7 +1,7 @@
 
 # https://github.com/pdjerkovic/Diplomski
 # Reference u READ.ME fajlu
-
+# Optimizovat: manje puta importovati tf 
 from treniranje import trening
 from testiranje import test
 import argparse

@@ -1,0 +1,7 @@
+****movie.jpg*****
+RGB prostor: PSNR ocjena SRCNN: 23.335053687524386
+RGB prostor: PSNR ocjena BI: 22.96386384236371
+***
+RGB prostor: SSIM ocjena SRCNN:0.72883529183403
+RGB prostor: SSIM ocjena BI: 0.6885200182794033
+

@@ -1,5 +1,5 @@
 import tensorflow as tf
-from dodaci import modcrop, ucitaj_ckpt, sacuvaj_ckpt, SRCNN
+from dodaci import modcrop, modcrop_color, ucitaj_ckpt, sacuvaj_ckpt, SRCNN
 import numpy as np
 import os
 import time
@@ -45,12 +45,17 @@ def preprocesiranje(dirpath, config):
 		# korak preprocesiranja - nalazenje subslika
 		for images in range(0, h - config.i_size, config.korak):
 			for y in range(0, w - config.i_size, config.korak):
-				subim_input = im_input[images : images + config.i_size, y : y + config.i_size, :]
-				subim_label = im_label[int(images + padding) : int(images + padding + config.l_size), int(y + padding) : int(y + padding + config.l_size), :]
-				# print(int(images + padding), int(images + padding + config.l_size), int(y + padding), int(y + padding + config.l_size) )
+				if config.rgb:
+					subim_input = im_input[images : images + config.i_size, y : y + config.i_size, :]
+					subim_label = im_label[int(images + padding) : int(images + padding + config.l_size), int(y + padding) : int(y + padding + config.l_size), :]
+					# print(int(images + padding), int(images + padding + config.l_size), int(y + padding), int(y + padding + config.l_size) )
+				else:
+					subim_input = im_input[images : images + config.i_size, y : y + config.i_size]
+					subim_label = im_label[int(images + padding) : int(images + padding + config.l_size), int(y + padding) : int(y + padding + config.l_size)]
+					# print(int(images + padding), int(images + padding + config.l_size), int(y + padding), int(y + padding + config.l_size) )
+
 				subim_input = subim_input.reshape([config.i_size, config.i_size, c])
 				subim_label = subim_label.reshape([config.l_size, config.l_size, c])
-				
 				data.append(subim_input)
 				label.append(subim_label)
 				counter += 1
@@ -95,8 +100,8 @@ def trening(img_dir, config):
 	var_list1 = [var for var in tf.global_variables() if (var.op.name in ["Variable","Variable_1" ,"Variable_3","Variable_4"])]
 	# print(tezine['w1'] is var_list1) #...
 	var_list2 = [var for var in tf.global_variables() if (var.op.name in ["Variable_2","Variable_5"])]
-	opt1 = tf.train.GradientDescentOptimizer(config.koef_ucenja) #config.koef_ucenja
-	opt2 = tf.train.GradientDescentOptimizer(config.koef_ucenja/10.) #config.koef_ucenja/10
+	opt1 = tf.train.GradientDescentOptimizer(config.koef_ucenja)
+	opt2 = tf.train.GradientDescentOptimizer(config.koef_ucenja/10.) #manji koef ucenja
 	grads = tf.gradients(loss, var_list1 + var_list2)
 	grads1 = grads[:len(var_list1)]
 	grads2 = grads[len(var_list1):]
