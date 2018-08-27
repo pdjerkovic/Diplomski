@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.7.3)  27 AUG 2018 19:06
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.7.3)  28 AUG 2018 00:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1424,7 +1424,7 @@ Package pdftex.def Info: SLIKE/figure3.png used on input line 278.
 (pdftex.def)             Requested size: 433.62001pt x 169.37457pt.
 
 [20 <./SLIKE/figure3.png>] [21] [22]
-LaTeX Font Info:    Try loading font information for T2A+cmtt on input line 332
+LaTeX Font Info:    Try loading font information for T2A+cmtt on input line 333
 .
 
 (/home/riselje/texmf/tex/latex/cyrillic/t2acmtt.fd
@@ -1433,13 +1433,13 @@ File: t2acmtt.fd 2001/08/11 v1.0a Computer Modern Cyrillic font definitions
 <SLIKE/figure5.png, id=109, 659.46375pt x 172.645pt>
 File: SLIKE/figure5.png Graphic file (type png)
  <use SLIKE/figure5.png>
-Package pdftex.def Info: SLIKE/figure5.png used on input line 337.
+Package pdftex.def Info: SLIKE/figure5.png used on input line 338.
 (pdftex.def)             Requested size: 433.62001pt x 113.52191pt.
 
 <SLIKE/figure6.png, id=110, 634.37pt x 359.3425pt>
 File: SLIKE/figure6.png Graphic file (type png)
  <use SLIKE/figure6.png>
-Package pdftex.def Info: SLIKE/figure6.png used on input line 343.
+Package pdftex.def Info: SLIKE/figure6.png used on input line 344.
 (pdftex.def)             Requested size: 411.93768pt x 233.35052pt.
 
 
@@ -1448,13 +1448,13 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 [23] [24 <./SLIKE/figure5.png> <./SLIKE/figure6.png>]
 Glava 4.
 
-Overfull \hbox (3.91617pt too wide) in paragraph at lines 371--372
+Overfull \hbox (3.91617pt too wide) in paragraph at lines 372--373
 []\T2A/cmr/m/n/12 U ovoj sek-ciji pred-sta-vljaju se re-zul-tati ek-spe-ri-me-n
 ata koji su spro-ve-deni sa SRCNN
  []
 
 
-Overfull \hbox (3.42607pt too wide) in paragraph at lines 371--372
+Overfull \hbox (3.42607pt too wide) in paragraph at lines 372--373
 \T2A/cmr/m/n/12 druga^^Gcije po-stavke mo-dela. Istra^^Gzivani su efekti razli^
 ^Gcitih me-ta-pa-ra-me-tara $\OML/cmm/m/it/12 n[]; n[]; f[]; f[]$
  []
@@ -1465,13 +1465,13 @@ Overfull \hbox (3.42607pt too wide) in paragraph at lines 371--372
 File: SLIKE/figure4.png Graphic file (type png)
 
 <use SLIKE/figure4.png>
-Package pdftex.def Info: SLIKE/figure4.png used on input line 383.
+Package pdftex.def Info: SLIKE/figure4.png used on input line 384.
 (pdftex.def)             Requested size: 216.81pt x 86.50378pt.
  [26 <./SLIKE/figure4.png>]
 <SLIKE/figure7.png, id=126, 626.34pt x 249.93375pt>
 File: SLIKE/figure7.png Graphic file (type png)
  <use SLIKE/figure7.png>
-Package pdftex.def Info: SLIKE/figure7.png used on input line 420.
+Package pdftex.def Info: SLIKE/figure7.png used on input line 421.
 (pdftex.def)             Requested size: 238.49232pt x 95.16649pt.
 
 [27 <./SLIKE/figure7.png>] [28]
@@ -1479,39 +1479,39 @@ Package pdftex.def Info: SLIKE/figure7.png used on input line 420.
 File: SLIKE/figure8a.png Graphic file (type png)
 
 <use SLIKE/figure8a.png>
-Package pdftex.def Info: SLIKE/figure8a.png used on input line 444.
+Package pdftex.def Info: SLIKE/figure8a.png used on input line 446.
 (pdftex.def)             Requested size: 216.81pt x 95.83253pt.
  <SLIKE/figure8b.png, id=134, 602.25pt x 256.96pt>
 File: SLIKE/figure8b.png Graphic file (type png)
 
 <use SLIKE/figure8b.png>
-Package pdftex.def Info: SLIKE/figure8b.png used on input line 451.
+Package pdftex.def Info: SLIKE/figure8b.png used on input line 453.
 (pdftex.def)             Requested size: 216.81pt x 92.50552pt.
 
 <SLIKE/figure8c.png, id=135, 597.23125pt x 259.97125pt>
 File: SLIKE/figure8c.png Graphic file (type png)
 
 <use SLIKE/figure8c.png>
-Package pdftex.def Info: SLIKE/figure8c.png used on input line 457.
+Package pdftex.def Info: SLIKE/figure8c.png used on input line 459.
 (pdftex.def)             Requested size: 216.81pt x 94.375pt.
 
-Overfull \hbox (2.61047pt too wide) in paragraph at lines 442--461
+Overfull \hbox (2.61047pt too wide) in paragraph at lines 444--463
 []$[]$ $[]$
  []
 
 <SLIKE/figure9a.png, id=136, 630.355pt x 245.91875pt>
 File: SLIKE/figure9a.png Graphic file (type png)
  <use SLIKE/figure9a.png>
-Package pdftex.def Info: SLIKE/figure9a.png used on input line 471.
+Package pdftex.def Info: SLIKE/figure9a.png used on input line 473.
 (pdftex.def)             Requested size: 216.81pt x 84.58313pt.
 
 <SLIKE/figure9b.png, id=137, 630.355pt x 245.91875pt>
 File: SLIKE/figure9b.png Graphic file (type png)
  <use SLIKE/figure9b.png>
-Package pdftex.def Info: SLIKE/figure9b.png used on input line 478.
+Package pdftex.def Info: SLIKE/figure9b.png used on input line 480.
 (pdftex.def)             Requested size: 216.81pt x 84.58313pt.
 
-Overfull \hbox (2.61047pt too wide) in paragraph at lines 468--481
+Overfull \hbox (2.61047pt too wide) in paragraph at lines 470--483
 []$[]$ $[]$ 
  []
 
@@ -1519,22 +1519,22 @@ Overfull \hbox (2.61047pt too wide) in paragraph at lines 468--481
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [29 <./SLIKE/figure8a.png> <./SLIKE/figure8b.png> <./SLIKE/figure8c.png>]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 495.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 497.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 495.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 497.
  [30 <./SLIKE/figure9a.png> <./SLIKE/figure9b.png>]
 <SLIKE/figre10.png, id=145, 706.64pt x 295.1025pt>
 File: SLIKE/figre10.png Graphic file (type png)
  <use SLIKE/figre10.png>
-Package pdftex.def Info: SLIKE/figre10.png used on input line 510.
+Package pdftex.def Info: SLIKE/figre10.png used on input line 512.
 (pdftex.def)             Requested size: 238.49232pt x 99.59503pt.
 
-Overfull \hbox (21.68233pt too wide) in paragraph at lines 510--511
+Overfull \hbox (21.68233pt too wide) in paragraph at lines 512--513
  [] 
  []
 
@@ -1542,10 +1542,10 @@ Overfull \hbox (21.68233pt too wide) in paragraph at lines 510--511
 File: SLIKE/figure11.png Graphic file (type png)
 
 <use SLIKE/figure11.png>
-Package pdftex.def Info: SLIKE/figure11.png used on input line 523.
+Package pdftex.def Info: SLIKE/figure11.png used on input line 525.
 (pdftex.def)             Requested size: 216.81pt x 86.78944pt.
 
-Underfull \hbox (badness 2707) in paragraph at lines 532--533
+Underfull \hbox (badness 2707) in paragraph at lines 534--535
 [][]\T2A/cmr/m/n/12 SRCNN je upore[]\OT1/cmr/m/n/12 d\T2A/cmr/m/n/12 en i sa me
 -to-
  []
@@ -1555,7 +1555,7 @@ Underfull \hbox (badness 2707) in paragraph at lines 532--533
 File: SLIKE/figure12.png Graphic file (type png)
 
 <use SLIKE/figure12.png>
-Package pdftex.def Info: SLIKE/figure12.png used on input line 551.
+Package pdftex.def Info: SLIKE/figure12.png used on input line 553.
 (pdftex.def)             Requested size: 433.62001pt x 220.72197pt.
 
 
@@ -1566,23 +1566,29 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 File: SLIKE/figure13.png Graphic file (type png)
 
 <use SLIKE/figure13.png>
-Package pdftex.def Info: SLIKE/figure13.png used on input line 609.
+Package pdftex.def Info: SLIKE/figure13.png used on input line 611.
 (pdftex.def)             Requested size: 433.62001pt x 248.62918pt.
  [35 <./SLIKE/figure13.png>]
 Glava 5.
+
+Overfull \hbox (3.00375pt too wide) in paragraph at lines 621--623
+[]\T2A/cmr/m/n/12 Redizajnirana struk-tura FSRCNN-a se od ori-gi-nal-nog mo-del
+a ra-zli-kuje u 4 aspekta:
+ []
+
 [36
 
 ] <SLIKE/better.png, id=169, 1100.11pt x 408.52625pt>
 File: SLIKE/better.png Graphic file (type png)
 
 <use SLIKE/better.png>
-Package pdftex.def Info: SLIKE/better.png used on input line 624.
+Package pdftex.def Info: SLIKE/better.png used on input line 627.
 (pdftex.def)             Requested size: 433.62001pt x 161.02637pt.
  <SLIKE/diagram.png, id=170, 857.2025pt x 380.42125pt>
 File: SLIKE/diagram.png Graphic file (type png)
 
 <use SLIKE/diagram.png>
-Package pdftex.def Info: SLIKE/diagram.png used on input line 631.
+Package pdftex.def Info: SLIKE/diagram.png used on input line 634.
 (pdftex.def)             Requested size: 346.89732pt x 153.94785pt.
  [37 <./SLIKE/better.png> <./SLIKE/diagram.png>]
 Glava 6.
@@ -1595,7 +1601,7 @@ Glava 7.
 ]
 Glava 8.
 
-Overfull \hbox (19.64914pt too wide) in paragraph at lines 747--776
+Overfull \hbox (19.64914pt too wide) in paragraph at lines 755--784
  [][] 
  []
 
@@ -1607,7 +1613,7 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 ] <SLIKE/lena.png, id=190, 1066.98625pt x 576.1525pt>
 File: SLIKE/lena.png Graphic file (type png)
  <use SLIKE/lena.png>
-Package pdftex.def Info: SLIKE/lena.png used on input line 791.
+Package pdftex.def Info: SLIKE/lena.png used on input line 799.
 (pdftex.def)             Requested size: 480.13939pt x 259.26622pt.
 
 [43] [44 <./SLIKE/lena.png>] [45
@@ -1625,11 +1631,11 @@ LaTeX Warning: There were multiply-defined labels.
 Here is how much of TeX's memory you used:
  19233 strings out of 494697
  341154 string characters out of 6178385
- 408244 words of memory out of 5000000
+ 408242 words of memory out of 5000000
  22088 multiletter control sequences out of 15000+600000
  25467 words of font info for 62 fonts, out of 8000000 for 9000
  246 hyphenation exceptions out of 8191
- 55i,10n,54p,1952b,1280s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 55i,10n,54p,1951b,1280s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/riselje/.texmf-var/fonts/pk/ljfour/lh/lh-t2a/latt1200.6
 00pk> </home/riselje/.texmf-var/fonts/pk/ljfour/lh/lh-t2a/latt1000.600pk> </hom
 e/riselje/.texmf-var/fonts/pk/ljfour/lh/lh-t2a/labi1200.600pk> </home/riselje/.
@@ -1658,9 +1664,9 @@ b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share
 /texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on thesis-lat-template.pdf (47 pages, 2873157 bytes).
+Output written on thesis-lat-template.pdf (47 pages, 2875175 bytes).
 PDF statistics:
- 818 PDF objects out of 1000 (max. 8388607)
+ 824 PDF objects out of 1000 (max. 8388607)
  219 compressed objects within 3 object streams
  0 named destinations out of 1000 (max. 500000)
  113 words of extra memory for PDF output out of 10000 (max. 10000000)

@@ -20,8 +20,8 @@
   ```
  (scikit-image zbog psnr i ssim ocjena. Te funkcije su se same mogle napisati)  
  
-  Što se same mreže tiče, implementirana je osnovna struktura 9-5-1 i Y-samo strategija, sa bazičnim parametrima, po glavnom uzoru na MATLAB kod samih autora. Trenirano je na skupu Basic, za faktor skaliranja s=3. Ispitivano je na originalnim skupovima Setu 5 i Setu 14, kao i na jednom novo-formiranom MojTest i ManjiTest, koji se nalaze u folderu Testiranje/.  Mreža je prošla kroz 15000+ epoha, sa periodičnim čuvanjem stanja na svakih 500 koraka i pokazala dobre rezultate.
-Implementirana je i RGB mreza, koja je prosla svega 2000 epoha, ali daje ipak bolje rezultate od BI.
+  Što se same mreže tiče, implementirana je osnovna struktura 9-5-1 i Y-samo strategija, sa bazičnim parametrima, po glavnom uzoru na MATLAB kod samih autora. Trenirano je na skupu Basic, za faktor skaliranja s=3. Ispitivano je na originalnim skupovima Setu 5 i Setu 14, kao i na jednom novoformiranom MojTest i ManjiTest, koji se nalaze u folderu Testiranje/.  Mreža je prošla kroz 15000+ epoha, sa periodičnim čuvanjem stanja na svakih 500 koraka i pokazala dobre rezultate.
+Implementirana je i RGB mreza, koja je prosla svega 3000 epoha, ali daje ipak bolje rezultate od BI.
   
   U folderu Eksperimenti i rezultati - rezultati testiranja, kao i uvid u moguce greske. Kod je tesko iskomentarisan, za bolje pracenje funkcija. Prikaz.txt
   sadrzi pregled razlicitih ocjena za neka razlicita podesavanja(u komentarima koda naznaceno), i neke napomene.
@@ -73,7 +73,7 @@ optional arguments:
   
   ```
   
-  **trening.py** -   Za trening postaviti -trening=True, i train_dir koji se mora nalaziti u Treniranje/. Ucitavaju se, ako postoje, sacuvana stanja mreze. Prikaz prolaza kroz epohe na svakih 10 koraka. Za brzi proces smanjivati batch, i_size i l_size. Prije treninga, vrši se procesiranje podataka - slika se dijeli na sub-slike, koje imaju veličinu : i_size za LR sub-slike, l_size za ground-truth sub-slike. Ako se promijeni i_size, mora se takođe promijeniti i l_size - zbog konvolucije:  ```l_size=i_size-12 ```. batch, i_size i l_size su bitne samo kod procesa treniranja.
+  **trening.py** -   Za trening postaviti -trening=True, i train_dir koji se mora nalaziti u Treniranje/. Ucitavaju se, ako postoje, sacuvana stanja mreze. Prikaz prolaza kroz epohe na svakih 10 koraka. Za brzi proces smanjivati batch, i_size i l_size. Prije treninga, vrši se procesiranje podataka - slika se dijeli na subslike, koje imaju veličinu : i_size za LR sub-slike, l_size za ground-truth subslike. Ako se promijeni i_size, mora se takođe promijeniti i l_size - zbog konvolucije:  ```l_size=i_size-12 ```. batch, i_size i l_size su bitne samo kod procesa treniranja.
   
   **testiranje.py** - ukoliko nije drugačije naglašeno, mreža se testira. Njen folder za testiranje definiše se preko test\_dir, što može biti i fajl; i svi ti fajlovi treba da se nalaze u folderu Testiranje/.  Tensor-sesija se inicijalizira, čita se sačuvano stanje mreže i vrši se evaluacija ulaza. Izlaz mreže, sa malo postprocesiranja, zajedno se čuva sa slikom koja je dobijena samo bikubičnom interpolacijom i ocjenama. Zaista vidimo da SRCNN pobjeđuje BI metod. Sa dužim vremenom treniranja, pokazao bi još bolje performanse.  Takođe, ovaj modul omogućava da, ako je korisnik specificirao pri pozivu parametar -e=True, da skripta direktno uveća samu testnu sliku za faktor skaliranja s. Svi izlazi mreže su sačuvani u folderu rezultati/.
  

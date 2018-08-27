@@ -124,7 +124,7 @@ Problem super rezolucije (SR) je jedan od klasičnih problema kompjuterske vizij
 %vise u sekciji ....
 %na uzorcima bazirani 
 
-Konvolucione mreže super rezolucije (SRCNN) prvi put su predstavljene u radu \cite{earlier} , i kasnije unaprijeđene u verziji \cite{main}. Motivacija za ovaj metod došla je iz tehnika rijetkog kodiranja (engl. sparse coding, skr. SC). SC tehnike \cite{sparse} predstavljaju klasu nenadgledanog učenja koje traži što ''kraću'' reprezentaciju ulaznog vektora $x$ - odnosno, nalaze (nadkompletni\footnote{Podskup vektora $\{\phi_{i}\}_{i\in J}$ prostora $X$ predstavlja kompletan skup ako se svaki element prostora $X$ može predstaviti linearnom kombinacijom vektora $\{\phi _{i}\}$. Takav skup je nadkompletan ako, uklanjanjem $\phi_{j}$, skup $\{\phi _{i}\}_{{i\in J\backslash \{j\}}}$ je i dalje kompletan.}) skup baznih vektora tako da se $x$ može predstaviti kao linearna kombinacija tih vektora, sa što manje koeficijenata različitih od nule\footnote{Ili, sa što manjim brojem koeficijenata koji su što dalji od nule}. Pomenute SC tehnike kod SR problema \cite{sparse1} sastoje se od nekoliko koraka obrade (u literaturi, kanal SR obrade): (1) Ulazna slika se dijeli na mnoge, preklapajuće segmente\footnote{region, ili \textit{patch} slike} i ti segmenti se preprocesuiraju. Faza preprocesiranja je primjena neke funkcije na piskele, obično je oduzimanje srednje vrijednosti i normalizacija. (2) Zatim se ti segmenti kodiraju \textit{rječnicima male rezolucije}. (3) Rijetki koeficijenti se pretvaraju u \textit{rječnike velike rezolucije}, koji služe za rekonstrukciju visokorezolutivnih djelova. (4) Rekonstruisani djelovi se slažu težinskim sumiranjem i dobija se konačni rezultat. Mnogi eksterni metodi uzorkovanja koriste isti ovaj obrazac. Ti metodi najviše pažnje posvjećuju učenju i optimizovanju rječnika, ili pak izgradnji efikasne funkcije mapiranja - kodiranja; ostali koraci se rijetko optimizuju i ne posmatraju se u sklopu neke zajedničke, optimizovane strukture.  
+Konvolucione mreže super rezolucije (SRCNN) prvi put su predstavljene u radu \cite{earlier}, i kasnije unaprijeđene u verziji \cite{main}. Motivacija za ovaj metod došla je iz tehnika rijetkog kodiranja (engl. sparse coding, skr. SC). SC tehnike \cite{sparse} predstavljaju klasu nenadgledanog učenja koje traži što ''kraću'' reprezentaciju ulaznog vektora $x$ - odnosno, nalaze (nadkompletni\footnote{Podskup vektora $\{\phi_{i}\}_{i\in J}$ prostora $X$ predstavlja kompletan skup ako se svaki element prostora $X$ može predstaviti linearnom kombinacijom vektora $\{\phi _{i}\}$. Takav skup je nadkompletan ako, uklanjanjem $\phi_{j}$, skup $\{\phi _{i}\}_{{i\in J\backslash \{j\}}}$ je i dalje kompletan.}) skup baznih vektora tako da se $x$ može predstaviti kao linearna kombinacija tih vektora, sa što manje koeficijenata različitih od nule\footnote{Ili, sa što manjim brojem koeficijenata koji su što dalji od nule}. Pomenute SC tehnike kod SR problema \cite{sparse1} sastoje se od nekoliko koraka obrade (u literaturi, kanal SR obrade): (1) Ulazna slika se dijeli na mnoge, preklapajuće segmente\footnote{region, ili \textit{patch} slike} i ti segmenti se preprocesuiraju. Faza preprocesiranja je primjena neke funkcije na piskele, obično je oduzimanje srednje vrijednosti i normalizacija. (2) Zatim se ti segmenti kodiraju \textit{rječnicima male rezolucije}. (3) Rijetki koeficijenti se pretvaraju u \textit{rječnike velike rezolucije}, koji služe za rekonstrukciju visokorezolutivnih djelova. (4) Rekonstruisani djelovi se slažu težinskim sumiranjem i dobija se konačni rezultat. Mnogi eksterni metodi uzorkovanja koriste isti ovaj obrazac. Ti metodi najviše pažnje posvjećuju učenju i optimizovanju rječnika, ili pak izgradnji efikasne funkcije mapiranja - kodiranja; ostali koraci se rijetko optimizuju i ne posmatraju se u sklopu neke zajedničke, optimizovane strukture.  
 
 %more details in Section 3.2
 %Sa druge strane, isti proces obrade dijeli konvoluciona mreža super rezolucije (to je razlog zašto se tehnike %rijetkog kodiranja mogu smatrati za duboku konvolucionu neuronsku mrežu). 
@@ -143,9 +143,9 @@ U nastavku rada biće predstavljen sami model SRCNN-a, koji pokazuje da tehnike 
 
 %\cite{Djuk}
 
-Algoritmi za rješavanje problema super rezolucije, SR algoritmi, \cite{alg} se mogu podijeliti u 4 grupe: modeli predikcije, ivični modeli, statistički modeli i segmentni metodi uzorkovanja\footnote{koji vrše segmentaciju uzoraka, engl. patch or example based}, dobro dokumentovani u \cite{alg2}. Od svih njih, metodi uzorkovanja dostižu najbolje performanse. U toj grupi algoritama razlikujemo interne i eksterne modele uzorkovanja. Interni modeli iskorišćavaju sličnosti koje postoje u samoj strukturi slike i generišu najbolje prikaze koji hvataju takvu strukturu i koji će poslužiti za povećanje kvaliteta. Eksterni modeli zavise od spoljašnjeg skupa uzoraka preko kojeg uče funkciju mapiranja ulaza na izlaz. Ti modeli razlikuju se između sebe u načinu koje reprezentacione šeme slika koriste, koje algoritme učenja rječnika primjenjuju ili da li topološki modeliraju prostor slikovnih elemenata. Kod prvog eksternog algoritma, rječnici su bili predstavljeni parovima LR i HR segmenata; na segmente ulaza se primjenjivao algoritam najbližeg susjeda (engl. nearest neighbor, skr. NN) da nađe njima najbliže u LR rječniku, a zatim bi ti djelovi bili projektovani na svoje HR parove. Alternative za ovakav pristup danas su mnogobrojne. Pristupi kao što je regresija jezgra (engl. kernel regression, \cite{kernel}), randomizirana šuma (engl. random forest, \cite{forest}), regresija fiksiranog susjedstva (engl. anchored neighborhood regression, skr. ANR \cite{anr}) povećavaju preciznost i brzinu mapiranja. Metodi koji se temelje na rijetkom kodiranju spadaju u najbolje tehnike današnjice i predstavljaju glavnu konkurenciju SRCNN-u. Kod njih, korak ekstrakcije djelova slike i rekonstrukcije obavlja se odvojeno, i njihov primarni fokus je učenje rječnika segmenata slike.   
+Algoritmi za rješavanje problema super rezolucije, SR algoritmi, \cite{alg} se mogu podijeliti u 4 grupe: modeli predikcije, ivični modeli, statistički modeli i segmentni metodi uzorkovanja\footnote{koji vrše segmentaciju uzoraka, engl. patch or example based}, dobro dokumentovani u \cite{alg2}. Od svih njih, metodi uzorkovanja postižu najbolje performanse. U toj grupi algoritama razlikujemo interne i eksterne modele uzorkovanja. Interni modeli koriste sličnosti koje postoje u samoj strukturi slike i generišu najbolje prikaze koji hvataju takvu strukturu i koji služe za povećanje kvaliteta. Eksterni modeli zavise od spoljašnjeg skupa uzoraka preko kojeg uče funkciju mapiranja ulaza na izlaz. Ti modeli razlikuju se između sebe u načinu koje reprezentacione šeme slika koriste, koje algoritme učenja rječnika primjenjuju ili da li topološki modeliraju prostor slikovnih elemenata. Kod prvog eksternog algoritma, rječnici su bili predstavljeni parovima LR i HR segmenata; na segmente ulaza se primjenjivao algoritam najbližeg susjeda (engl. nearest neighbor, skr. NN) da nađe njima najbliže u LR rječniku, a zatim bi ti djelovi bili projektovani na svoje HR parove. Alternative za ovakav pristup danas su mnogobrojne. Pristupi kao što su regresija jezgra (engl. kernel regression, \cite{kernel}), randomizirana šuma (engl. random forest, \cite{forest}), regresija fiksiranog susjedstva (engl. anchored neighborhood regression, skr. ANR \cite{anr}) povećavaju preciznost i brzinu mapiranja. Metodi koji se temelje na rijetkom kodiranju spadaju u najbolje tehnike današnjice i predstavljaju glavnu konkurenciju SRCNN-u. Kod njih, korak ekstrakcije djelova slike i rekonstrukcije obavlja se odvojeno, i njihov primarni fokus je učenje rječnika segmenata slike.   
 
-Većina SR algoritama operiše nad samo jednim kanalom boje ili se bave crno-bijelom slikom. Za slike u boji, gorepomenuti metodi prvo transformišu sliku u drugu kolor-šemu (npr. YCbCr ili YUV) i onda obrađuju samo kanal luminiscencije (Y). Metod regresije jezgra, koji je u literaturi poznat kao KK-metod, predložen je da istovremeno tretira sve kolor-kanale RGB šeme, koji se zatim stapaju da oforme konačni rezultat. I SRCNN nastoji da riješi problem istovremenog baratanja svim bojama - u glavi Ogledi predstavljeni su rezultati tih nastojanja.
+Većina SR algoritama operiše nad samo jednim kanalom boje ili se bave crno-bijelom slikom. Za slike u boji, gorepomenuti metodi prvo transformišu sliku u drugu kolor-šemu (npr. YCbCr ili YUV) i onda obrađuju samo kanal luminiscencije (Y). Metod regresije jezgra, koji je u literaturi poznat kao KK metod, predložen je da istovremeno tretira sve kolor-kanale RGB šeme, koji se zatim stapaju da oforme konačni rezultat. I SRCNN nastoji da riješi problem istovremenog baratanja svim bojama - u glavi Ogledi predstavljeni su rezultati tih nastojanja.
 
 Za analizu algoritama SR-a koriste se evalucione metrike. One se primjenjuju na njihove rezultate i gleda se odnos originalne i rekonstruisane HR slike. Najznačajne metrike \cite{alg2} su: odnos signala i šuma - (engl. peak to noise ratio) \textit{PSNR} metrika, metrika indeksa strukturalne sličnosti (engl. structural similarity index)- \textit{SSIM}, kriterijum povjerenja informacije (engl. information fidelity criterion) \textit{IFC}, mjera kvaliteta šuma \textit{NQM} (engl. noise quality measure), težinski PSNR (engl. weighted PSNR, WPSNR) i multiskalni SSIM (engl. multiscale SSIM) - \textit{MSSSIM} metrika. Izuzev IFC i NQM, nabrojani metodi ispitivanja pokazuju jaku korelaciju sa percepcijom - veća ocjena, veći vizuelni ugođaj. Sve ove mjere su iskorišćene u posmatranim ogledima.    
 
@@ -171,7 +171,7 @@ Konvolucione neuronske mreže (engl. convolutional neural network, skr. CNN) pre
   \vspace{-20pt}
 \end{wrapfigure}
 
-CNN je dobila  ime  po  konvoluciji,  široko  korišćenom operatoru, koji  se  primjenjuje  pri  obradi  slika  i  signala. Njen najznačajniji sloj je konvolucioni sloj (KS) gdje se primjenjuju konvolucioni  filteri.   Konvolucioni  filter, ili jezgro (kernel) konvolucije, je  generalizovani linearni  model za region ili segment slike (engl. image patch)  na  koji se  primjenjuje. (Slika \ref{fig:konvolucija}) Filter se predstavlja dvodimenzionalnom matricom čije su dimenzije male u odnosu na sliku na koju se primenjuje i sastoji se od realnih vrijednosti. Ideja kod CNN-a jeste da  se postavi veći broj slojeva za otkrivanje bitnih  osobina ulaznih podataka.  U  skladu  sa  tom  idejom, konvolucioni  filteri se primjenjuju na sliku kako bi se izvukle značajne karakteristike i kreirale njihove mape  (engl. feature  maps). Mreža upravo uči te mape bitnih odlika\footnote{Koriti se i termin \textit{korisni obrazac}}. Veličina mapa opada sa slojevima, odnosno dubinom mreže. %u literaturi se koriti i termin korisni obrazac
+CNN je dobila  ime  po  konvoluciji,  široko  korišćenom operatoru, koji  se  primjenjuje  pri  obradi  slika  i  signala. Njen najznačajniji sloj je konvolucioni sloj (KS) gdje se primjenjuju konvolucioni  filteri.   Konvolucioni  filter, ili jezgro (kernel) konvolucije, je  generalizovani linearni  model za region ili segment slike (engl. image patch)  na  koji se  primjenjuje (Slika \ref{fig:konvolucija}). Filter se predstavlja dvodimenzionalnom matricom čije su dimenzije male u odnosu na sliku na koju se primjenjuje i sastoji se od realnih vrijednosti. Ideja kod CNN-a jeste da  se postavi veći broj slojeva za otkrivanje bitnih  osobina ulaznih podataka.  U  skladu  sa  tom  idejom, konvolucioni  filteri se primjenjuju na sliku kako bi se izvukle značajne karakteristike i kreirale njihove mape  (engl. feature  maps). Mreža upravo uči te mape bitnih odlika\footnote{Koriti se i termin \textit{korisni obrazac}}. Veličina mapa opada sa slojevima, odnosno dubinom mreže. %u literaturi se koriti i termin korisni obrazac
 
 
    \begin{wrapfigure}{L}{0.4\textwidth}
@@ -188,7 +188,7 @@ CNN je dobila  ime  po  konvoluciji,  široko  korišćenom operatoru, koji  se 
 
   Kod konvolucione mreže nijesu svi slojevi potpuno povezani, jer to bi dovelo do prevelike kompleksnosti izračunavanja. Neuroni su raspoređeni u 3D strukturu (Š $\times V \times D$) i povezuju se samo sa određenim regionom prošlog sloja, koji se naziva receptivnim poljem $RP$ (engl. receptive field, slika \ref{fig:rfield}), i to je primjer lokalne povezanosti neurona. Mreža ima osobinu \textit{dijeljenja težina} u konvolucionim slojevima - što znači da se isti filteri primjenjuju na svako receptivno polje u sloju. Filteri konvoluiraju po Š $\times$ V, i putujući kroz dubinu, stvaraju 2D aktivacione mape. Puni izlaz KS su združene mape svih filtera raspoređene po dubini. 
 
-  Kreatori CNN mreže postavljaju veličinu filtera - modifikovanjem filtera, modifikuje se broj parametara mreže. Dva važna parametra koja su isto definisana od strane kreatora jesu - korak (pomjeraj, engl. stride) i dopuna (engl. padding). Korak $K$ se odnosi na  korak pomjeraja filtera  preko  slike. Kako  bi  se izvukle  karakteristike  nižeg  nivoa (engl. low-level  features), kao što su pikseli slike,  cilj  je  da  se  u  prvim  slojevima  CNN očuva što veći broj informacija. S tim ciljem, se uvodi  drugi pojam – dopuna (P). Parametar P se odnosi na oivičenje koje se sastoji od konstantnih vrednosti piksela. Najčešća vrijednost piksela  kojima  se  oivičava - popunjava, širi matrica - je  nula, odnosno zero-padding. Ovo su tkz. hiperparametri, pored stope učenja, receptivnog polja $RP$, dimenzija mreže i ulaza. Parametri koji utiču na veličinu izlaza su dubina ulaza, korak i dopuna. 
+  Kreatori CNN mreže postavljaju veličinu filtera - modifikovanjem filtera, modifikuje se broj parametara mreže. Dva važna parametra koja su isto definisana od strane kreatora jesu - korak (pomjeraj, engl. stride) i dopuna (engl. padding). Korak $K$ se odnosi na korak pomjeraja filtera  preko  slike. Kako bi se izvukle karakteristike nižeg nivoa (engl. low-level  features), kao što su pikseli slike, cilj je da se u prvim  slojevima CNN-a očuva što veći broj informacija. S tim ciljem, se uvodi drugi pojam – dopuna (P). Parametar P se odnosi na oivičenje koje se sastoji od konstantnih vrijednosti piksela. Najčešća vrijednost piksela kojima se oivičava - popunjava, širi matrica - je nula, odnosno zero-padding. Ovo su tkz. hiperparametri, pored stope učenja, receptivnog polja $RP$, dimenzija mreže i ulaza. Parametri koji utiču na veličinu izlaza su dubina ulaza, korak i dopuna. 
   
 \newpage  
   
@@ -202,7 +202,7 @@ Sve bolje i moćnije grafičke kartice i BigData pokret doprinio je tome da CNN 
 
 \section{Tehnike dubokog učenja za restauraciju slike}
 %auto-
-Većina tehnika za restauraciju se najviše bave uklanjanjem šuma ili zamućenja. Predlagane su konvolucione mreže ranije koje bi se bavile takvim problemima - npr., jedan takav pristup uključuje konvolucionu mrežu za uklanjanje tragova kiše i nečistoća. Za sami SR problem, vještačke neuronske mreže su primjenjivane npr. u metodu kaskadnih mreža DNC -  u okviru kanala SR obrade postavlja se više autokodirajućih mreža koje bi imale interni pristup uzorkovanja. Ali ovaj duboki model nije kreiran da obezbijedi  mapiranje sa kraja na kraj, jer svaki sloj zahtijeva nezavisnu optimizaciju - procesa traženja sličnosti sa jedne strane, i procesa šifriranja sa druge. Tu SRCNN-metod pokazuje svoju superiornost, jer ne samo da obezbjeđuje željeno mapiranje nego i veću brzinu.
+Većina tehnika za restauraciju se najviše bave uklanjanjem šuma ili zamućenja. Predlagane su konvolucione mreže ranije koje bi se bavile takvim problemima - npr., jedan takav pristup uključuje konvolucionu mrežu za uklanjanje tragova kiše i nečistoća. Za sami SR problem, vještačke neuronske mreže su primjenjivane npr. u metodu kaskadnih mreža DNC -  u okviru kanala SR obrade postavlja se više autokodirajućih mreža koje bi imale interni pristup uzorkovanja. Ali ovaj duboki model nije kreiran da obezbijedi  mapiranje sa kraja na kraj, jer svaki sloj zahtijeva nezavisnu optimizaciju - procesa traženja sličnosti sa jedne strane, i procesa šifriranja sa druge. Tu SRCNN metod pokazuje svoju superiornost, jer ne samo da obezbjeđuje željeno mapiranje nego i veću brzinu.
   
   
 \chapter{Konvolucione mreže super rezolucije}\label{ch3}
@@ -233,7 +233,7 @@ Gusto segmentiziranje slike i reprezentacija tih segmenata skupom (ranije nađen
   F_1(Y) = \max(0, W_1 \star Y + B_1),
 \end{equation}
 
-gdje $W_1$ predstavlja filtere a $B_1$ \textit{bias}-e, a $\star$ predstavlja operaciju konvolucije. Ovdje, $W_1$ predstavlja $n_1$ proširenih filtera oblika $c \times f_1 \times f_1$, gdje je $c$ broj kanala slike a $f_1$ veličina osnovnog filtera. Drugim riječima, $W_1$ predstavlja $n_1$ konvoluciju i svaka konvolucija ima veličinu jezgra $c \times f_1 \times f_1$. Rezultat je $n_1$ mapa, te shodno tome, $B_1$ je $n_1$-dimenzioni vektor. Primjećujemo, ReLU funkcija se primjenjuje na krajnje odzive filtera.  Ova funkcija može biti izostavljena u ovom koraku, te definisana u okviru drugog sloja (nelinearnog mapiranja) - prvi sloj u tom slučaju bi postao samo linearna konvolucija.
+gdje $W_1$ predstavlja filtere a $B_1$ \textit{bias}-e, a $\star$ predstavlja operaciju konvolucije. Ovdje, $W_1$ predstavlja $n_1$ proširenih filtera oblika $c \times f_1 \times f_1$, gdje je $c$ broj kanala slike a $f_1$ veličina osnovnog filtera. Drugim riječima, $W_1$ predstavlja $n_1$ konvoluciju i svaka konvolucija ima veličinu jezgra $c \times f_1 \times f_1$. Rezultat je $n_1$ mapa, te shodno tome, $B_1$ je $n_1$-dimenzioni vektor. Primjećujemo, ReLU funkcija se primjenjuje na krajnje odzive filtera.  Ova funkcija može biti izostavljena u ovom koraku, te definisana u okviru drugog sloja nelinearnog mapiranja - prvi sloj bi u tom slučaju postao samo linearna konvolucija.
 
 \subsection{Nelinearno mapiranje}
 
@@ -243,9 +243,9 @@ Rezultat prvog sloja je $n_1$-dimenzionalna odlika za svaki segment. U ovom kora
   F_2(Y) = \max(0, W_2 \star F_1(Y) + B_2).
 \end{equation}
 
-ako se $W_2$-filteri primijene na rezultat prvog sloja. $W_2$ predstavlja u stvari $n_2$ filtera nedubinske veličine $1 \times 1$. Ipak, možemo generalizovati i na druge netrivijalne veličine filtera $f_2 \times f_2$, kao $3 \times 3$  ili $5 \times 5$ - u tom slučaju, nelinearno mapiranje nije na segmentima slike, nego na $f_2 \times f_2$ segmentima mapa. $B_2$ je $n_2$-dimenzionalni vektor. Dobijeni segmenti operacije drugog sloja biće korišćeni za rekonstrukciju. 
+ako se $W_2$-filteri primijene na rezultat prvog sloja. $W_2$ predstavlja u stvari $n_2$ filtera veličine $n_1 \times 1 \times 1$. Ipak, možemo generalizovati i na druge netrivijalne prostorne veličine filtera $f_2 \times f_2$, kao $3 \times 3$  ili $5 \times 5$ - u tom slučaju, nelinearno mapiranje nije na segmentima slike, nego na $f_2 \times f_2$ segmentima mapa. $B_2$ je $n_2$-dimenzionalni vektor. Dobijeni segmenti operacije drugog sloja biće iskorišćeni za rekonstrukciju. 
 
-Dublje strukture, kada se doda još jedan konvolucioni sloj da poveća nelinearnost, od ovoga su istražene, i daju iznenađujuće rezultate. Svakako, dublji modeli povećavaju kompleksnost ($n_2 \times f_2 \times f_2 \times n_2$ parametara samo za još jedan sloj) i zahtijevaju duže vrijeme treniranja.  
+Dublje strukture, kada se doda još jedan konvolucioni sloj da poveća nelinearnost, od ovoga su istražene i daju iznenađujuće rezultate. Svakako, dublji modeli povećavaju kompleksnost ($n_2 \times f_2 \times f_2 \times n_2$ parametara samo za još jedan sloj) i zahtijevaju duže vrijeme treniranja.  
 
 \subsection{Rekonstrukcija}
 
@@ -256,7 +256,7 @@ U većini algoritama SR-a, krajnje dobijeni, preklapajući segmenti visoke rezol
   F_3(Y) =  W_3 \star F_3(Y) + B_3,
 \end{equation}
 
-gdje je $W_3$ - $c$ filtera veličine $n_2 \times f_3 \times f_3$, a $B_3$ $c$-dimenzioni vektor. $W_3$ se ponaša kao linearni filter. Ako reprezentacije visokorezolutnih djelova pripadaju domenu slike (možemo ih reogranizirati tako da prestavljaju segment slike), $W_3$ ih usrednjava (usrednjavanje u odnosu na okolinu); ako reprezentacije ne pripadaju domenu slike (npr. neki koeficijenti) $W_3$ će prvo izvršiti projekciju tih koeficijenata na zahtijevani domen i onda izvršiti funkciju usrednjavanja nad njima.
+gdje je $W_3$ - $c$ filtera veličine $n_2 \times f_3 \times f_3$, a $B_3$ $c$-dimenzioni vektor. $W_3$ se ponaša kao linearni filter. Ako reprezentacije visokorezolutnih segmenata pripadaju domenu slike (t.j., možemo ih reogranizovati tako da prestavljaju segment slike), $W_3$ ih usrednjava (u odnosu na okolinu); ako reprezentacije ne pripadaju domenu slike (npr. neki koeficijenti) $W_3$ će prvo izvršiti projekciju tih koeficijenata na zahtijevani domen i onda izvršiti funkciju usrednjavanja nad njima.
 
 Operacije grupišemo u okviru jedne strukture, odnosno  definisani slojevi predstavljaju slojeve konvolucione neuronske mreže. Filtrirajuće težine i bias-ovi su optimizovani u sklopu nje. SRCNN se oslanja na analize i rezultate dobijene u eksperimentima sa tehnikama rijetkog kodiranja, te njima duguje svoju uspješnost. 
 
@@ -269,9 +269,9 @@ Operacije grupišemo u okviru jedne strukture, odnosno  definisani slojevi preds
 
 
 \section{Analogija sa tehnikama SC-a}\label{ch2}
-
+%koje pocivaju na SC algoritmima...
 Kao što je već ranije rečeno, tehnike rijetkog kodiranja SC-a za SR problem se mogu posmatrati kao konvoluciona mreža. I zaista, intuitivno, dijele isti kanal. U ovoj sekciji se detaljnije pokazuje zašto je to tako. Neka slika \ref{fig:rep} posluži kao vizuelna reprezentacija toga. 
-Pretpostavimo da smo u prvom koraku SC tehnike izvukli odgovarajući $f_1 \times f_1$ segment početne slike male rezolucije. U drugom koraku, algoritam rijetkog kodiranja, kao što je Feature-Sign \cite{sparse}, prevodi taj segment u rječnik niske rezolucije. Algoritam rijetkog kodiranja se u literaturi naziva i \textit{solver}. Ovim dobijamo $N$ koeficijenata, t.j. dobijeni rječnik ima veličinu $N$ - ovo znači da se proces SC algoritma može posmatrati kao primjenjivanje $N$ linearnih filtera veličine $f_1 \times f_1$ na ulaz (oduzimanje srednje vrijednosti koju primjenjuje SC tehnika takođe je linearna operacija, pa može isto biti predstavljena filterima). Pretpostavimo da je $N = n_1$. 
+Pretpostavimo da smo u prvom koraku SC tehnike izvukli odgovarajući $f_1 \times f_1$ segment početne slike male rezolucije. U drugom koraku, algoritam rijetkog kodiranja, kao što je Feature-Sign \cite{sparse}, prevodi taj segment u rječnik niske rezolucije. Algoritam rijetkog kodiranja se u literaturi naziva i \textit{solver}. Ovim dobijamo $N$ koeficijenata, t.j. dobijeni rječnik ima veličinu $N$ - ovo znači da se proces SC algoritma može posmatrati kao primjenjivanje $N$ linearnih filtera veličine $f_1 \times f_1$ na ulaz. Oduzimanje srednje vrijednosti koju primjenjuje SC tehnika takođe je linearna operacija, pa isto može biti predstavljena filterima. Pretpostavimo da je $N = n_1$. 
 
 
 \begin{figure}[h]
@@ -283,7 +283,7 @@ Pretpostavimo da smo u prvom koraku SC tehnike izvukli odgovarajući $f_1 \times
 
 Zatim SC algoritam iterativno prolazi svakim $n_1$ koeficijentom i obrađuje ih. Izlaz tog algoritma će biti $n_2$ koeficijenata. Kod SC tehnika, često je $n_1 = n_2$. Tih $n_2$ koeficijenata upravo predstavlja segmente visoke rezolucije, što će reći da se SC algoritam ponaša kao specijalni slučaj operatora nelinearnog mapiranja koji ima trivijalnu osnovnu veličinu $1 \times 1$. Da to prevedemo na jezik SRCNN mreže - postavimo da je goredefinisano $f_2 = 1$  - drugi sloj SRCNN-a uzima tada piksele slike\footnote{Kažemo da je piksel-orijentisan} i u ovom slučaju u potpunosti je povezan. Razlika između nelinearnog mapiranja SRCNN-a i algoritma SC tehnike je u (ne)povratnosti. SC algoritam je iterativan, dok je nelinearno mapiranje SRCNN-a u potpunosti unaprijed-propagirajuće, bez povratka. Stoga je nelinearni operator mapiranja SRCNN-a efikasan. Analogija solvera kod SRCNN-a su prva dva njena sloja, ne samo drugi. Tokom procesa učenja mreže, operator mapiranja se sam optimizuje.     
 
-Nakon rijetkog kodiranja (desni dio slike \ref{fig:rep}), slijedi algoritam prevođenja $n_2$ koeficijenata u kvalitetne rječnike kako bi se dobili HR segmenti. Dobijeni preklapajući segmenti u ovom koraku se usrednjavaju, i, kao što je pomenuto prije, ovo može biti predstavljeno linearnom konvolucijom (3.1.3) na $n_2$ dobijenih mapa odlika. Ako kvalitetni segmenti imaju $f_3 \times f_3$ veličinu, onda filteri konvolucije imaju isto prostornu veličinu $f_3 \times f_3$. 
+Nakon rijetkog kodiranja (desni dio slike \ref{fig:rep}), slijedi algoritam prevođenja $n_2$ koeficijenata u kvalitetne rječnike kako bi se dobili HR segmenti. Dobijeni preklapajući segmenti u ovom koraku se usrednjavaju, i, kao što je pomenuto prije, ovo može biti predstavljeno linearnom konvolucijom (3.1.3) na $n_2$ dobijenih mapa odlika. Ako kvalitetni segmenti korišćeni za rekonstrukciju imaju veličinu $f_3 \times f_3$, onda filteri konvolucije imaju isto prostornu veličinu $f_3 \times f_3$. 
 
 To pokazuje da su SC i SRCNN tehnike zaista srodne u smislu da obuhvataju strukturu konvolucione mreže (SC tehnike samo sa drugačije definisanom funkcijom nelinearnog mapiranja). Ali ono što je mana SC tehnika, što SRCNN nadoknađuje, jeste to što nijesu svi koraci optimizovani. Svi koraci u okviru SRCNN-a - i dobijanje rječnika i nelinearno mapiranje, sa funkcijama oduzimanja srednje vrijednosti i usrednjavanjem okoline - bivaju uhvaćeni filterima, koji se optimizuju. Zaista se dobija optimizovana struktura mapiranja ulaza na visokokvalitetni izlaz, bez segregacije komponenti. 
 
@@ -294,7 +294,7 @@ Ova analogija služi i da se postave hiperparametri, $n_1, n_2, f_1, f_2$ i $f_3
 \end{equation}
 
 
- Za ovakvu postavku, za jedan piksel izlaza koristi se informacija  od $(9 + 5 - 1)^2 = 169$ piksela\footnote{Kažemo da je veličina RP mreže $13 \times 13$}, što je veći broj informacija nego kod postojećih tehnika SC-a  (i to duplo kod nekih) što pruža još jedno objašnjenje zašto SRCNN daje bolje performanse.  
+ Za ovakvu postavku, za jedan piksel izlaza koristi se informacija  od $(9 + 5 - 1)^2 = 169$ piksela\footnote{Kažemo da je veličina RP-a $13 \times 13$}, što je veći broj informacija nego kod postojećih tehnika SC-a  (i to duplo kod nekih) što pruža još jedno objašnjenje zašto SRCNN daje bolje performanse.  
 
 \section{Treniranje mreže}\label{ch2}
 
@@ -305,9 +305,10 @@ Kako bismo našli željenu funkciju $F$, koja će nam dati $F(Y)$, prvo moramo d
   L(\Theta) = \frac{1}{n} \sum\limits_{i=1}^{n}{||F(Y_i; \Theta) - X_i ||}^2 ,
 \end{equation}
 
-Ovdje je iskorišćena srednja kvadratna greška (MSE) i $n$ predstavlja broj trening-uzoraka. Odabir MSE funkcije za loss-funkciju daje veliku PSNR-ocjenu. I druge diferencijabilne funkcije se mogu iskoristiti umjesto nje. SRCNN je fleksibilna i u tom smislu što podržava prilagođavanje drugim percepcijom-vođenim metrikama. Takva fleksibilnost se teško postiže u drugim metodama. Iako MSE funkcija favorizuje PSNR ocjenu, model SRCNN-a daje zadovoljavajuće rezultate i pri drugim evaluacijama.
+Ovdje je iskorišćena srednja kvadratna greška (MSE), a $n$ predstavlja broj trening-
+-uzoraka. Odabir MSE funkcije za loss-funkciju daje veliku PSNR ocjenu. I druge diferencijabilne funkcije se mogu iskoristiti umjesto nje. SRCNN je fleksibilna i u tom smislu što podržava prilagođavanje drugim percepcijom vođenim metrikama. Takva fleksibilnost se teško postiže u drugim metodama. Iako MSE funkcija favorizuje PSNR ocjenu, model SRCNN-a daje zadovoljavajuće rezultate i pri drugim evaluacijama.
 
-Funkciju gubitka minimizujemo stohastičnim gradijentnim spustom, sa standardnom back-propagacijom. Bolje rečeno, težinske matrice se mijenjaju ovako: 
+Funkciju gubitka minimizujemo stohastičnim gradijentnim spustom, sa standardnom backpropagacijom. Bolje rečeno, težinske matrice se mijenjaju ovako: 
 
 \begin{equation}
   \Delta_{i+1} = 0.9 \cdot \Delta_i - \eta \cdot \frac{\partial L}{\partial W_{i}^{l}}, \ \ W_{i+1}^{l}=W_{i}^{l}+\Delta_{i+1},
@@ -321,7 +322,7 @@ Funkciju gubitka minimizujemo stohastičnim gradijentnim spustom, sa standardnom
 
 gdje $l \in \{ 1, 2, 3 \}$ je indeks sloja, a $i$ redni broj iteracije. $\eta$ je koeficijent učenja, a $\frac{\partial L}{\partial W_i^l}$ je izvod. Težinski filteri ${W^l}$ se inicijalizuju slučajno, sa raspodjelom $\mathcal{N}(0, 0.001)$, dok je bias ${B^l}$ na početku $0$. Koeficijent učenja $\eta = 10^{-4}$. Pokazuje se da je bolje odabrati manji koeficijent učenja za zadnji sloj (npr., $10^{-4}$ za prva dva sloja, $10^{-5}$ za zadnji), kako bi mreža što brže konvergirala. 
 
-Slike $\{X_i\}$ se pripremaju tako što se nasumično ''režu'' na $n_{sub} \times n_{sub} \times c$ sub-slika.\footnote{Termin ,,sub-slika'' se ovdje koristi u drugačijem značenju od regiona, segmenata: Slikovni segmenti mogu biti preklapajući djelovi i zahtijevaju neku obradu na kraju, dok sub-slike ne.} Za dobijanje $\{Y_i\}$ koriste se iste ove sub-slike, tako što se one prvo zamute Gausovim filterom; umanje za neki faktor skaliranja $s$, a onda povećaju za isti faktor koristeći bikubičnu interpolaciju. Tako se dobijaju manje-kvalitetne ${Y_i}$. 
+Slike $\{X_i\}$ se pripremaju tako što se nasumično ''režu'' na $n_{sub} \times n_{sub} \times c$ subslika.\footnote{Termin ,,subslika'' se ovdje koristi u drugačijem značenju od regiona, segmenata: Slikovni segmenti mogu biti preklapajući djelovi i zahtijevaju neku obradu na kraju, dok subslike ne.} Za dobijanje $\{Y_i\}$ koriste se iste ove subslike, tako što se one prvo zamute Gausovim filterom; umanje za neki faktor skaliranja $s$, a onda povećaju za isti faktor koristeći bikubičnu interpolaciju. Tako se dobijaju manje-kvalitetne ${Y_i}$. 
 
 Ni jedan konvolucioni sloj nema dopunu $P$, kako bi se izbjegao efekat dobijanja granica slike\footnote{Rezultati kada postoji dopuna se mogu vidjeti na \cite{samples}}. Mreža za $Y_i$ proizvodi izlaz veličine: 
 \begin{equation}\label{eq:size}
@@ -329,7 +330,7 @@ Ni jedan konvolucioni sloj nema dopunu $P$, kako bi se izbjegao efekat dobijanja
 \end{equation}
 Funkcija gubitka procjenjuje se samo na centralnom pikselu ovog izlaza i $X_i$. Iako u toku treninga mreža operiše sa fiksnim veličinama slika, u fazi testiranja mreži može biti predata bilo koja veličina\footnote{\textit{,,bilo koja''} veličina ipak zavisi od jačine računara: dostupne memorije i moći grafičke kartice}.   
 
-Ilustracija primjera: na slici \ref{fig:trening_sfig1} možete pogledati naučene filtere prvog sloja kada je mreža trenirana na velikoj bazi ImageNet\footnote{\url{http://www.image-net.org/}}-a, sa faktorom skaliranja 3, dok na slici  \ref{fig:trening_sfig2} možete vidjeti izvučene mape. Filteri imaju različite funkcionalnosti: izdvojeni $(g)$ i $(h)$ ponašaju se kao Gausov ili Laplasov filter, a $(a)$-$(e)$ pronalaze ivice slike; $(f)$ hvata teksturu, itd. 
+Ilustracija primjera: na slici \ref{fig:trening_sfig1} možete pogledati naučene filtere prvog sloja \cite{main} kada je mreža trenirana na velikoj bazi ImageNet\footnote{\url{http://www.image-net.org/}}-a, sa faktorom skaliranja 3, dok na slici  \ref{fig:trening_sfig2} možete vidjeti izvučene mape. Filteri imaju različite funkcionalnosti: izdvojeni $(g)$ i $(h)$ ponašaju se kao Gausov ili Laplasov filter, a $(a)$-$(e)$ pronalaze ivice slike; $(f)$ hvata teksturu, itd. 
 
 \begin{figure}[h]
 \begin{subfigure}{1\textwidth}
@@ -376,7 +377,7 @@ Ilustracija primjera: na slici \ref{fig:trening_sfig1} možete pogledati naučen
 
 %povezat još aplikacijuuuu!!!! footnote ovih tehnickih stvari isto
   
-  Tehnike dubokog učenja napredovale su zahvaljujući mnogostrukosti podataka, kao što je ImageNet. Ogled koji se prezentuje u ovom poglavlju zasnivao se na poređenju rezultata koje daje mreža kada uči na malom skupu podataka, nasuprot učenju na velikoj bazi. Pobliže, prva baza sastojala se od $91$ slike, skup A\footnote{Folder Basic na sajtu programske realizacije \cite{samples}}, druga od $395 909$ slika. Sa korakom filtera $K=14$ i $n_{sub}=33$, prvi set slika davao je $24 800$ sub-slika, drugi (ImageNet skup) preko $5$ miliona i sa korakom $K=33$. Za ovaj eksperiment koristile su se tipične postavke sistema (3.2.1) i faktor skaliranja $s = 3$. Za referentnu tačku koristi se SC-metod \cite{sparse1} koji daje prosječnu vrijednost $PSNR = 31.42\text{dB}$.  Radi preciznosti ocjene, za test koristila su se dva skupa koji su u literaturi poznati kao \textit{Set5} i \textit{Set14} \cite{samples}.
+  Tehnike dubokog učenja napredovale su zahvaljujući mnogostrukosti podataka, kao što je ImageNet. Ogled koji se prezentuje u ovom poglavlju zasnivao se na poređenju rezultata koje daje mreža kada uči na malom skupu podataka, nasuprot učenju na velikoj bazi. Pobliže, prva baza sastojala se od $91$ slike, skup A\footnote{Folder Basic na sajtu programske realizacije \cite{samples}}, druga od $395 909$ slika. Sa pomjerajem $14$ i $n_{sub}=33$, prvi set slika davao je $24 800$ subslika, drugi (ImageNet skup) preko $5$ miliona i sa korakom rezanja $33$. Za ovaj eksperiment koristile su se tipične postavke sistema (3.2.1) i faktor skaliranja $s = 3$. Za referentnu tačku koristi se SC-metod \cite{sparse1} koji daje prosječnu vrijednost $PSNR = 31.42\text{dB}$.  Radi preciznosti ocjene, za test koristila su se dva skupa koji su u literaturi poznati kao \textit{Set5} i \textit{Set14} \cite{samples}.
 
     \begin{wrapfigure}{r}{0.5\textwidth} 
   \begin{center}
@@ -400,7 +401,7 @@ Rezultati ovog ogleda prikazani su na slici \ref{fig:ogled4}. Vrijeme za trenira
   \section{Postavke modela}
    
    U ovim ogledima proučavana je veza između parametara i performansi mreže. Osnovni parametri su mijenjani i posmatrana je mreža u odnosu na rezultate uobičaje-
-ne konfiguracije. Trening-set je ImageNet, faktor skaliranja $s=3$. Test set je Set5, i rezultati su čitani u trenutku $8 \cdot 10^8$ backpropagacija, i ukoliko nije drugačije naglašeno, isto važi i za naredne eksperimente.
+ne konfiguracije. Trening-set je ImageNet, faktor skaliranja $s=3$. Testni set je Set5, i rezultati su čitani u trenutku $8 \cdot 10^8$ backpropagacija, i ukoliko nije drugačije naglašeno, isto važi i za naredne eksperimente.
 
 %ukoliko nije drugačije naglašeno
 %test skup
@@ -433,8 +434,9 @@ Ipak, zbog povećanja kompleksnosti mreže, opada brzina dobijanja output-a: $80
    
    Studije nad CNN mrežama ukazuju da povećanje broja slojeva dovodi do boljitka u performansama. Ranije posmatrane mreže $9-1-5$, $9-3-5$ i $9-5-5$ u ovom ogledu bivaju proširene sa još jednim dodatnim slojem koji ima koeficijent učenja $0.0001$ i $n_{22}=16$ filtera trivijalne veličine $1=f_{22}$; njegove težine bivaju isto nasumično inicijalizovane kao i kod ostalih slojeva. Vrijeme koje je potrebno dubljim mrežama da dosegnu konvergenciju je veće (slika \ref{fig:ogled8}). 
    
-    Ono što iznenađuje, uprkos ranije objavljenim studijama, jeste da dublje strukture SRCNN ne pokazuju poboljšanje performansi. Ako bi se mreži $9-1-5$ dodao konvolucioni sloj sada sa $n_{22} = 32$ filtera i $f_{22}=1$, dolazi do degradiranja i opadanja kvaliteta krajnjeg izlaza, što pokazuje slika \ref{fig:ogled91} . Dublje strukture daju još gore rezultate - mreža $9-1-1-1-5$ sa $n_{22} = 32$ i $n_{23} = 16$ filtera (koja ima manji koeficijent učenja kako bi se osigurala konvergencija), i posle nedjelju dana učenja pokazuje i još gore rezultate. Postuliralo se da li je to možda zbog veličine filtera, ali i to pitanje je riješeno - slika \ref{fig:ogled92} pokazuje da ni povećavanje veličine filtera u dodatim slojevima ne dovodi do nekog poboljšanja. Mreže $9-3-3-3$ i $9-3-3-5$ ne ostvaruju bolje rezultate od $9-3-1-5$.    
-  Razlog zašto SRCNN pokazuje tako loše rezultate pri većim dubinama krije se u teškoći učenja tako raslojene strukture. Eksperimenti pokazuju njenu osjetljivost na mijenjanje vrijednosti parametara i brzine učenja. SRCNN nema sloj sažimanja  (pooling layer)  koji smanjuje veličinu slike, a samim tim i broja parametara. Duboke strukture SRCNN, koje broje $4$ ili $5$ slojeva, imaju poteškoće da stignu u stanje konvergencije, zbog teškoće postavljanje odgovarajućeg koeficijenta $\eta$. A ukoliko i dosegnu konvergenciju, naučeni filteri pokazuju manju raznolikost čak i nakon dužeg treniranja, dok i dalje postoji opasnost od upadanja u lokalni minimum. Nepažljivo podešavanje slojevitosti strukture nije jedinstveno za SR problem - i samo polje klasifikacije slika zabilježilo je degradiranje performansi. Duboke arhitekture i njihova analiza još treba da odgonetnu zašto ne vode uvijek boljim rezultatima, te ukažu na bezbjedan način raslojavanja. 
+    Ono što iznenađuje, uprkos ranije objavljenim studijama, jeste da dublje strukture SRCNN ne pokazuju poboljšanje performansi. Ako bi se mreži $9-1-5$ dodao konvolucioni sloj sada sa $n_{22} = 32$ filtera i $f_{22}=1$, dolazi do degradiranja i opadanja kvaliteta krajnjeg izlaza, što pokazuje slika \ref{fig:ogled91} . Dublje strukture daju još gore rezultate - mreža $9-1-1-1-5$ sa $n_{22} = 32$ i $n_{23} = 16$ filtera (koja ima manji koeficijent učenja kako bi se osigurala konvergencija), i posle nedjelju dana učenja pokazuje pogoršanje. Postuliralo se da li je to možda zbog veličine filtera, ali i to pitanje je riješeno - slika \ref{fig:ogled92} pokazuje da ni povećavanje veličine filtera u dodatim slojevima ne dovodi do nekog poboljšanja. Mreže $9-3-3-3$ i $9-3-3-5$ ne ostvaruju bolje rezultate od $9-3-1-5$.  
+      
+  Razlog zašto SRCNN pokazuje tako loše rezultate pri većim dubinama krije se u teškoći učenja tako raslojene strukture. Eksperimenti pokazuju njenu osjetljivost na mijenjanje vrijednosti parametara i brzine učenja. SRCNN nema sloj sažimanja (engl. pooling layer)  koji smanjuje veličinu ulazne slike, a samim tim i broja parametara. Duboke strukture SRCNN, koje broje $4$ ili $5$ slojeva, imaju poteškoće da stignu u stanje konvergencije, zbog teškoće postavljanja odgovarajućeg koeficijenta $\eta$. A ukoliko i dosegnu konvergenciju, naučeni filteri pokazuju manju raznolikost čak i nakon dužeg treniranja, dok i dalje postoji opasnost od upadanja u lokalni minimum. Nepažljivo podešavanje slojevitosti strukture nije jedinstveno za SR problem - i samo polje klasifikacije slika zabilježilo je degradiranje performansi. Duboke arhitekture i njihova analiza još treba da odgonetnu zašto ne vode uvijek boljim rezultatima, te ukažu na bezbjedan način raslojavanja. 
  
 %\ref{fig:figura} 
  
@@ -493,15 +495,15 @@ Ipak, zbog povećanja kompleksnosti mreže, opada brzina dobijanja output-a: $80
  \begin{itemize}
   
  \item \textbf{\textit{SC-tehnika}} Yanga i autora \cite{sparse1}
- \item \textbf{\textit{NE+LLE}} - topološko uranjanje susjeda lokalno linearnim metodom (neighbour embedding + locally linear embedding method) \cite{nelle}
- \item \textbf{\textit{ANR/A+}} - regresija fiksiranog susjedstva/poboljšana regresija  (\cite{anr},\cite{aplus})
+ \item \textbf{\textit{NE+LLE}} - topološko uranjanje susjeda lokalno linearnim metodom (engl. neighbour embedding + locally linear embedding method) \cite{nelle}
+ \item \textbf{\textit{ANR/A+}} - regresija fiksiranog susjedstva i poboljšana regresija  (\cite{anr},\cite{aplus})
  \item ranije pomenuta \textit{\textbf{KK tehnika}} - jedan od najbolje ocijenjenih eksternih metoda uzorkovanja\cite{kernel} 
   
 \end{itemize}   
 
    \subsection{Analiza i ocjene}
    
- SRCNN daje najbolje rezultate u skoro svim posmatranim metrikama (tabela \ref{table:3})\footnote{U radu će biti prikazani samo rezultati na BSD200 skupu; detaljnije \cite{main}}. Za faktor $s=3$, poboljšanja $PSNR$-a, gledano u odnosu na drugi-najbolji A+ metod, iznose $0.15, 0.17$ i $0.13\text{dB}$ po skupovima. Jedine ocjene koje SRCNN-u ne daju primat jesu  IFC i NQM metrika, ali kao što je ranije pomenuto, one ne ocrtavaju stvarni kvalitet rezultatne slike. 
+ SRCNN daje najbolje rezultate u skoro svim posmatranim metrikama (tabela \ref{table:3})\footnote{U radu će biti prikazani samo rezultati na BSD200 skupu; detaljnije \cite{main}}. Za faktor $s=3$, poboljšanja $PSNR$-a, gledano u odnosu na drugi najbolji A+ metod, iznose $0.15, 0.17$ i $0.13\text{dB}$ po skupovima. Jedine ocjene koje SRCNN-u ne daju primat jesu  IFC i NQM metrika, ali kao što je ranije pomenuto, one ne ocrtavaju stvarni vizuelni kvalitet rezultatne slike. 
  
  
  \begin{wrapfigure}{r}{0.5\textwidth}
@@ -515,7 +517,7 @@ Ipak, zbog povećanja kompleksnosti mreže, opada brzina dobijanja output-a: $80
   \vspace{-20pt}
 \end{wrapfigure}
 
- Sa slike \ref{fig:test10} se vidi da SRCNN prevazilazi bikubičnu interpolaciju na samom startu, a nakon umjereno-dugog vremena treniranja pobjeđuje i najsavremenije metode. Kao i obično, SRCNN može još više da se poboljša većim intervalom treniranja (jer mreža još uvijek nije došla u stanje konvergencije). Slike na sajtu \cite{supp1} jasnije demonstriraju nadmoćnost SRCNN metoda (pogledati sliku \ref{fig:primjer}). 
+ Sa slike \ref{fig:test10} se vidi da SRCNN prevazilazi bikubičnu interpolaciju na samom startu, a nakon umjereno dugog vremena treniranja pobjeđuje i najsavremenije metode. Kao i obično, SRCNN može još više da se poboljša većim intervalom treniranja (jer mreža još uvijek nije došla u stanje konvergencije). Slike na sajtu \cite{supp1} jasnije demonstriraju nadmoćnost SRCNN metoda (pogledati sliku \ref{fig:primjer}). 
 
  \begin{wrapfigure}{r}{0.5\textwidth}
 \vspace{-20pt}  
@@ -529,7 +531,7 @@ Ipak, zbog povećanja kompleksnosti mreže, opada brzina dobijanja output-a: $80
   \label{fig:11ogled}
  \vspace{-25pt}
 \end{wrapfigure}
-  SRCNN je upoređen i sa metodom kaskadnih mreža DNC. U ovom slučaju, treniranje SRCNN-a se vršilo kada se u fazi preprocesiranja primjenjivao drugačiji Gausov filter za zamućenje, sa standardnom devijaciom 0.55, jer isti koristi DNC. Odabrala se 9-5-5 SRCNN mreža za ovaj ogled i trenirala se skupom A od 91 slike; faktor skaliranja $s=3$; testni skup je Set5. Slika \ref{fig:11ogled} pokazuje da SRCNN vlada i nad ovim metodom, kojeg prestiže sa samo $2.7 \times 10^7$ backpropagacija. DNC je još jedan primjer strukture kod kojeg dubina ne znači superiornije rezultate.   
+  SRCNN je upoređen i sa metodom kaskadnih mreža DNC. U ovom slučaju, treniranje SRCNN-a se vršilo kada se u fazi preprocesiranja primjenjivao drugačiji Gausov filter za zamućenje, sa standardnom devijacijom 0.55, jer isti koristi DNC. Odabrala se 9-5-5 SRCNN mreža za ovaj ogled i trenirala se skupom A od 91 slike; faktor skaliranja $s=3$; testni skup je Set5. Slika \ref{fig:11ogled} pokazuje da SRCNN vlada i nad ovim metodom, kojeg prestiže sa samo $2.7 \times 10^7$ backpropagacija. DNC je još jedan primjer strukture kod kojeg dubina ne znači superiornije rezultate.   
 
 
 %As can
@@ -557,9 +559,9 @@ Ipak, zbog povećanja kompleksnosti mreže, opada brzina dobijanja output-a: $80
    
   \section{Kolor-kanali}
   
-  U svim ranije navedenim eksperimentima slika se transformisala u YCbCr šemu i algoritam se primjenjivao na kanal luminiscencije. Kanali Cb i Cr su skalirani bikubičnom interpolacijom. U ovom eksperimentu posmatrao se učinak primjenjivanja algoritma SRCNN-a na sva tri kanala. Odnosno postavkom $c=3$, mreža SRCNN je modelirana na taj način da prihvati sva 3 kanala boje. Metaparametri sada izgledaju ovako: $c = 3, f_1 = 9, f_2 = 1, f_3 = 5, n_1 = 64$ i $n_2 = 32$. Treniranje se sprovodilo na skupu A, a testiranje na skupu Set5, faktor skaliranja $s=3$. 
+  U svim ranije navedenim eksperimentima slika se transformisala u YCbCr šemu i algoritam se primjenjivao na kanal luminiscencije. Kanali Cb i Cr su skalirani bikubičnom interpolacijom. U ovom eksperimentu posmatrao se učinak primjenjivanja algoritma SRCNN-a na sva tri kanala. Odnosno, postavkom $c=3$ mreža SRCNN je modelirana na taj način da prihvati sva 3 kanala boje. Metaparametri sada izgledaju ovako: $c = 3, f_1 = 9, f_2 = 1, f_3 = 5, n_1 = 64$ i $n_2 = 32$. Treniranje se sprovodilo na skupu A, a testiranje na skupu Set5, faktor skaliranja $s=3$. 
    
-  Za poređenje koristila se bikubična interpolacija i KK, jedan od najmoćnijih kolor-SR metoda. Za dobijanje što kompletnijih rezultata analize, drugačiji mehanizmi učenja su primjenjivani, i to:
+  Za poređenje koristila se bikubična interpolacija i KK, jedan od najmoćnijih kolor SR metoda. Za dobijanje što kompletnijih rezultata analize, drugačiji mehanizmi učenja su primjenjivani, i to:
   
   \begin{enumerate}
   
@@ -567,7 +569,7 @@ Ipak, zbog povećanja kompleksnosti mreže, opada brzina dobijanja output-a: $80
    \item \textit{\textbf{YCbCr metod}} - ''združeno'' treniranje svakog kanala YCbCr
    \item \textit{\textbf{Predtreniranje Y kanala}} - ovako se obezbjeđuje performansa kanala luminiscencije, tako što se MSE-funkcija u fazi predtreniranja primjenjuje samo na njemu, a onda u glavnoj fazi treninga uče se svi kanali  
    \item \textit{\textbf{Predtreniranje CbCr kanala}} - analogno
-   \item \textbf{\textit{RGB-treniranje}} - slika je prevedena u RGB prostor i ti RGB kanali se uče
+   \item \textbf{\textit{RGB-treniranje}} - slika je prevedena u RGB prostor i ti kanali se uče
    
   \end{enumerate}
    %oznaka sa .
@@ -585,10 +587,10 @@ Ipak, zbog povećanja kompleksnosti mreže, opada brzina dobijanja output-a: $80
   
    \item Treniranje dato 2. strategijom daje lošije rezultate nego bikubična interpolacija, jer mreža upada u lokalni minimum, usljed velikih razlika koje postoje između Y, Cb i Cr kanala. 
    \item 3. i 4. strategija su bolje od 2., ali ipak ne bolje od osnovne 1. strategije, što ukazuje da Cb i Cr kanali mogu degradirati performanse Y kanala.
-   \item Iznenađujuće, Cb i Cr kanali imaju veću PSNR ocjenu kod 3., nego kod 4. strategije. Razlog zašto je to tako krije se u činjenici da su Cb i Cr kanali ''mutniji'' od Y kanala, pa nijesu toliko pogođeni preprocesiranjem, a nakon prve faze treniranja na njima, samo mali broj filtera biva promijenjen, što će značiti da u glavnoj fazi treninga mreža zapada u loši lokalni minimum. Sa druge strane, pretreniranje Y kanala aktivira više filtera. Ipak, broj filtera koji je promijenjen nije dovoljno velik da nadmaši osnovnu strategiju. (slika \ref{fig:13ogled})
+   \item Iznenađujuće, Cb i Cr kanali imaju veću PSNR ocjenu kod 3., nego kod 4. strategije. Razlog zašto je to tako krije se u činjenici da su Cb i Cr kanali ''mutniji'' od Y kanala, pa nijesu toliko pogođeni preprocesiranjem, a nakon prve faze treniranja na njima, samo mali broj filtera biva promijenjen, što će značiti da u glavnoj fazi treninga mreža zapada u loš lokalni minimum. Sa druge strane, pretreniranje Y kanala aktivira više filtera. Ipak, broj filtera koji je promijenjen nije dovoljno velik da nadmaši osnovnu strategiju. (slika \ref{fig:13ogled})
    \item Konačno, 5. strategija - treniranje na RGB kanalima - pokazuje poboljšanja i daje najbolje rezultate. Za razliku od YCrCb šeme, R, G i B kanali su tijesno povezani i SRCNN pri učenju hvata tu povezanost i koristi je pri rekonstrukciji. RGB-strategija na Y kanalu postiže slične rezultate kao Y-samo strategija a bolje rezultate na Cb i Cr kanalima od bikubičnog jezgra, što za rezultat ima kvalitetniju sliku. 
    
-   \item KK-metoda je naklonjenija Y-kanalu. Naime, kod KK tehnike algoritam se primjenjuje na sva tri RGB kanala. Kada se rezultat predstavi u YCbCr prostoru, PSNR vrijednost koju ima kanal luminiscencije je slična vrijednost koja se postiže na tom kanalu pri strategiji Y-samo, ali vrijednosti Cb i Cr su gori nego kod BI.  
+   \item KK metoda je naklonjenija Y-kanalu. Naime, kod KK tehnike algoritam se primjenjuje na sva tri RGB kanala. Kada se rezultat predstavi u YCbCr prostoru, PSNR vrijednost koju ima kanal luminiscencije je slična vrijednost koja se postiže na tom kanalu pri strategiji Y-samo, ali vrijednosti Cb i Cr su gori nego kod BI.  
    
   \end{itemize}
  
@@ -596,7 +598,7 @@ Ipak, zbog povećanja kompleksnosti mreže, opada brzina dobijanja output-a: $80
 
 %treca kolona prikazuje vrijednost PSNR izracunatu u RGB semi  
   
-Zaključak je da SRCNN metod treniran na sva tri RGB kanala daje bolje rezultate nego tipična strategija ove mreže i KK tehnika. Ipak to poboljšanje u odnosu na jedno-kanalni sistem nije veliko (svega 0.07 dB), što još jednom svjedoči da Cb i Cr kanali ne pomažu u optimizovanju performansi. 
+Zaključak je da SRCNN metod treniran na sva tri RGB kanala daje bolje rezultate nego tipična strategija ove mreže i KK tehnika. Ipak to poboljšanje u odnosu na jednokanalni sistem nije veliko (svega 0.07 dB), što još jednom svjedoči da Cb i Cr kanali ne pomažu u optimizovanju performansi. 
 
 
  \textbf{Kritike}: Drugi eksprerimenti - na poznatom skupu Urban100, čak i na BSD100 skupu - pokazuju da su A+ i KK metoda bolje od SRCNN mreže. \cite{files}
@@ -615,10 +617,11 @@ Zaključak je da SRCNN metod treniran na sva tri RGB kanala daje bolje rezultate
 \chapter{Poboljšanje modela}\label{ch2} 
 
  U ovoj sekciji razmatra se dalji razvoj, odnosno poboljšanje trenutnog modela SRCNN-a. Jedan takav predlog uslijedio je od samih kreatora SRCNN tehnike. Dong et al. predlažu ubrzani model SRCNN-a kojeg nazivaju FSRCNN. \cite{improv1}
-  Redizajnirana struktura FSRCNN-a se od originalnog modela razlikuje u 4 aspekta: $1)$ ulaznom sloju FSRCNN-a biva predata originalna slika bez preprocesiranja, odnosno bez bikubične interpolacije, $2)$ na kraju je dodat dekonvolucioni sloj koji izvodi uvećavanje slike, $3)$ sloj nelinearnog mapiranja SRCNN-a grana se na tri koraka kod FSRCNN-a: na sloj smanjivanja (koji smanjuje sliku prije mapiranja), zatim korak mapiranja, i sloj širenja i $(4)$ sami sloj mapiranja ima više slojeva i koriste se manji filteri. Iako je struktura dublja, FCRCNN pruža bolje performanse za manji broj izračunavanja - FSRCNN je, u odnosu na prethodni model, ubrzan preko 40 puta sa većom HR slikom. Autori u novom radu predlažu i nova podešavanja hiperparametara kako bi se osiguralo izvršavanje u realnom vremenu i na opštem procesoru, i dalje vodeći računa o kvalitetu. Nove strategije su predložene za  brže treniranje i testiranje za različite faktore $s$. 
+  
+  Redizajnirana struktura FSRCNN-a se od originalnog modela razlikuje u 4 aspekta: \textbf{\textit{(1)}} ulaznom sloju FSRCNN-a biva predata originalna slika bez preprocesiranja, odnosno bez bikubične interpolacije, \textit{\textbf{(2)}} na kraju je dodat dekonvolucioni sloj koji izvodi uvećavanje slike, \textit{\textbf{(3)}} sloj nelinearnog mapiranja SRCNN-a grana se na tri koraka kod FSRCNN-a: na sloj smanjivanja (koji smanjuje sliku prije mapiranja), zatim korak mapiranja, i sloj širenja i \textit{\textbf{(4)}} sami sloj mapiranja ima više slojeva i koriste se manji filteri. Iako je struktura dublja, FCRCNN pruža bolje performanse za manji broj izračunavanja - FSRCNN je, u odnosu na prethodni model, ubrzan preko 40 puta sa većom i boljom HR slikom. Autori u novom radu predlažu i nova podešavanja hiperparametara kako bi se osiguralo izvršavanje u realnom vremenu i na opštem procesoru, i dalje vodeći računa o kvalitetu. Nove strategije su predložene za  brže treniranje i testiranje za različite faktore $s$. 
  Naredne slike ocrtavaju rečeno, dok za detaljniji pregled rezultata poređenja pogledajte \cite{supp2}. Na slici \ref{fig:improv_2}, SCN predstavlja mrežu rijetkog kodiranja, SRCNN-Ex duboku SRCNN i FSRCNN-s jednostavniji model FSRCNN-a.
     
- Predložena je još i tehnika \cite{improv2}, koja koristi višeskalne filtere i drugačiju aktivacionu funkciju, kao i metoda višekanalne SRCNN mreže \cite{improv3} - koju autori nazivaju MC-SRCNN, gdje se ulaz predstavlja sa više kanala. Razmatrana je i metoda postepenog povećavanja dubine, kod kaskadno treniranih CT-SRCNN mreža \cite{improv4}. I za ove metode zabilježeno je da pružaju bolje rezultate, ali opsežnije teorijske analize trebaju biti sprovedene.
+ Predložena je još i tehnika \cite{improv2} koja koristi višeskalne filtere i drugačiju aktivacionu funkciju, kao i metoda višekanalne SRCNN mreže \cite{improv3} - koju autori nazivaju MC-SRCNN, gdje se ulaz predstavlja sa više kanala. Razmatrana je i metoda postepenog povećavanja dubine, kod kaskadno treniranih CT-SRCNN mreža \cite{improv4}. I za ove metode zabilježeno je da pružaju bolje rezultate, ali opsežnije teorijske analize trebaju biti sprovedene.
  
  \begin{figure}[h]
 \includegraphics[width=\textwidth]{SLIKE/better}
@@ -643,10 +646,15 @@ Zaključak je da SRCNN metod treniran na sva tri RGB kanala daje bolje rezultate
  % podrzava grayscale, Y-only i all RGB chanella. 
  
   Za programsku realizaciju SRCNN mreže odrabran je u \texttt{tensorflow}\footnote{https://www.tensorflow.org/}, biblioteka koja omogućava brza matematička izračunavanja. Jedan od glavnih razloga zašto baš taj alat jeste činjenica da pruža veliku podršku mašinskom učenju.
-  Što se same mreže tiče, implementirana je osnovna struktura 9-5-1 i Y-samo strategija, sa bazičnim parametrima, kao i RGB struktura, po glavnom uzoru na MATLAB kod samih autora\footnote{Druge reference se nalaze na sajtu mog projekta.}. Trenirano je na skupu A, za faktor skaliranja $s=3$. Ispitivano je na originalnim skupovima Setu 5 i Setu 14, kao i na nekim novo-formiranim (skupovi se nalaze u folderu \texttt{Testiranje/}).  Mreža je prošla kroz 15000+ za $Y$-samo strategiju i svega 2000+ epoha za RGB strategiju, u trenutku pisanja rada. Stanja mreže su se periodično čuvala, (npr. na svakih 500 koraka). Mreža pokazuje sjajne rezultate. Cjelokupni projekat, zajedno sa rezultatima testiranja, se mogu vidjeti na mom github nalogu: \cite{samples}. (U radu se ipak poziva na same primjere autora mreže jer su ti primjeri mnogo reprezentativniji.)
+  Što se same mreže tiče, implementirana je osnovna struktura 9-5-1 i Y-samo strategija, sa bazičnim parametrima, kao i RGB struktura, po glavnom uzoru na MATLAB kod samih autora\footnote{Druge reference se nalaze na sajtu mog projekta.}. Trenirano je na skupu A, za faktor skaliranja $s=3$. Ispitivano je na originalnim skupovima Setu 5 i Setu 14, kao i na nekim novoformiranim (skupovi se nalaze u folderu \texttt{Testiranje/}).  Mreža je prošla kroz 15000+ za $Y$-samo strategiju i svega 3000+ epoha za RGB strategiju, u trenutku pisanja rada. Stanja mreže su periodično čuvana na svakih 500 koraka. Mreža pokazuje sjajne rezultate. Cjelokupni projekat, zajedno sa rezultatima testiranja, se mogu vidjeti na mom github nalogu: \cite{samples}. (U radu se ipak poziva na same primjere autora mreže jer su ti primjeri mnogo reprezentativniji.)
     %\newpage
  
- Prikaz modula dat je na sljedećoj strani:
+ %sub-slika
+ 
+ 
+ Prikaz modula dat je na sljedećoj strani.
+
+\newpage
   
   \begin{itemize}
   
@@ -658,11 +666,11 @@ Zaključak je da SRCNN metod treniran na sva tri RGB kanala daje bolje rezultate
      \begin{lstlisting}
       $ python main.py -help
    \end{lstlisting}
-    \item \textit{\textbf{treniranje.py}} - ovaj modul se poziva ako je postavljeno -trening=True i on obučava mrežu, po instrukcijama koje su postavili autori. Osnovna strategija je Y-samo. Prije treninga, vrši se procesiranje podataka - slika se dijeli na sub-slike, koje imaju veličinu : i\_size za LR sub-slike, l\_size za ground-truth sub-slike. Ako se promijeni i\_size, mora se takođe promijeniti i l\_size - zbog konvolucije: $l\_size=i\_size-12$ (sjetimo se forme (\ref{eq:size})). Periodično se čuvaju stanja, kako bi mreža u sljedećoj trening-fazi mogla da nastavi od trenutka gdje je stala. Definiše se jedna tensor-sesija i u okviru nje se sve odvija. Za svaku epohu,  mreži se predaju sub-slike i poziva se funkcija optimizovanja gubitka, čiju vrijednost možemo da pratimo. Funkcija gubitka računa se za cjelokupni segment izlaza, ne samo za centralnu tačku.  
+    \item \textit{\textbf{treniranje.py}} - ovaj modul se poziva ako je postavljeno -trening=True i on obučava mrežu, po instrukcijama koje su postavili autori. Osnovna strategija je Y-samo. Prije treninga, vrši se procesiranje podataka - slika se dijeli na subslike, koje imaju veličinu : i\_size za LR subslike, l\_size za ground-truth subslike. Ako se promijeni i\_size, mora se takođe promijeniti i l\_size - zbog konvolucije: $l\_size=i\_size-12$ (sjetimo se forme (\ref{eq:size})). Periodično se čuvaju stanja, kako bi mreža u sljedećoj trening fazi mogla da nastavi od trenutka gdje je stala. Definiše se jedna \textit{tensor} sesija i u okviru nje se sve odvija. Za svaku epohu,  mreži se predaju subslike i poziva se funkcija optimizovanja gubitka, čiju vrijednost možemo da pratimo. Funkcija gubitka računa se za cjelokupni segment, ne samo za centralnu tačku.  
     
     \item \textbf{\textit{testiranje.py}} - ukoliko nije drugačije naglašeno, mreža se testira. Njen folder za testiranje definiše se preko test\_dir, što može biti i fajl; i svi ti fajlovi treba da se nalaze u folderu \texttt{Testiranje/}.  Tensor-sesija se inicijalizira, čita se sačuvano stanje mreže i vrši se evaluacija ulaza. Izlaz mreže, sa malo postprocesiranja, zajedno se čuva sa slikom koja je dobijena samo bikubičnom interpolacijom, kao referentnom tačkom. Čuvaju se i ocjene za ulazne slike po metrikama PSNR i SSIM. Zaista vidimo da SRCNN pobjeđuje BI metod, po vizuelnom ugođaju i većini ocjena. Sa dužim vremenom treniranja, SRCNN pokazao bi još bolje performanse.  Takođe, ovaj modul omogućava da, ako je korisnik specificirao pri pozivu parametar \texttt{-e=True}, da skripta direktno uveća samu testnu sliku za faktor skaliranja $s$. Svi izlazi mreže su sačuvani u folderu \texttt{rezultati/}.
     
-    \item \textit{\textbf{dodaci.py}} - pomoćni modul, koji sadrži mnoge pomoćne funkcije kao što su nalaženje checkpoint-a ili pretvaranje 3-kanalnog sistema u jedan (izvlačenje kanala Y kako bi se nad njemu vršila obrada), kao i sama gradnja konvolucione mreže i ispisivanje analize(ocjena)
+    \item \textit{\textbf{dodaci.py}} - pomoćni modul, koji sadrži mnoge pomoćne funkcije kao što su nalaženje checkpoint-a ili pretvaranje 3-kanalnog sistema u jednokanalni (izvlačenje kanala Y kako bi se nad njemu vršila obrada), kao i sama gradnja konvolucione mreže i ispisivanje analize (ocjena).
   \end{itemize}
   
    Kod je teško iskomentarisan da se može pratiti, i projekat sadrži mnoge napomene i primjere.
@@ -686,9 +694,9 @@ Zaključak je da SRCNN metod treniran na sva tri RGB kanala daje bolje rezultate
 \chapter{Zaključak}\label{ch2}  
   
 %pretprocesiranje i postprocesiranja
-  SRCNN, model konvolucionih neuronskih mreža koji se bavi problemom super rezolucije, predstavlja jedan od ključnih trenutaka i napredaka na polju SR, koji je dao izuzetno dobre rezultate. State-of-the-art SRCNN uči mapiranje s kraj na kraj, uzimajući sliku manje rezolucije a dajući HR sliku. Cijela njena struktura je laka, fleksibilna i optimizovana, sa samo par koraka pred i posleprocesiranja. Svakodnevno se istražuju novi filteri i različiti pristupi učenja - više slojeva, duboke rekurzivne strukture, drugačije arhitekture mreže - kako bi se mreža unaprijedila. SRCNN pruža inspiraciju i temelj novim i sve boljim tehnikama.
+  SRCNN, model konvolucionih neuronskih mreža koji se bavi problemom super rezolucije, predstavlja jedan od ključnih trenutaka i napredaka na polju SR koji je dao izuzetno dobre rezultate. State-of-the-art SRCNN uči mapiranje s kraj na kraj, uzimajući sliku manje rezolucije a dajući HR sliku. Cijela njena struktura je laka, fleksibilna i optimizovana, sa samo par koraka pred i poslije procesiranja. Svakodnevno se istražuju novi filteri i različiti pristupi učenja - više slojeva, duboke rekurzivne strukture, drugačije arhitekture mreže - kako bi se mreža unaprijedila. SRCNN pruža inspiraciju i temelj novim i sve boljim tehnikama.
  
-  SRCNN nije striktno vezana za polje SR; ona se može primijeniti i na druge probleme ''niske'' kompjuterske vizije (engl. low computer vision) kao što su uklanjanje šuma ili zamućenja sa slike, kao i za prepoznavanje lica. Zbog svoje praktičnosti, kvaliteta i brzine, SRCNN nalazi mnoge važne primjene u stvarnom svijetu (npr. \cite{primjena}, i mnoge druge \cite{files}).
+  SRCNN nije striktno vezana za polje SR; ona se može primijeniti i na druge probleme \  ''niske'' kompjuterske vizije (engl. low computer vision) kao što su uklanjanje šuma ili zamućenja sa slike, kao i za prepoznavanje lica. Zbog svoje praktičnosti, kvaliteta i brzine, SRCNN nalazi mnoge važne primjene u stvarnom svijetu (npr. \cite{primjena}, i mnoge druge \cite{files}).
      
    
 

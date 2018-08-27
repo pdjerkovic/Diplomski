@@ -42,6 +42,8 @@ parser.add_argument('-rgb', dest='rgb',
 
 config = parser.parse_args()
 
+#bolje dodati da se jedan parametar definise, pa ovaj drugi preko njega, ovako je redudantno.
+
 if config.i_size!=config.l_size+12 or (config.i_size<=0 or config.l_size<=0):
 	print("Pogresno zadavanje parametara velicine. Uzimanje default vrijednosti...")
 	config.i_size = 33
@@ -57,7 +59,7 @@ if config.br_epoha<0:
 	
 if config.korak<=0:
 	print("Pogresno zadavanje koraka. Uzimanje default vrijednosti...")
-	config.strude = 14
+	config.korak = 14
 
 if config.scale<=0:
 	print("Pogresno zadavanje faktora skaliranja. Uzimanje default vrijednosti...")
