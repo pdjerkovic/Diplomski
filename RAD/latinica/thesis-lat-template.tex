@@ -379,7 +379,7 @@ Ilustracija primjera: na slici \ref{fig:trening_sfig1} možete pogledati naučen
 
 %povezat još aplikacijuuuu!!!! footnote ovih tehnickih stvari isto
   
-  Tehnike dubokog učenja napredovale su zahvaljujući mnogostrukosti podataka, kao što je ImageNet. Ogled koji se prezentuje u ovom poglavlju zasnivao se na poređenju rezultata koje daje mreža kada uči na malom skupu podataka, nasuprot učenju na velikoj bazi. Pobliže, prva baza sastojala se od $91$ slike, skup A\footnote{Folder Basic na sajtu programske realizacije \cite{samples}}, druga od $395 909$ slika. Sa pomjerajem $14$ i $n_{sub}=33$, prvi set slika davao je $24 800$ subslika, drugi (ImageNet skup) preko $5$ miliona i sa korakom rezanja $33$. Za ovaj eksperiment koristile su se tipične postavke sistema (3.2.1) i faktor skaliranja $s = 3$. Za referentnu tačku koristi se SC-metod \cite{sparse1} koji daje prosječnu vrijednost $PSNR = 31.42\text{dB}$.  Radi preciznosti ocjene, za test koristila su se dva skupa koji su u literaturi poznati kao \textit{Set5} i \textit{Set14} \cite{samples}.
+  Tehnike dubokog učenja napredovale su zahvaljujući mnogostrukosti podataka, kao što je ImageNet. Ogled koji se prezentuje u ovom poglavlju zasnivao se na poređenju rezultata koje daje mreža kada uči na malom skupu podataka, nasuprot učenju na velikoj bazi. Pobliže, prva baza sastojala se od $91$ slike, skup A\footnote{Folder Basic na sajtu programske realizacije \cite{samples}}, druga od $395 909$ slika. Sa pomjerajem $14$ i $n_{sub}=33$, prvi set slika davao je $24 800$ subslika, drugi (ImageNet skup) preko $5$ miliona i sa korakom rezanja $33$. Za ovaj eksperiment koristile su se tipične postavke sistema (3.2.1) i faktor skaliranja $s = 3$. Za referentnu tačku koristi se SC-metod \cite{sparse1} koji daje prosječnu vrijednost $PSNR = 31.42\text{ dB}$.  Radi preciznosti ocjene, za test koristila su se dva skupa koji su u literaturi poznati kao \textit{Set5} i \textit{Set14} \cite{samples}.
 
     \begin{wrapfigure}{r}{0.5\textwidth} 
   \begin{center}
@@ -388,7 +388,7 @@ Ilustracija primjera: na slici \ref{fig:trening_sfig1} možete pogledati naučen
   \caption{Treniranje na većoj bazi popravlja performanse}
   \label{fig:ogled4}
 \end{wrapfigure}
-Rezultati ovog ogleda prikazani su na slici \ref{fig:ogled4}. Vrijeme za treniranje obje baze je skoro isto, budući da je jednak broj prolaza širenja greške unazad, odnosno backpropagacija. Sa $8 \cdot 10^8$ backpropagacija, $PSNR$ vrijednost dobijena na većoj bazi je veća od $PSNR$ vrijednosti dobijenoj na manjoj ($32.52 \text{dB} > 32.39 \text{dB}$), što pozitivno ukazuje da SRCNN može poboljšati kvalitet obrade na većim BigData podacima. Ipak, rezultat koji je dobijen korišćenjem velike baze nije toliko značajno bolji. Razlog za to - prvi set je uhvatio dovoljnu raznolikost slika.\footnote{Opasnost od preobučavanja ne postoji - naša mreža je mala - sveukupno $8 032$ parametra, tako da se nije mogla pretrenirati na $91$ sl. i svih $24 800$ uzoraka.} 
+Rezultati ovog ogleda prikazani su na slici \ref{fig:ogled4}. Vrijeme za treniranje obje baze je skoro isto, budući da je jednak broj prolaza širenja greške unazad, odnosno backpropagacija. Sa $8 \cdot 10^8$ backpropagacija, $PSNR$ vrijednost dobijena na većoj bazi je veća od $PSNR$ vrijednosti dobijenoj na manjoj ($32.52 \text{ dB} > 32.39 \text{ dB}$), što pozitivno ukazuje da SRCNN može poboljšati kvalitet obrade na većim BigData podacima. Ipak, rezultat koji je dobijen korišćenjem velike baze nije toliko značajno bolji. Razlog za to - prvi set je uhvatio dovoljnu raznolikost slika.\footnote{Opasnost od preobučavanja ne postoji - naša mreža je mala - sveukupno $8 032$ parametra, tako da se nije mogla pretrenirati na $91$ sl. i svih $24 800$ uzoraka.} 
     
   
 % We use the Set5 [2] as the validation set. 
@@ -415,7 +415,7 @@ pokazuje kako mijenjanje parametara $n_1$ i $n_2$ vodi drugačijim rezultatima. 
    
   \subsection{Veličina filtera}
    
-  Osnovna konfiguracija jeste $f_1=9, f_2=1$ i $f_3=5$ i neka se takva  mreža zove $9-1-5$ mreža. Kada se posmatrala mreža $11-1-7$ (veličina filtera drugog sloja nepromijenjena), ona je davala rezultat bolje $PSNR$ vrijednosti ($32.57 \text{dB} > 32.52 \text{dB}$). Ovakav ishod ukazuje na to da i (razumno\footnote{imajući na umu povećanje kompleksnosti mreže}) veći filteri vode boljim performansama, jer hvataju više strukturalnih informacija. 
+  Osnovna konfiguracija jeste $f_1=9, f_2=1$ i $f_3=5$ i neka se takva  mreža zove $9-1-5$ mreža. Kada se posmatrala mreža $11-1-7$ (veličina filtera drugog sloja nepromijenjena), ona je davala rezultat bolje $PSNR$ vrijednosti ($32.57 \text{ dB} > 32.52 \text{ dB}$). Ovakav ishod ukazuje na to da i (razumno\footnote{imajući na umu povećanje kompleksnosti mreže}) veći filteri vode boljim performansama, jer hvataju više strukturalnih informacija. 
 
 \begin{wrapfigure}{r}{0.55\textwidth}
 \vspace{-20pt}  
@@ -428,7 +428,7 @@ pokazuje kako mijenjanje parametara $n_1$ i $n_2$ vodi drugačijim rezultatima. 
   \label{fig:fsize}
 \end{wrapfigure}  
   
-  U drugom dijelu ovog eksperimenta su bile fiksirane veličine $f_1$ i $f_3$, a mijenjana $f_2$. Posmatrane su mreže $9-3-5$ i $9-5-5$. Slika \ref{fig:fsize} pokazuje da korišćenje 2-slojnih filtera većih veličina odvodi znatno boljim rezultatima. Jasnije rečeno, dobijene PSNR vrijednosti su $32.66\text{dB}$ i $32.75\text{dB}$, za $f_2=3$ i $f_2=5$. Test sa većim filterima ukazuje na to da je korišćenje okolnih informacija u fazi mapiranja veoma korisno. 
+  U drugom dijelu ovog eksperimenta su bile fiksirane veličine $f_1$ i $f_3$, a mijenjana $f_2$. Posmatrane su mreže $9-3-5$ i $9-5-5$. Slika \ref{fig:fsize} pokazuje da korišćenje 2-slojnih filtera većih veličina odvodi znatno boljim rezultatima. Jasnije rečeno, dobijene PSNR vrijednosti su $32.66\text{ dB}$ i $32.75\text{ dB}$, za $f_2=3$ i $f_2=5$. Test sa većim filterima ukazuje na to da je korišćenje okolnih informacija u fazi mapiranja veoma korisno. 
  
 Ipak, zbog povećanja kompleksnosti mreže, opada brzina dobijanja output-a: $8032, 24416$ i $57184$ redom predstavljaju tačan broj parametara za $9-1-5$, $9-3-5$ i $9-5-5$ mrežu. Vidimo da je kompleksnost treće mreže skoro dva puta veća od druge, dok je dobijanje na kvalitetu neznatno.   
 
@@ -505,7 +505,7 @@ Ipak, zbog povećanja kompleksnosti mreže, opada brzina dobijanja output-a: $80
 
    \subsection{Analiza i ocjene}
    
- SRCNN daje najbolje rezultate u skoro svim posmatranim metrikama (tabela \ref{table:3})\footnote{U radu će biti prikazani samo rezultati na BSD200 skupu; detaljnije \cite{main}}. Za faktor $s=3$, poboljšanja $PSNR$-a, gledano u odnosu na drugi najbolji A+ metod, iznose $0.15, 0.17$ i $0.13\text{dB}$ po skupovima. Jedine ocjene koje SRCNN-u ne daju primat jesu  IFC i NQM metrika, ali kao što je ranije pomenuto, one ne ocrtavaju stvarni vizuelni kvalitet rezultatne slike. 
+ SRCNN daje najbolje rezultate u skoro svim posmatranim metrikama (tabela \ref{table:3})\footnote{U radu će biti prikazani samo rezultati na BSD200 skupu; detaljnije \cite{main}}. Za faktor $s=3$, poboljšanja $PSNR$-a, gledano u odnosu na drugi najbolji A+ metod, iznose $0.15, 0.17$ i $0.13\text{ dB}$ po skupovima. Jedine ocjene koje SRCNN-u ne daju primat jesu  IFC i NQM metrika, ali kao što je ranije pomenuto, one ne ocrtavaju stvarni vizuelni kvalitet rezultatne slike. 
  
  
  \begin{wrapfigure}{r}{0.5\textwidth}
@@ -543,7 +543,7 @@ Ipak, zbog povećanja kompleksnosti mreže, opada brzina dobijanja output-a: $80
   
   \subsection{Vrijeme izvršavanja}
 
-  Na slici \ref{fig:12ogled} dat je grafik vremena izvršavanja najsavremenijih metoda i SRCNN-a. Računar na kojem je rađeno ima Intelov procesor 3.10 Ghz i 16GB RAM-a; koristila se \texttt{C++} implementacija SRCNN-a, dok se za druge metode koristila \texttt{MATLAB+MEX}-implementacija samih kreatora.  
+  Na slici \ref{fig:12ogled} dat je grafik vremena izvršavanja najsavremenijih metoda i SRCNN-a. Računar na kojem je rađeno ima Intelov procesor 3.10 Ghz i 16GB RAM-a; koristila se \texttt{C++} implementacija SRCNN-a, dok se za druge metode koristila \texttt{MATLAB+MEX} implementacija samih kreatora.  
   Vrijeme izvršavanja SRCNN-a linearno zavisi od rezolucije početne testne slike, jer sve slike prolaze kroz isti broj konvolucija. Ovaj ogled još jednom je pokazao da se mora vagati između brzine izvršavanja i kvaliteta izlaza SR konvolucione mreže. To pokazuju testovi sa 9-1-5, 9-3-5 i 9-5-5 mrežama na grafikonu \ref{fig:12ogled}. Najbrži metod svakako je 9-1-5 mreža, dok su drugi sporiji. Iako mreže 9-3-5 i 9-5-5 daju znatno bolje rezultate (najbolji 9-5-5 mreža), one nijesu brže od A+ metoda. Važno je napomenuti da ove razlike u performansama ne potiču zbog različitih implementacija (\texttt{MATLAB} nasuprot \texttt{C++}) nego od samih struktura drugih metoda koje nijesu u cjelosti optimalne (kao kod tehnika rijetkog kodiranja, što je ranije naglašeno). Vrijeme izvršavanja SRCNN-a može biti još više smanjeno, koristeći neke već poznate metode pojednostavljivanja i aproksimacije mreža, ali to možda odvede manjem kvalitetu izlaza. 
   
   %kvalitet izlaza
@@ -592,7 +592,7 @@ Ipak, zbog povećanja kompleksnosti mreže, opada brzina dobijanja output-a: $80
    \item Iznenađujuće, Cb i Cr kanali imaju veću PSNR ocjenu kod 3., nego kod 4. strategije. Razlog zašto je to tako krije se u činjenici da su Cb i Cr kanali ''mutniji'' od Y kanala, pa nijesu toliko pogođeni preprocesiranjem, a nakon prve faze treniranja na njima, samo mali broj filtera biva promijenjen, što će značiti da u glavnoj fazi treninga mreža zapada u loš lokalni minimum. Sa druge strane, pretreniranje Y kanala aktivira više filtera. Ipak, broj filtera koji je promijenjen nije dovoljno velik da nadmaši osnovnu strategiju. (slika \ref{fig:13ogled})
    \item Konačno, 5. strategija - treniranje na RGB kanalima - pokazuje poboljšanja i daje najbolje rezultate. Za razliku od YCrCb šeme, R, G i B kanali su tijesno povezani i SRCNN pri učenju hvata tu povezanost i koristi je pri rekonstrukciji. RGB strategija na Y kanalu postiže slične rezultate kao Y-samo strategija a bolje rezultate na Cb i Cr kanalima od bikubičnog jezgra, što za rezultat ima kvalitetniju sliku. 
    
-   \item KK metoda je naklonjenija Y-kanalu. Naime, kod KK tehnike algoritam se primjenjuje na sva tri RGB kanala. Kada se rezultat predstavi u YCbCr prostoru, PSNR vrijednost koju ima kanal luminiscencije je slična vrijednost koja se postiže na tom kanalu pri strategiji Y-samo, ali vrijednosti Cb i Cr su gori nego kod BI.  
+   \item KK metoda je naklonjenija Y kanalu. Naime, kod KK tehnike algoritam se primjenjuje na sva tri RGB kanala. Kada se rezultat predstavi u YCbCr prostoru, PSNR vrijednost koju ima kanal luminiscencije je slična vrijednost koja se postiže na tom kanalu pri strategiji Y-samo, ali vrijednosti Cb i Cr su gori nego kod BI.  
    
   \end{itemize}
  
