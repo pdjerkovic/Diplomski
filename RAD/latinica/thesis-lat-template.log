@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.7.3)  29 AUG 2018 14:08
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.7.3)  7 SEP 2018 01:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1404,13 +1404,7 @@ Package pdftex.def Info: SLIKE/receptive.png used on input line 182.
 Glava 3.
 [16
 
-]
-Overfull \hbox (0.45741pt too wide) in paragraph at lines 231--232
-[]\T2A/cmr/m/n/12 Gusto seg-men-ti-zi-ra-nje slike i re-pre-zen-ta-cija tih seg
--me-nata sku-pom (ra-nije na[]\OT1/cmr/m/n/12 d\T2A/cmr/m/n/12 enih)
- []
-
-[17] [18] <SLIKE/figure2.png, id=88, 965.6075pt x 352.31625pt>
+] [17] [18] <SLIKE/figure2.png, id=88, 965.6075pt x 352.31625pt>
 File: SLIKE/figure2.png Graphic file (type png)
 
 <use SLIKE/figure2.png>
@@ -1631,11 +1625,11 @@ LaTeX Warning: There were multiply-defined labels.
 Here is how much of TeX's memory you used:
  19233 strings out of 494697
  341154 string characters out of 6178385
- 408244 words of memory out of 5000000
+ 408243 words of memory out of 5000000
  22088 multiletter control sequences out of 15000+600000
  25467 words of font info for 62 fonts, out of 8000000 for 9000
  246 hyphenation exceptions out of 8191
- 55i,10n,54p,1951b,1282s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 55i,10n,54p,1959b,1282s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/riselje/.texmf-var/fonts/pk/ljfour/lh/lh-t2a/latt1200.6
 00pk> </home/riselje/.texmf-var/fonts/pk/ljfour/lh/lh-t2a/latt1000.600pk> </hom
 e/riselje/.texmf-var/fonts/pk/ljfour/lh/lh-t2a/labi1200.600pk> </home/riselje/.
@@ -1664,9 +1658,9 @@ b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share
 /texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on thesis-lat-template.pdf (47 pages, 2875231 bytes).
+Output written on thesis-lat-template.pdf (47 pages, 2876097 bytes).
 PDF statistics:
- 824 PDF objects out of 1000 (max. 8388607)
+ 827 PDF objects out of 1000 (max. 8388607)
  219 compressed objects within 3 object streams
  0 named destinations out of 1000 (max. 500000)
  113 words of extra memory for PDF output out of 10000 (max. 10000000)
