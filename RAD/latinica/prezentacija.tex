@@ -1,0 +1,334 @@
+\documentclass{beamer}
+%\usepackage[demo]{graphicx}
+%\usepackage{subfig}
+%\usepackage{caption}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage[english,serbian]{babel}
+\usetheme{Warsaw}
+\setbeamertemplate{caption}{\raggedright\insertcaption\par}
+\usepackage{multirow}
+
+%\usepackage{subcaption}
+%\usetheme{fibeamer}
+\title{Konvolucione mreže super rezolucije}
+\subtitle{Specijalistički rad}
+\author{Petar Đerković}
+\institute{Prirodno-matematički fakultet, Podgorica}
+\date{\today}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+%\section{Section 1}
+%\subsection{sub a}
+
+\begin{frame}
+\frametitle{Osnovni koncepti}
+  
+\begin{itemize}
+\item Problem super rezolucije (SR)
+\begin{itemize}
+\item jednoulazni \checkmark
+\item multiulazni
+\end{itemize}
+\item Tehnike rijetkog kodiranja
+\item Kanal SR obrade
+\begin{itemize}
+\item Dijeljenje slike na regione (segmente)
+\item Pretvaranje segmenata u rječnike male rezolucije (LR)
+\item Prelaz u rječnike visoke rezolucije (HR) i rekonstrukcija
+\end{itemize}
+\item Mana: segregacija komponenti - nepostojanje zajedničke optimizovane strukture
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Algoritmi SR-a}
+  
+\begin{itemize}
+\item Prediktivni modeli
+\item Ivični modeli
+\item Statistički modeli
+\item Modeli uzorkovanja - najbolji!
+\begin{itemize}
+\item Unutrašnji modeli uzorkovanja
+\item Spoljašnji modeli uzorkovanja
+\end{itemize}
+\item Danas postoje mnogobrojni pristupi
+\item Jednokanalni sistemi boje
+\item Izdvojene ocjene: PSNR i SSIM
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Konvolucione mreže}
+  
+\begin{itemize}
+\item Veoma bitne na polju mašinske vizije
+\item Struktura vidnog korteksa
+\item Konvolucioni sloj i dijeljenje težina
+\item Posebno 3D raspoređivanje neurona i receptivno polje RP
+\item Mape bitnih odlika (engl. feature maps)
+\item Hiperparametri i ReLU funkcija $f(x)=x^{+}=\max(x,0)$
+\end{itemize}
+
+
+\begin{figure}[ht]
+        \begin{minipage}[b]{0.5\linewidth}
+            \centering
+            \includegraphics[width=1\textwidth]{SLIKE/konvolucija}
+            \caption{Primjer konvolucije}
+            \label{fig:a}
+        \end{minipage}
+        \hspace{0.5cm}
+        \begin{minipage}[b]{0.4\linewidth}
+            \centering
+            \includegraphics[width=1\textwidth]{SLIKE/receptive}
+            \caption{RP - crveno}
+            \label{fig:b}
+        \end{minipage}
+    \end{figure}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Konvolucione mreže super rezolucije}
+\begin{itemize}
+\item Benchmark metod (Dong et. al)
+\item Mapiranje s kraja na kraj, između LR i HR slike
+\begin{itemize}
+\item Preprocesiranje bikubičnom intrepolacijom (BI)
+\item Izvlačenje i predstavljanje segmenata
+\begin{block}{Y - preprocesirani ulaz, $W_1$ - filteri 1. sloja, $B_1$ - bias}
+%\begin{equation}
+ $ F_1(Y) = \max(0, W_1 \star Y + B_1)$
+%\end{equation}
+\end{block}
+\item Nelinearno mapiranje
+\begin{block}{$W_2$ - filteri 2. sloja, $B_2$ - bias}
+%\begin{equation}
+ $ F_2(Y) = \max(0, W_2 \star F_1(Y) + B_2)$
+%\end{equation}
+\end{block}
+\item Rekonstrukcija
+\begin{block}{$W_3$ - filteri 3. sloja, $B_3$ - bias}
+%\begin{equation}
+ $F_3(Y) =  W_3 \star F_3(Y) + B_3$
+%\end{equation}
+\end{block}
+
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Konvolucione mreže super rezolucije}
+\begin{itemize}
+%\item Postavke hiperparametara
+\begin{block}{Postavke hiperparametara}
+%\begin{equation}
+ $f_1 = 9, f_2 = 1, f_3 = 5, n_1 = 64 \text{ i } n_2 = 32$
+%\end{equation}
+\end{block}
+\item Bez dopune (padding-a) kako izlaz ne bi imao granice
+\item Jednostavnija struktura, brža mreža
+\end{itemize}
+
+
+\begin{figure}[h]
+\includegraphics[width=\textwidth]{SLIKE/figure2}
+\centering
+\caption{Vizuelna reprezentacija SRCNN mreže}
+\label{fig:srcnn}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Analogija sa SC}
+\begin{itemize}
+\item Izvučeni $f_1 \times f_1$ segmenti iz početne slike
+\item Algoritam SC daje nam rječnik male rezolucije veličine $n_1$
+\item Nađi $n_2$ rijetki skup koeficijenata LR rječnika - to je HR rječnik
+\item Rekonstrukcija HR segmenata od HR rječnika i postprocesiranje
+\end{itemize}
+\begin{figure}[h]
+\includegraphics[width=\textwidth]{SLIKE/figure3}
+\centering
+\caption{SC tehnike iz ugla CNN mreže}
+\label{fig:rep}
+\end{figure}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Treniranje}
+\begin{itemize}
+\item Učenje $\Theta = \{W_1 , W_2 , W_3 , B_1 , B_2 , B_3\}$
+\item Na skupu Basic: 91 slika $\rightarrow$  24800 subslika $X_i$
+\item LR ulaz $Y_i$: zamućenje Gausovim filterom i BI up i down semplovanje $X_i$
+\item Funkcija gubitka MSE minimalizovana stohastičnim gradijentnim spustom
+\begin{block}{Ažuriranje težina; $l \in \{ 1, 2, 3 \}$ je indeks sloja, a $i$ broj iteracije. $\eta$ je stopa učenja i $n$ broj uzoraka}
+%\begin{equation}
+ $L(\Theta) = \frac{1}{n} \sum\limits_{i=1}^{n}{||F(Y_i; \Theta) - X_i ||}^2;$
+ $\Delta_{i+1} = 0.9 \cdot \Delta_i - \eta \cdot \frac{\partial L}{\partial W_{i}^{l}}, \ \ W_{i+1}^{l}=W_{i}^{l}+\Delta_{i+1}$
+%\end{equation}
+\end{block}
+\item Stopa učenja $10^{-4}$ za prva dva sloja, $10^{-5}$ za zadnji; težine inicijalizovane sa  $\mathcal{N}(0, 0.001)$, a bias na $0$
+\end{itemize}
+\end{frame}
+
+
+ \begin{frame}
+\frametitle{Rezultati ispitivanja}
+
+ \begin{figure}[ht]
+        \begin{minipage}[b]{0.45\linewidth}
+            \centering
+            \includegraphics[width=1\textwidth]{SLIKE/figure4}
+            \caption{Treniranje na većim bazama popravlja performanse}
+            \label{fig:a}
+        \end{minipage}
+        \hspace{0.5cm}
+        \begin{minipage}[b]{0.45\linewidth}
+            \centering
+            \includegraphics[width=1\textwidth]{SLIKE/figure7}
+            \caption{Razumno veći filteri 2. sloja su bolji}
+            \label{fig:b}
+        \end{minipage}
+    \end{figure}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ |c|c|c|c|c|c| } 
+\hline
+\multicolumn{2}{|c|}{$n_1=128$} & \multicolumn{2}{|c|}{$n_1=64$} & \multicolumn{2}{|c|}{$n_1=32$} \\
+\multicolumn{2}{|c|}{$n_2=64$} & \multicolumn{2}{|c|}{$n_2=32$} & \multicolumn{2}{|c|}{$n_1=16$} \\
+\hline
+PSNR & Vrijeme(sec) & PSNR & Vrijeme(sec) & PSNR & Vrijeme(sec) \\
+\hline
+32.60 & 0.60 & 32.52 & 0.18 & 32.26 & 0.05 \\
+\hline
+\end{tabular}
+\caption{Rezultati treniranja mreže sa različitim brojem filtera - trade-off između brzine i kvaliteta}
+\label{table:1}
+\end{table}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Rezultati ispitivanja}
+\begin{figure}[ht]
+        \begin{minipage}[b]{0.45\linewidth}
+            \centering
+            \includegraphics[width=1\textwidth]{SLIKE/figure9a}
+            %\caption{Treniranje na većim bazama popravlja performanse}
+   %         \caption{9-1-1-5 ($n_{22}=32$) i 9-1-1-1-5 ($+ n_{23}=16$)}
+        \end{minipage}
+        %\hspace{0.5cm}
+        \begin{minipage}[b]{0.45\linewidth}
+            \centering
+            \includegraphics[width=1\textwidth]{SLIKE/figure9b}
+            %\caption{Veći filteri 2. sloja su bolji}
+        \end{minipage}
+    \caption{Dublje strukture ne vode nužno boljim rezultatima}
+    \end{figure}
+\begin{figure}[ht]
+        \begin{minipage}[b]{0.45\linewidth}
+            \centering
+            \includegraphics[width=1\textwidth]{SLIKE/figre10}
+            %\caption{Treniranje na većim bazama popravlja performanse}
+   %         \caption{9-1-1-5 ($n_{22}=32$) i 9-1-1-1-5 ($+ n_{23}=16$)}
+        \end{minipage}
+        %\hspace{0.5cm}
+        \begin{minipage}[b]{0.45\linewidth}
+            \centering
+            \includegraphics[width=1\textwidth]{SLIKE/figure12}
+            %\caption{Veći filteri 2. sloja su bolji}
+        \end{minipage}
+    \caption{Poređenja sa state-of-the-art tehnikama}
+    \end{figure}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Eksperimenti sa bojom}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ |c|c|c|c|c| } 
+\hline
+\multirow{2}{*}{Strategije}&\multicolumn{4}{|c|}{PSNR vrijednost kanala}\\
+\cline{2-5}
+&Y & Cb & Cr & RGB-slika\\ 
+\hline
+Bikubična s. & 30.39 & 45.44 & 45.42 & 34.57 \\
+Y-samo s. & 32.39 & 45.44 & 45.42 & 36.37 \\
+YCbCr & 29.25 & 43.30 & 43.39 & 33.47 \\
+Y-pretreniranje & 32.19 & 46.49 & 46.45 & 36.32 \\
+CbCr-pretreniranje & 32.14 & 46.38 & 45.84 & 36.25 \\
+RGB & 32.33 & 46.18 & 46.20 & \textbf{36.44} \\
+KK & 32.37 & 44.35 & 44.22 & 36.32 \\
+\hline
+\end{tabular}
+\caption{Najbolje tretiranje svih kolor-kanala RGB strategije}
+\label{table:2}
+\end{table}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Poboljšanje modela}
+
+ \begin{figure}[h]
+\includegraphics[width=\textwidth]{SLIKE/better}
+\centering
+\caption{Vizualizacija prelaza sa SRCNN na FSCRNN}
+\label{fig:improv_1}
+\end{figure}
+
+\end{frame}
+%\begin{frame}
+%\frametitle{Outline}
+%\tableofcontents
+%\end{frame}
+
+\begin{frame}
+\frametitle{Zaključak}
+
+\begin{itemize}
+\item Jedan od ključnih standarda kvaliteta za SR problem
+\item Zajednička optimizovana struktura koja obezbjeđuje funkciju mapiranja LR-HR
+\item Jednostavna struktura i brzina izvršavanja
+\item SRCNN i SC tehnike za SR problem su dosta slični
+\item Istovremeno baratanje svim kolor-kanalima i pokazivanje superiornih rezultata
+\item Pruža temelj novim i sve bržim tehnikama
+\item Praktična i za druge probleme mašinskog vida, sa mnogim važnim primjenama u stvarnom životu (medicina)
+\end{itemize} 
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Fin}
+
+Hvala na pažnji!
+ 
+
+\end{frame}
+
+
+\end{document}
